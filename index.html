@@ -2245,10 +2245,13 @@
         }
 
         if (matchedCountry) {
+          this.waterPinCoords = null;
           this.selectedWater = null;
           this.smoothCenterOnCountry(matchedCountry);
         } else {
-          // 2. Si no es un país (es mar, océano o gran lago), seleccionar el cuerpo de agua correspondiente
+          // 2. Si no es un país (es agua/mar/océano/lago), colocar PIN con BARQUITO en el punto exacto
+          this.selectedFeature = null;
+          this.waterPinCoords = coords;
           this.identifyAndSelectOcean(coords);
         }
       }
@@ -2274,7 +2277,7 @@
         }
 
         if (matches.length > 0) {
-          // Prioridad 1 (mares cerrados) antes de 2 (mares regionales) y 3 (océanos)
+          // Prioridad 1 (mares cerrados y lagos) antes de 2 (mares regionales) y 3 (océanos)
           matches.sort((a, b) => (a.priority || 3) - (b.priority || 3) || (a.radiusDeg || 15) - (b.radiusDeg || 15));
           matchedOcean = matches[0];
         }
@@ -2294,39 +2297,12 @@
         if (matchedOcean) {
           this.selectedFeature = null;
           this.selectedWater = matchedOcean;
+          this.waterPinCoords = coords;
           this.pulseTime = 0;
           audioSynth.playTargetLock();
 
-          // Centrar en el mar/océano
-          const targetLon = -matchedOcean.centroid[0];
-          const targetLat = -matchedOcean.centroid[1];
-          const startLon = this.rotation[0];
-          const startLat = this.rotation[1];
-
-          let diffLon = (targetLon - startLon) % 360;
-          if (diffLon > 180) diffLon -= 360;
-          if (diffLon < -180) diffLon += 360;
-
-          let frames = 25;
-          let cur = 0;
-
-          const animCenter = () => {
-            cur++;
-            const ease = d3.easeCubicOut(cur / frames);
-            this.rotation[0] = startLon + diffLon * ease;
-            this.rotation[1] = startLat + (targetLat - startLat) * ease;
-
-            if (cur < frames) {
-              requestAnimationFrame(animCenter);
-            } else {
-              this.rotation[0] = targetLon;
-              this.rotation[1] = targetLat;
-            }
-          };
-          requestAnimationFrame(animCenter);
-
-          // Desplegar ficha del mar/océano en la barra inferior
-          typewriterManager.displayOcean(matchedOcean);
+          // Desplegar ficha del mar/océano en la barra inferior con icono de barquito
+          typewriterManager.displayOcean(matchedOcean, coords);
         }
       }
 
@@ -2494,25 +2470,50 @@
         this.path(this.graticule);
         this.ctx.stroke();
 
-        // Resaltado de Océano/Mar Seleccionado
-        if (this.selectedWater && this.isTrainingMode) {
-          this.pulseTime += 0.06;
-          const waterPulse = (Math.sin(this.pulseTime * 3) + 1) / 2;
-          const radius = this.selectedWater.radiusDeg || 15;
-          const oceanCircle = d3.geoCircle().center(this.selectedWater.centroid).radius(radius)();
+        // Pin de Barquito en Coordenadas de Agua Seleccionadas
+        if (this.waterPinCoords && this.isTrainingMode) {
+          const centerCoord = [-this.rotation[0], -this.rotation[1]];
+          const distToCenter = d3.geoDistance(this.waterPinCoords, centerCoord);
 
-          this.ctx.save();
-          this.ctx.strokeStyle = '#00f3ff';
-          this.ctx.fillStyle = 'rgba(0, 243, 255, 0.24)';
-          this.ctx.lineWidth = (2.2 + waterPulse * 1.6) * dpr;
-          this.ctx.shadowColor = '#00f3ff';
-          this.ctx.shadowBlur = 8 * dpr;
+          if (distToCenter < Math.PI / 2) {
+            const pt = this.projection(this.waterPinCoords);
+            if (pt) {
+              this.pulseTime += 0.06;
+              const waveRadius = (Math.sin(this.pulseTime * 3) + 1) * 6 * dpr + 10 * dpr;
+              const waveAlpha = (Math.cos(this.pulseTime * 3) + 1) / 2 * 0.75;
 
-          this.ctx.beginPath();
-          this.path(oceanCircle);
-          this.ctx.fill();
-          this.ctx.stroke();
-          this.ctx.restore();
+              this.ctx.save();
+
+              // Ondas concéntricas de agua
+              this.ctx.strokeStyle = `rgba(0, 243, 255, ${waveAlpha})`;
+              this.ctx.lineWidth = 1.6 * dpr;
+              this.ctx.beginPath();
+              this.ctx.arc(pt[0], pt[1], waveRadius, 0, Math.PI * 2);
+              this.ctx.stroke();
+
+              this.ctx.beginPath();
+              this.ctx.arc(pt[0], pt[1], waveRadius * 0.55, 0, Math.PI * 2);
+              this.ctx.stroke();
+
+              // Pequeño círculo base
+              this.ctx.fillStyle = '#00f3ff';
+              this.ctx.shadowColor = '#00f3ff';
+              this.ctx.shadowBlur = 6 * dpr;
+              this.ctx.beginPath();
+              this.ctx.arc(pt[0], pt[1], 3.5 * dpr, 0, Math.PI * 2);
+              this.ctx.fill();
+
+              // Icono de Barquito
+              this.ctx.font = `${Math.round(22 * dpr)}px -apple-system, sans-serif`;
+              this.ctx.textAlign = 'center';
+              this.ctx.textBaseline = 'bottom';
+              this.ctx.shadowBlur = 8 * dpr;
+              this.ctx.shadowColor = '#00f3ff';
+              this.ctx.fillText('⛵', pt[0], pt[1] - 3 * dpr);
+
+              this.ctx.restore();
+            }
+          }
         }
 
         // Continentes y Tierras
@@ -2569,7 +2570,7 @@
 
     /* ==========================================================================
        11. GESTOR DE MECANOGRAFÍA RETRO EN CONSOLA INFERIOR (PAÍSES & OCÉANOS)
-       ========================================================================== */
+       ========================================================================= */
     class TeletypeConsoleManager {
       constructor(barId, contentId, flagContainerId, closeBtnId) {
         this.bar = document.getElementById(barId);
@@ -2604,20 +2605,22 @@
         this.startTypewriter(line);
       }
 
-      displayOcean(ocean) {
+      displayOcean(ocean, coords) {
         if (!ocean) return;
         this.hideImmediate();
 
         const name = currentLang === 'es' ? ocean.name_es : ocean.name_en;
         const d = ocean[currentLang] || ocean.es;
 
-        this.flagEl.innerHTML = `<span style="font-size:1.3em; margin-right:4px;">${ocean.icon || '🌊'}</span>`;
+        this.flagEl.innerHTML = `<span style="font-size:1.3em; margin-right:4px;">⛵</span>`;
+
+        let coordStr = coords ? ` (${Math.abs(Math.round(coords[1]))}°${coords[1] >= 0 ? 'N' : 'S'}, ${Math.abs(Math.round(coords[0]))}°${coords[0] >= 0 ? 'E' : 'O'})` : '';
 
         let line = "";
         if (currentLang === 'es') {
-          line = `${name.toUpperCase()}  |  🌍 Tipo: ${d.type}  |  📏 Área: ${d.area}  |  ⚓ Prof. Máx.: ${d.depth}  |  💡 Dato: ${d.fact}`;
+          line = `⛵ ${name.toUpperCase()}${coordStr}  |  🌍 Tipo: ${d.type}  |  📏 Área: ${d.area}  |  ⚓ Prof. Máx.: ${d.depth}  |  💡 Dato: ${d.fact}`;
         } else {
-          line = `${name.toUpperCase()}  |  🌍 Type: ${d.type}  |  📏 Area: ${d.area}  |  ⚓ Max Depth: ${d.depth}  |  💡 Fact: ${d.fact}`;
+          line = `⛵ ${name.toUpperCase()}${coordStr}  |  🌍 Type: ${d.type}  |  📏 Area: ${d.area}  |  ⚓ Max Depth: ${d.depth}  |  💡 Fact: ${d.fact}`;
         }
 
         this.startTypewriter(line);
@@ -2657,6 +2660,7 @@
         if (globe.isTrainingMode) {
           globe.selectedFeature = null;
           globe.selectedWater = null;
+          globe.waterPinCoords = null;
         }
       }
 
