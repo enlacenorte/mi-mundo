@@ -194,7 +194,19 @@ for k, v in raw_atlas.items():
 
 # OCEANS AND SEAS DATABASE (PRECISION ENCLOSED INLAND SEAS FIRST, THEN REGIONAL & OCEANS)
 OCEANS_AND_SEAS = [
-  # --- MARES INTERIORES Y CERRADOS (PRIORIDAD ALTA) ---
+  # --- MARES Y LAGOS INTERIORES CERRADOS (PRIORIDAD ALTA) ---
+  {
+    "id": "great_lakes",
+    "name_es": "Grandes Lagos de Norteamérica",
+    "name_en": "Great Lakes of North America",
+    "icon": "🏞️",
+    "priority": 1,
+    "radiusDeg": 5.0,
+    "centroid": [-84.5, 45.0],
+    "bounds": {"minLon": -93.0, "maxLon": -76.0, "minLat": 41.0, "maxLat": 49.5},
+    "es": {"type": "Sistema de Lagos Glaciares", "area": "~244.106 km²", "depth": "Lago Superior (406 m)", "fact": "Contienen el 21% de toda el agua dulce superficial líquida del planeta Tierra."},
+    "en": {"type": "Glacial Freshwater Lake System", "area": "~244,106 km²", "depth": "Lake Superior (406 m)", "fact": "Contain 21% of the world's surface fresh water."}
+  },
   {
     "id": "sea_of_azov",
     "name_es": "Mar de Azov",
