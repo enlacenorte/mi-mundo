@@ -2078,16 +2078,16 @@ html_template = """<!DOCTYPE html>
         requestAnimationFrame(this.render);
       }
 
-      isPointInsideCountry(feat, coords) {
+      isPointInsideCountry(feat, coords, x, y) {
         if (!feat || !feat.centroid) return false;
-        const [lon, lat] = coords;
 
-        // 1. Distancia angular máxima de seguridad desde el centroide (máx 38 grados)
+        // 1. Distancia angular máxima de seguridad desde el centroide (máx 32 grados)
         const distDeg = d3.geoDistance(coords, feat.centroid) * (180 / Math.PI);
-        if (distDeg > 38) return false;
+        if (distDeg > 32) return false;
 
         // 2. Límites rectangulares de seguridad (geoBounds)
         if (feat.bounds) {
+          const [lon, lat] = coords;
           const [[minLon, minLat], [maxLon, maxLat]] = feat.bounds;
           let inLon = false;
           if (minLon <= maxLon) {
@@ -2100,12 +2100,19 @@ html_template = """<!DOCTYPE html>
           }
         }
 
-        // 3. Contención geográfica estricta
+        // 3. Verificación nativa 2D directa en pantalla con Path2D (isPointInPath)
         try {
-          return d3.geoContains(feat, coords);
-        } catch(e) {
-          return false;
-        }
+          if (!this.geoPathStringGenerator) {
+            this.geoPathStringGenerator = d3.geoPath().projection(this.projection);
+          }
+          const svgPathStr = this.geoPathStringGenerator(feat);
+          if (svgPathStr) {
+            const p2d = new Path2D(svgPathStr);
+            return this.ctx.isPointInPath(p2d, x, y);
+          }
+        } catch(e) {}
+
+        return false;
       }
 
       triggerRedShockwave(durationMs = 2000) {
@@ -2251,11 +2258,11 @@ html_template = """<!DOCTYPE html>
         const coords = this.projection.invert([x, y]);
         if (!coords || isNaN(coords[0]) || isNaN(coords[1])) return;
 
-        // 1. Comprobar si el clic corresponde a un país válido (con validación de límites y distancia)
+        // 1. Comprobar si el clic corresponde a un país válido en pantalla (isPointInsideCountry 2D)
         let matchedCountry = null;
         for (let i = 0; i < this.worldFeatures.length; i++) {
           const feat = this.worldFeatures[i];
-          if (this.isPointInsideCountry(feat, coords)) {
+          if (this.isPointInsideCountry(feat, coords, x, y)) {
             matchedCountry = feat;
             break;
           }
