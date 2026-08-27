@@ -2064,11 +2064,6 @@ html_template = """<!DOCTYPE html>
           };
           feat.metaConfig = metaConfig;
           feat.centroid = d3.geoCentroid(feat);
-          try {
-            feat.bounds = d3.geoBounds(feat);
-          } catch(e) {
-            feat.bounds = null;
-          }
         });
 
         this.initDimensions();
@@ -2076,43 +2071,6 @@ html_template = """<!DOCTYPE html>
 
         this.render = this.render.bind(this);
         requestAnimationFrame(this.render);
-      }
-
-      isPointInsideCountry(feat, coords, x, y) {
-        if (!feat || !feat.centroid) return false;
-
-        // 1. Distancia angular máxima de seguridad desde el centroide (máx 32 grados)
-        const distDeg = d3.geoDistance(coords, feat.centroid) * (180 / Math.PI);
-        if (distDeg > 32) return false;
-
-        // 2. Límites rectangulares de seguridad (geoBounds)
-        if (feat.bounds) {
-          const [lon, lat] = coords;
-          const [[minLon, minLat], [maxLon, maxLat]] = feat.bounds;
-          let inLon = false;
-          if (minLon <= maxLon) {
-            inLon = (lon >= minLon - 0.5 && lon <= maxLon + 0.5);
-          } else {
-            inLon = (lon >= minLon - 0.5 || lon <= maxLon + 0.5);
-          }
-          if (!inLon || lat < minLat - 0.5 || lat > maxLat + 0.5) {
-            return false;
-          }
-        }
-
-        // 3. Verificación nativa 2D directa en pantalla con Path2D (isPointInPath)
-        try {
-          if (!this.geoPathStringGenerator) {
-            this.geoPathStringGenerator = d3.geoPath().projection(this.projection);
-          }
-          const svgPathStr = this.geoPathStringGenerator(feat);
-          if (svgPathStr) {
-            const p2d = new Path2D(svgPathStr);
-            return this.ctx.isPointInPath(p2d, x, y);
-          }
-        } catch(e) {}
-
-        return false;
       }
 
       triggerRedShockwave(durationMs = 2000) {
@@ -2251,29 +2209,29 @@ html_template = """<!DOCTYPE html>
 
       handleGlobeClick(clientX, clientY) {
         const rect = this.canvas.getBoundingClientRect();
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+        const dpr = window.devicePixelRatio || 1;
         const x = (clientX - rect.left) * dpr;
         const y = (clientY - rect.top) * dpr;
 
         const coords = this.projection.invert([x, y]);
         if (!coords || isNaN(coords[0]) || isNaN(coords[1])) return;
 
-        // 1. Comprobar si el clic corresponde a un país válido en pantalla (isPointInsideCountry 2D)
-        let matchedCountry = null;
+        // 1. Detección directa de países mediante d3.geoContains
+        let matchedFeature = null;
         for (let i = 0; i < this.worldFeatures.length; i++) {
           const feat = this.worldFeatures[i];
-          if (this.isPointInsideCountry(feat, coords, x, y)) {
-            matchedCountry = feat;
+          if (d3.geoContains(feat, coords)) {
+            matchedFeature = feat;
             break;
           }
         }
 
-        if (matchedCountry) {
+        if (matchedFeature) {
           this.waterPinCoords = null;
           this.selectedWater = null;
-          this.smoothCenterOnCountry(matchedCountry);
+          this.smoothCenterOnCountry(matchedFeature);
         } else {
-          // 2. Si no es un país (es agua/mar/océano/lago), colocar PIN con BARQUITO en el punto exacto
+          // 2. Si no es ningún país, es agua (mar u océano)
           this.selectedFeature = null;
           this.waterPinCoords = coords;
           this.identifyAndSelectOcean(coords);
@@ -2443,7 +2401,7 @@ html_template = """<!DOCTYPE html>
       }
 
       render() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+        const dpr = window.devicePixelRatio || 1;
         const width = this.canvas.width;
         const height = this.canvas.height;
         const cx = width / 2;
