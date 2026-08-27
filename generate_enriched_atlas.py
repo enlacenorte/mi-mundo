@@ -384,7 +384,7 @@ OCEANS_AND_SEAS = [
     "priority": 3,
     "radiusDeg": 22.0,
     "centroid": [-160.0, 28.0],
-    "bounds": {"minLon": -180.0, "maxLon": -110.0, "minLat": 0.0, "maxLat": 60.0},
+    "bounds": {"minLon": 115.0, "maxLon": -95.0, "minLat": 0.0, "maxLat": 66.0},
     "es": {"type": "Océano", "area": "~165.2M km² (Total Pacífico)", "depth": "Fosa de las Marianas (11.034 m)", "fact": "Es el océano más grande y profundo del planeta Tierra."},
     "en": {"type": "Ocean", "area": "~165.2M km² (Total Pacific)", "depth": "Mariana Trench (11,034 m)", "fact": "The largest and deepest ocean on Earth."}
   },
@@ -396,7 +396,7 @@ OCEANS_AND_SEAS = [
     "priority": 3,
     "radiusDeg": 24.0,
     "centroid": [-130.0, -32.0],
-    "bounds": {"minLon": -180.0, "maxLon": -70.0, "minLat": -60.0, "maxLat": 0.0},
+    "bounds": {"minLon": 135.0, "maxLon": -68.0, "minLat": -60.0, "maxLat": 0.0},
     "es": {"type": "Océano", "area": "~165.2M km² (Total Pacífico)", "depth": "Fosa de Tonga (10.882 m)", "fact": "Alberga el 'Punto Nemo', el lugar más remoto y alejado de tierra firme."},
     "en": {"type": "Ocean", "area": "~165.2M km² (Total Pacific)", "depth": "Tonga Trench (10,882 m)", "fact": "Home to 'Point Nemo', the oceanic pole of inaccessibility."}
   },
@@ -408,7 +408,7 @@ OCEANS_AND_SEAS = [
     "priority": 3,
     "radiusDeg": 20.0,
     "centroid": [-42.0, 32.0],
-    "bounds": {"minLon": -75.0, "maxLon": -10.0, "minLat": 0.0, "maxLat": 60.0},
+    "bounds": {"minLon": -82.0, "maxLon": 0.0, "minLat": 0.0, "maxLat": 66.0},
     "es": {"type": "Océano", "area": "~106.5M km² (Total Atlántico)", "depth": "Fosa de Puerto Rico (8.376 m)", "fact": "Separa América de Europa y África; el 2.° océano más extenso."},
     "en": {"type": "Ocean", "area": "~106.5M km² (Total Atlantic)", "depth": "Puerto Rico Trench (8,376 m)", "fact": "Separates the Americas from Europe and Africa; 2nd largest."}
   },
@@ -420,7 +420,7 @@ OCEANS_AND_SEAS = [
     "priority": 3,
     "radiusDeg": 20.0,
     "centroid": [-18.0, -30.0],
-    "bounds": {"minLon": -60.0, "maxLon": 20.0, "minLat": -60.0, "maxLat": 0.0},
+    "bounds": {"minLon": -70.0, "maxLon": 22.0, "minLat": -60.0, "maxLat": 0.0},
     "es": {"type": "Océano", "area": "~106.5M km² (Total Atlántico)", "depth": "Fosa de las Sandwich del Sur (8.428 m)", "fact": "Rico en corrientes marinas y fauna antártica."},
     "en": {"type": "Ocean", "area": "~106.5M km² (Total Atlantic)", "depth": "South Sandwich Trench (8,428 m)", "fact": "Rich in marine currents and diverse wildlife."}
   },
@@ -432,7 +432,7 @@ OCEANS_AND_SEAS = [
     "priority": 3,
     "radiusDeg": 20.0,
     "centroid": [78.0, -18.0],
-    "bounds": {"minLon": 35.0, "maxLon": 115.0, "minLat": -60.0, "maxLat": 25.0},
+    "bounds": {"minLon": 20.0, "maxLon": 135.0, "minLat": -60.0, "maxLat": 30.0},
     "es": {"type": "Océano", "area": "~70.5M km²", "depth": "Fosa de Java (7.450 m)", "fact": "Es el océano más cálido del mundo y vital ruta de comercio."},
     "en": {"type": "Ocean", "area": "~70.5M km²", "depth": "Java Trench (7,450 m)", "fact": "The warmest ocean in the world and historic trading route."}
   },
