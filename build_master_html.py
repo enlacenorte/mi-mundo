@@ -2209,15 +2209,15 @@ html_template = """<!DOCTYPE html>
 
       handleGlobeClick(clientX, clientY) {
         const rect = this.canvas.getBoundingClientRect();
-        const dpr = window.devicePixelRatio || 1;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
         const x = (clientX - rect.left) * dpr;
         const y = (clientY - rect.top) * dpr;
 
         const coords = this.projection.invert([x, y]);
         if (!coords || isNaN(coords[0]) || isNaN(coords[1])) return;
 
+        // 1. Verificación estricta de polígono de país en tierra
         let matchedFeature = null;
-
         for (let i = 0; i < this.worldFeatures.length; i++) {
           const feat = this.worldFeatures[i];
           if (d3.geoContains(feat, coords)) {
@@ -2226,25 +2226,11 @@ html_template = """<!DOCTYPE html>
           }
         }
 
-        if (!matchedFeature) {
-          let minDist = Infinity;
-          this.worldFeatures.forEach(feat => {
-            if (feat.centroid) {
-              const dist = d3.geoDistance(coords, feat.centroid) * (180 / Math.PI);
-              if (dist < minDist) {
-                minDist = dist;
-                matchedFeature = feat;
-              }
-            }
-          });
-          if (minDist > 7.5) matchedFeature = null;
-        }
-
         if (matchedFeature) {
           this.selectedWater = null;
           this.smoothCenterOnCountry(matchedFeature);
         } else {
-          // EL USUARIO TOCÓ UN MAR U OCÉANO
+          // 2. Si no es polígono de tierra, es agua (mar u océano)
           this.identifyAndSelectOcean(coords);
         }
       }
@@ -2253,7 +2239,8 @@ html_template = """<!DOCTYPE html>
         const [lon, lat] = coords;
         let matchedOcean = null;
 
-        // 1. Buscar en mares delimitados específicos
+        // 1. Buscar en mares delimitados específicos ordenados por prioridad
+        const matches = [];
         for (let i = 0; i < OCEANS_DATABASE.length; i++) {
           const o = OCEANS_DATABASE[i];
           const b = o.bounds;
@@ -2264,12 +2251,17 @@ html_template = """<!DOCTYPE html>
             inLon = (lon >= b.minLon || lon <= b.maxLon);
           }
           if (inLon && lat >= b.minLat && lat <= b.maxLat) {
-            matchedOcean = o;
-            break;
+            matches.push(o);
           }
         }
 
-        // 2. Si no cayó en rango exacto, buscar por cercanía
+        if (matches.length > 0) {
+          // Prioridad 1 (mares cerrados) antes de 2 (mares regionales) y 3 (océanos)
+          matches.sort((a, b) => (a.priority || 3) - (b.priority || 3) || (a.radiusDeg || 15) - (b.radiusDeg || 15));
+          matchedOcean = matches[0];
+        }
+
+        // 2. Si no cayó en rango exacto, buscar por cercanía angular mínima
         if (!matchedOcean) {
           let minDist = Infinity;
           OCEANS_DATABASE.forEach(o => {
@@ -2297,7 +2289,7 @@ html_template = """<!DOCTYPE html>
           if (diffLon > 180) diffLon -= 360;
           if (diffLon < -180) diffLon += 360;
 
-          let frames = 30;
+          let frames = 25;
           let cur = 0;
 
           const animCenter = () => {
@@ -2338,7 +2330,7 @@ html_template = """<!DOCTYPE html>
         if (diffLon > 180) diffLon -= 360;
         if (diffLon < -180) diffLon += 360;
 
-        let frames = 30;
+        let frames = 25;
         let cur = 0;
 
         const animCenter = () => {
@@ -2394,7 +2386,7 @@ html_template = """<!DOCTYPE html>
         let finalLon = startLon + diffLon + extraSpins;
         let finalLat = targetLat;
 
-        let totalFrames = 95;
+        let totalFrames = 90;
         let currentFrame = 0;
         let tickCounter = 0;
 
@@ -2433,13 +2425,13 @@ html_template = """<!DOCTYPE html>
       }
 
       render() {
-        const dpr = window.devicePixelRatio || 1;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
         const width = this.canvas.width;
         const height = this.canvas.height;
         const cx = width / 2;
         const cy = height / 2;
 
-        this.currentScale += (this.targetScale - this.currentScale) * 0.1;
+        this.currentScale += (this.targetScale - this.currentScale) * 0.12;
         this.projection
           .scale(this.currentScale * dpr)
           .translate([cx, cy])
@@ -2451,17 +2443,17 @@ html_template = """<!DOCTYPE html>
         const neonPrimary = isRed ? '#ff0033' : '#00f3ff';
         const neonSecondary = isRed ? '#ff0055' : 'rgba(0, 243, 255, 0.32)';
 
-        // Halo
-        const auraGrad = this.ctx.createRadialGradient(cx, cy, this.currentScale * dpr * 0.85, cx, cy, this.currentScale * dpr * 1.15);
+        // Halo Exterior (Optimizado con Gradiente sin CPU shadowBlur)
+        const auraGrad = this.ctx.createRadialGradient(cx, cy, this.currentScale * dpr * 0.85, cx, cy, this.currentScale * dpr * 1.14);
         auraGrad.addColorStop(0, isRed ? 'rgba(255, 0, 51, 0.35)' : 'rgba(0, 243, 255, 0.16)');
-        auraGrad.addColorStop(0.5, isRed ? 'rgba(255, 0, 51, 0.18)' : 'rgba(0, 243, 255, 0.08)');
+        auraGrad.addColorStop(0.5, isRed ? 'rgba(255, 0, 51, 0.15)' : 'rgba(0, 243, 255, 0.07)');
         auraGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
         this.ctx.fillStyle = auraGrad;
         this.ctx.beginPath();
-        this.ctx.arc(cx, cy, this.currentScale * dpr * 1.15, 0, Math.PI * 2);
+        this.ctx.arc(cx, cy, this.currentScale * dpr * 1.14, 0, Math.PI * 2);
         this.ctx.fill();
 
-        // Océano
+        // Océano Esfera
         const oceanGrad = this.ctx.createRadialGradient(cx - this.currentScale * 0.3 * dpr, cy - this.currentScale * 0.3 * dpr, 0, cx, cy, this.currentScale * dpr);
         if (isRed) {
           oceanGrad.addColorStop(0, '#2d050d');
@@ -2477,25 +2469,26 @@ html_template = """<!DOCTYPE html>
         this.path({ type: 'Sphere' });
         this.ctx.fill();
 
-        // Retícula
-        this.ctx.strokeStyle = isRed ? 'rgba(255, 0, 51, 0.3)' : 'rgba(0, 243, 255, 0.13)';
-        this.ctx.lineWidth = 1 * dpr;
+        // Retícula de Coordenadas (Ligera)
+        this.ctx.strokeStyle = isRed ? 'rgba(255, 0, 51, 0.25)' : 'rgba(0, 243, 255, 0.12)';
+        this.ctx.lineWidth = 0.9 * dpr;
         this.ctx.beginPath();
         this.path(this.graticule);
         this.ctx.stroke();
 
         // Resaltado de Océano/Mar Seleccionado
         if (this.selectedWater && this.isTrainingMode) {
-          this.pulseTime += 0.05;
+          this.pulseTime += 0.06;
           const waterPulse = (Math.sin(this.pulseTime * 3) + 1) / 2;
-          const oceanCircle = d3.geoCircle().center(this.selectedWater.centroid).radius(18)();
+          const radius = this.selectedWater.radiusDeg || 15;
+          const oceanCircle = d3.geoCircle().center(this.selectedWater.centroid).radius(radius)();
 
           this.ctx.save();
           this.ctx.strokeStyle = '#00f3ff';
-          this.ctx.fillStyle = 'rgba(0, 243, 255, 0.22)';
-          this.ctx.lineWidth = (2.5 + waterPulse * 2) * dpr;
+          this.ctx.fillStyle = 'rgba(0, 243, 255, 0.24)';
+          this.ctx.lineWidth = (2.2 + waterPulse * 1.6) * dpr;
           this.ctx.shadowColor = '#00f3ff';
-          this.ctx.shadowBlur = (20 + waterPulse * 16) * dpr;
+          this.ctx.shadowBlur = 8 * dpr;
 
           this.ctx.beginPath();
           this.path(oceanCircle);
@@ -2504,42 +2497,39 @@ html_template = """<!DOCTYPE html>
           this.ctx.restore();
         }
 
-        // Continentes
+        // Continentes y Tierras
         if (this.worldLand) {
           this.ctx.fillStyle = isRed ? 'rgba(90, 8, 20, 0.85)' : 'rgba(10, 42, 75, 0.72)';
           this.ctx.strokeStyle = neonPrimary;
-          this.ctx.lineWidth = (isRed ? 1.4 : 0.85) * dpr;
-          this.ctx.shadowColor = neonPrimary;
-          this.ctx.shadowBlur = (isRed ? 16 : 6) * dpr;
+          this.ctx.lineWidth = (isRed ? 1.3 : 0.85) * dpr;
 
           this.ctx.beginPath();
           this.path(this.worldLand);
           this.ctx.fill();
           this.ctx.stroke();
-          this.ctx.shadowBlur = 0;
         }
 
-        // Fronteras
+        // Fronteras Políticas
         this.ctx.strokeStyle = neonSecondary;
-        this.ctx.lineWidth = (isRed ? 0.9 : 0.6) * dpr;
+        this.ctx.lineWidth = (isRed ? 0.8 : 0.55) * dpr;
         this.worldFeatures.forEach(f => {
           this.ctx.beginPath();
           this.path(f);
           this.ctx.stroke();
         });
 
-        // Resaltado Neón Poligonal de País
+        // Resaltado Neón de País Seleccionado
         if (this.selectedFeature) {
-          this.pulseTime += 0.05;
+          this.pulseTime += 0.06;
           const pulse = (Math.sin(this.pulseTime * 3.5) + 1) / 2;
 
           this.ctx.save();
           const highlightColor = this.isTrainingMode ? '#39ff14' : '#ff007f';
           this.ctx.strokeStyle = isRed ? '#ff0033' : highlightColor;
           this.ctx.fillStyle = isRed ? 'rgba(255, 0, 51, 0.5)' : (this.isTrainingMode ? 'rgba(57, 255, 20, 0.35)' : 'rgba(255, 0, 127, 0.35)');
-          this.ctx.lineWidth = (2.2 + pulse * 2.2) * dpr;
+          this.ctx.lineWidth = (2.0 + pulse * 1.8) * dpr;
           this.ctx.shadowColor = isRed ? '#ff0033' : highlightColor;
-          this.ctx.shadowBlur = (16 + pulse * 14) * dpr;
+          this.ctx.shadowBlur = 8 * dpr;
 
           this.ctx.beginPath();
           this.path(this.selectedFeature);
@@ -2548,15 +2538,12 @@ html_template = """<!DOCTYPE html>
           this.ctx.restore();
         }
 
-        // Borde exterior
-        this.ctx.strokeStyle = isRed ? 'rgba(255, 0, 51, 1)' : 'rgba(0, 243, 255, 0.85)';
-        this.ctx.lineWidth = 2 * dpr;
-        this.ctx.shadowColor = neonPrimary;
-        this.ctx.shadowBlur = (isRed ? 22 : 12) * dpr;
+        // Borde exterior Esfera
+        this.ctx.strokeStyle = isRed ? 'rgba(255, 0, 51, 0.95)' : 'rgba(0, 243, 255, 0.85)';
+        this.ctx.lineWidth = 1.8 * dpr;
         this.ctx.beginPath();
         this.path({ type: 'Sphere' });
         this.ctx.stroke();
-        this.ctx.shadowBlur = 0;
 
         requestAnimationFrame(this.render);
       }

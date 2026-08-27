@@ -192,15 +192,199 @@ for k, v in raw_atlas.items():
     v["es"]["curr"] = extra["curr_es"]
     v["en"]["curr"] = extra["curr_en"]
 
-# OCEANS AND SEAS DATABASE (16 MAJOR WATER BODIES)
+# OCEANS AND SEAS DATABASE (PRECISION ENCLOSED INLAND SEAS FIRST, THEN REGIONAL & OCEANS)
 OCEANS_AND_SEAS = [
+  # --- MARES INTERIORES Y CERRADOS (PRIORIDAD ALTA) ---
+  {
+    "id": "sea_of_azov",
+    "name_es": "Mar de Azov",
+    "name_en": "Sea of Azov",
+    "icon": "🌊",
+    "priority": 1,
+    "radiusDeg": 2.5,
+    "centroid": [36.5, 46.0],
+    "bounds": {"minLon": 34.5, "maxLon": 39.5, "minLat": 45.0, "maxLat": 47.3},
+    "es": {"type": "Mar Interior Somero", "area": "~39.000 km²", "depth": "Máx. 14 m (El más somero del planeta)", "fact": "Es el mar más somero del mundo; conectado al Mar Negro por el estrecho de Kerch."},
+    "en": {"type": "Shallow Inland Sea", "area": "~39,000 km²", "depth": "Max. 14 m (Shallowest sea on Earth)", "fact": "The shallowest sea on Earth, connected to the Black Sea via the Kerch Strait."}
+  },
+  {
+    "id": "caspian_sea",
+    "name_es": "Mar Caspio",
+    "name_en": "Caspian Sea",
+    "icon": "🌊",
+    "priority": 1,
+    "radiusDeg": 5.5,
+    "centroid": [50.5, 41.5],
+    "bounds": {"minLon": 46.5, "maxLon": 55.0, "minLat": 36.5, "maxLat": 47.2},
+    "es": {"type": "Mar Interior / Lago Endorreico", "area": "~371.000 km²", "depth": "Fosa Meridional (1.025 m)", "fact": "Es el cuerpo de agua interior cerrado más grande del planeta."},
+    "en": {"type": "Inland Sea / Endorheic Basin", "area": "~371,000 km²", "depth": "South Caspian Depression (1,025 m)", "fact": "The largest enclosed inland body of water on Earth."}
+  },
+  {
+    "id": "black_sea",
+    "name_es": "Mar Negro",
+    "name_en": "Black Sea",
+    "icon": "🌊",
+    "priority": 1,
+    "radiusDeg": 5.5,
+    "centroid": [34.5, 43.5],
+    "bounds": {"minLon": 27.5, "maxLon": 42.0, "minLat": 40.8, "maxLat": 46.8},
+    "es": {"type": "Mar Interior", "area": "~436.400 km²", "depth": "Máx. 2.212 m", "fact": "Conectado al Mediterráneo por el Bósforo; el 90% de sus aguas profundas carece de oxígeno."},
+    "en": {"type": "Inland Sea", "area": "~436,400 km²", "depth": "Max. 2,212 m", "fact": "Connected to the Mediterranean via the Bosphorus; 90% of its deep water is anoxic."}
+  },
+  {
+    "id": "red_sea",
+    "name_es": "Mar Rojo",
+    "name_en": "Red Sea",
+    "icon": "🏝️",
+    "priority": 1,
+    "radiusDeg": 4.5,
+    "centroid": [38.0, 21.0],
+    "bounds": {"minLon": 32.2, "maxLon": 44.0, "minLat": 12.5, "maxLat": 28.5},
+    "es": {"type": "Golfo / Mar Interior", "area": "~438.000 km²", "depth": "Fosa de Suakin (3.040 m)", "fact": "Conectado al Mediterráneo por el Canal de Suez y famoso por sus arrecifes de coral."},
+    "en": {"type": "Inland Sea / Gulf", "area": "~438,000 km²", "depth": "Suakin Deep (3,040 m)", "fact": "Connected to the Mediterranean via the Suez Canal; famous for vibrant coral reefs."}
+  },
+  {
+    "id": "persian_gulf",
+    "name_es": "Golfo Pérsico / Arábigo",
+    "name_en": "Persian Gulf",
+    "icon": "🏝️",
+    "priority": 1,
+    "radiusDeg": 3.5,
+    "centroid": [51.5, 26.5],
+    "bounds": {"minLon": 47.8, "maxLon": 56.5, "minLat": 23.8, "maxLat": 30.5},
+    "es": {"type": "Golfo Marino Interior", "area": "~251.000 km²", "depth": "Máx. 90 m", "fact": "Rico en perlas históricas y una de las rutas energéticas más transitadas del mundo."},
+    "en": {"type": "Inland Marine Gulf", "area": "~251,000 km²", "depth": "Max. 90 m", "fact": "Historic pearl center and one of the most vital maritime energy choke points."}
+  },
+  {
+    "id": "baltic_sea",
+    "name_es": "Mar Báltico",
+    "name_en": "Baltic Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 5.0,
+    "centroid": [19.0, 58.0],
+    "bounds": {"minLon": 10.0, "maxLon": 30.0, "minLat": 53.5, "maxLat": 66.0},
+    "es": {"type": "Mar Interior Salobre", "area": "~377.000 km²", "depth": "Fosa de Landsort (459 m)", "fact": "El cuerpo de agua salobre interior más grande del mundo, con baja salinidad."},
+    "en": {"type": "Brackish Inland Sea", "area": "~377,000 km²", "depth": "Landsort Deep (459 m)", "fact": "The largest body of brackish inland water in the world."}
+  },
+  {
+    "id": "north_sea",
+    "name_es": "Mar del Norte",
+    "name_en": "North Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 4.5,
+    "centroid": [3.0, 56.0],
+    "bounds": {"minLon": -4.0, "maxLon": 10.0, "minLat": 51.0, "maxLat": 62.0},
+    "es": {"type": "Mar Marginal", "area": "~570.000 km²", "depth": "Fosa de Noruega (725 m)", "fact": "Famoso por su rica pesca y plataformas de energía eólica marina."},
+    "en": {"type": "Marginal Sea", "area": "~570,000 km²", "depth": "Norwegian Trench (725 m)", "fact": "Famous for rich fisheries and offshore wind energy platforms."}
+  },
+  {
+    "id": "mediterranean_sea",
+    "name_es": "Mar Mediterráneo",
+    "name_en": "Mediterranean Sea",
+    "icon": "🏝️",
+    "priority": 2,
+    "radiusDeg": 8.5,
+    "centroid": [18.0, 35.0],
+    "bounds": {"minLon": -5.5, "maxLon": 36.0, "minLat": 30.0, "maxLat": 45.0},
+    "es": {"type": "Mar Interior", "area": "~2.5M km²", "depth": "Fosa de Calipso (5.267 m)", "fact": "Cuna de civilizaciones históricas (Grecia, Roma, Egipto, Fenicia)."},
+    "en": {"type": "Inland Sea", "area": "~2.5M km²", "depth": "Calypso Deep (5,267 m)", "fact": "Cradle of ancient civilizations (Greece, Rome, Egypt, Phoenicia)."}
+  },
+  {
+    "id": "caribbean_sea",
+    "name_es": "Mar Caribe",
+    "name_en": "Caribbean Sea",
+    "icon": "🏝️",
+    "priority": 2,
+    "radiusDeg": 8.0,
+    "centroid": [-75.0, 15.0],
+    "bounds": {"minLon": -88.0, "maxLon": -60.0, "minLat": 9.0, "maxLat": 22.0},
+    "es": {"type": "Mar Marginal", "area": "~2.75M km²", "depth": "Fosa de las Caimán (7.686 m)", "fact": "Famoso por sus aguas turquesas, arrecifes de coral y miles de islas tropicales."},
+    "en": {"type": "Marginal Sea", "area": "~2.75M km²", "depth": "Cayman Trench (7,686 m)", "fact": "Famous for turquoise waters, coral reefs, and tropical islands."}
+  },
+  {
+    "id": "gulf_of_mexico",
+    "name_es": "Golfo de México",
+    "name_en": "Gulf of Mexico",
+    "icon": "🏝️",
+    "priority": 2,
+    "radiusDeg": 6.5,
+    "centroid": [-90.0, 25.0],
+    "bounds": {"minLon": -98.0, "maxLon": -81.0, "minLat": 18.0, "maxLat": 30.5},
+    "es": {"type": "Golfo Oceánico", "area": "~1.6M km²", "depth": "Sima de Sigsbee (4.384 m)", "fact": "Origina la corriente del Golfo, que lleva calor hacia el norte de Europa."},
+    "en": {"type": "Oceanic Gulf", "area": "~1.6M km²", "depth": "Sigsbee Deep (4,384 m)", "fact": "Origin of the Gulf Stream, carrying warmth to northern Europe."}
+  },
+  {
+    "id": "sea_of_japan",
+    "name_es": "Mar del Japón / Mar del Este",
+    "name_en": "Sea of Japan / East Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 6.0,
+    "centroid": [134.0, 40.0],
+    "bounds": {"minLon": 127.0, "maxLon": 142.0, "minLat": 35.0, "maxLat": 52.0},
+    "es": {"type": "Mar Marginal", "area": "~978.000 km²", "depth": "Cuenca de Japón (3.742 m)", "fact": "Casi cerrado por el archipiélago japonés y la península coreana."},
+    "en": {"type": "Marginal Sea", "area": "~978,000 km²", "depth": "Japan Basin (3,742 m)", "fact": "Nearly enclosed by the Japanese archipelago and Korean peninsula."}
+  },
+  {
+    "id": "coral_sea",
+    "name_es": "Mar del Coral",
+    "name_en": "Coral Sea",
+    "icon": "🐠",
+    "priority": 2,
+    "radiusDeg": 8.0,
+    "centroid": [155.0, -18.0],
+    "bounds": {"minLon": 142.0, "maxLon": 170.0, "minLat": -30.0, "maxLat": -10.0},
+    "es": {"type": "Mar Marginal", "area": "~4.8M km²", "depth": "Fosa de las Nuevas Hébridas (7.570 m)", "fact": "Alberga la Gran Barrera de Coral, el mayor ser vivo visible desde el espacio."},
+    "en": {"type": "Marginal Sea", "area": "~4.8M km²", "depth": "New Hebrides Trench (7,570 m)", "fact": "Home to the Great Barrier Reef, the largest living structure on Earth."}
+  },
+  {
+    "id": "arabian_sea",
+    "name_es": "Mar Arábigo",
+    "name_en": "Arabian Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 8.0,
+    "centroid": [65.0, 16.0],
+    "bounds": {"minLon": 50.0, "maxLon": 78.0, "minLat": 5.0, "maxLat": 26.0},
+    "es": {"type": "Mar Marginal", "area": "~3.86M km²", "depth": "Cuenca Arábiga (4.652 m)", "fact": "Histórica ruta de comercio marítimo de las especias y la seda."},
+    "en": {"type": "Marginal Sea", "area": "~3.86M km²", "depth": "Arabian Basin (4,652 m)", "fact": "Historic maritime trade route for spices and silks."}
+  },
+  {
+    "id": "south_china_sea",
+    "name_es": "Mar de la China Meridional",
+    "name_en": "South China Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 8.0,
+    "centroid": [114.0, 12.0],
+    "bounds": {"minLon": 102.0, "maxLon": 122.0, "minLat": 1.0, "maxLat": 23.0},
+    "es": {"type": "Mar Marginal", "area": "~3.5M km²", "depth": "Fosa de Manila (5.014 m)", "fact": "Por aquí transita más de un tercio del comercio marítimo de todo el planeta."},
+    "en": {"type": "Marginal Sea", "area": "~3.5M km²", "depth": "Manila Trench (5,014 m)", "fact": "More than one-third of global maritime trade passes through here."}
+  },
+  {
+    "id": "bering_sea",
+    "name_es": "Mar de Bering",
+    "name_en": "Bering Sea",
+    "icon": "🧊",
+    "priority": 2,
+    "radiusDeg": 7.0,
+    "centroid": [-175.0, 58.0],
+    "bounds": {"minLon": 160.0, "maxLon": -158.0, "minLat": 50.0, "maxLat": 66.0},
+    "es": {"type": "Mar Marginal", "area": "~2.0M km²", "depth": "Cuenca Bowers (4.097 m)", "fact": "Separa Asia de América a través del histórico Estrecho de Bering."},
+    "en": {"type": "Marginal Sea", "area": "~2.0M km²", "depth": "Bowers Basin (4,097 m)", "fact": "Separates Asia from the Americas via the Bering Strait."}
+  },
+  # --- GRANDES OCÉANOS ---
   {
     "id": "pacific_north",
     "name_es": "Océano Pacífico Norte",
     "name_en": "North Pacific Ocean",
     "icon": "🌊",
-    "centroid": [-160, 28],
-    "bounds": {"minLon": -180, "maxLon": -110, "minLat": 0, "maxLat": 60},
+    "priority": 3,
+    "radiusDeg": 22.0,
+    "centroid": [-160.0, 28.0],
+    "bounds": {"minLon": -180.0, "maxLon": -110.0, "minLat": 0.0, "maxLat": 60.0},
     "es": {"type": "Océano", "area": "~165.2M km² (Total Pacífico)", "depth": "Fosa de las Marianas (11.034 m)", "fact": "Es el océano más grande y profundo del planeta Tierra."},
     "en": {"type": "Ocean", "area": "~165.2M km² (Total Pacific)", "depth": "Mariana Trench (11,034 m)", "fact": "The largest and deepest ocean on Earth."}
   },
@@ -209,9 +393,11 @@ OCEANS_AND_SEAS = [
     "name_es": "Océano Pacífico Sur",
     "name_en": "South Pacific Ocean",
     "icon": "🌊",
-    "centroid": [-130, -32],
-    "bounds": {"minLon": -180, "maxLon": -70, "minLat": -60, "maxLat": 0},
-    "es": {"type": "Océano", "area": "~165.2M km² (Total Pacífico)", "depth": "Fosa de Tonga (10.882 m)", "fact": "Alberga el 'Punto Nemo', el lugar más alejado de tierra firme."},
+    "priority": 3,
+    "radiusDeg": 24.0,
+    "centroid": [-130.0, -32.0],
+    "bounds": {"minLon": -180.0, "maxLon": -70.0, "minLat": -60.0, "maxLat": 0.0},
+    "es": {"type": "Océano", "area": "~165.2M km² (Total Pacífico)", "depth": "Fosa de Tonga (10.882 m)", "fact": "Alberga el 'Punto Nemo', el lugar más remoto y alejado de tierra firme."},
     "en": {"type": "Ocean", "area": "~165.2M km² (Total Pacific)", "depth": "Tonga Trench (10,882 m)", "fact": "Home to 'Point Nemo', the oceanic pole of inaccessibility."}
   },
   {
@@ -219,9 +405,11 @@ OCEANS_AND_SEAS = [
     "name_es": "Océano Atlántico Norte",
     "name_en": "North Atlantic Ocean",
     "icon": "🌊",
-    "centroid": [-42, 32],
-    "bounds": {"minLon": -75, "maxLon": -10, "minLat": 0, "maxLat": 60},
-    "es": {"type": "Océano", "area": "~106.5M km² (Total Atlántico)", "depth": "Fosa de Puerto Rico (8.376 m)", "fact": "Separa América de Europa y África; el 2.° más extenso."},
+    "priority": 3,
+    "radiusDeg": 20.0,
+    "centroid": [-42.0, 32.0],
+    "bounds": {"minLon": -75.0, "maxLon": -10.0, "minLat": 0.0, "maxLat": 60.0},
+    "es": {"type": "Océano", "area": "~106.5M km² (Total Atlántico)", "depth": "Fosa de Puerto Rico (8.376 m)", "fact": "Separa América de Europa y África; el 2.° océano más extenso."},
     "en": {"type": "Ocean", "area": "~106.5M km² (Total Atlantic)", "depth": "Puerto Rico Trench (8,376 m)", "fact": "Separates the Americas from Europe and Africa; 2nd largest."}
   },
   {
@@ -229,8 +417,10 @@ OCEANS_AND_SEAS = [
     "name_es": "Océano Atlántico Sur",
     "name_en": "South Atlantic Ocean",
     "icon": "🌊",
-    "centroid": [-18, -30],
-    "bounds": {"minLon": -60, "maxLon": 20, "minLat": -60, "maxLat": 0},
+    "priority": 3,
+    "radiusDeg": 20.0,
+    "centroid": [-18.0, -30.0],
+    "bounds": {"minLon": -60.0, "maxLon": 20.0, "minLat": -60.0, "maxLat": 0.0},
     "es": {"type": "Océano", "area": "~106.5M km² (Total Atlántico)", "depth": "Fosa de las Sandwich del Sur (8.428 m)", "fact": "Rico en corrientes marinas y fauna antártica."},
     "en": {"type": "Ocean", "area": "~106.5M km² (Total Atlantic)", "depth": "South Sandwich Trench (8,428 m)", "fact": "Rich in marine currents and diverse wildlife."}
   },
@@ -239,8 +429,10 @@ OCEANS_AND_SEAS = [
     "name_es": "Océano Índico",
     "name_en": "Indian Ocean",
     "icon": "🌊",
-    "centroid": [78, -18],
-    "bounds": {"minLon": 35, "maxLon": 115, "minLat": -60, "maxLat": 25},
+    "priority": 3,
+    "radiusDeg": 20.0,
+    "centroid": [78.0, -18.0],
+    "bounds": {"minLon": 35.0, "maxLon": 115.0, "minLat": -60.0, "maxLat": 25.0},
     "es": {"type": "Océano", "area": "~70.5M km²", "depth": "Fosa de Java (7.450 m)", "fact": "Es el océano más cálido del mundo y vital ruta de comercio."},
     "en": {"type": "Ocean", "area": "~70.5M km²", "depth": "Java Trench (7,450 m)", "fact": "The warmest ocean in the world and historic trading route."}
   },
@@ -249,120 +441,24 @@ OCEANS_AND_SEAS = [
     "name_es": "Océano Ártico",
     "name_en": "Arctic Ocean",
     "icon": "🧊",
-    "centroid": [0, 84],
-    "bounds": {"minLon": -180, "maxLon": 180, "minLat": 66, "maxLat": 90},
-    "es": {"type": "Océano Glacial", "area": "~14.0M km²", "depth": "Fosa de Molloy (5.550 m)", "fact": "Rodea el Polo Norte y está cubierto de banquisas de hielo."},
-    "en": {"type": "Glacial Ocean", "area": "~14.0M km²", "depth": "Molloy Deep (5,550 m)", "fact": "Surrounds the North Pole and is covered by sea ice."}
+    "priority": 3,
+    "radiusDeg": 16.0,
+    "centroid": [0.0, 84.0],
+    "bounds": {"minLon": -180.0, "maxLon": 180.0, "minLat": 66.0, "maxLat": 90.0},
+    "es": {"type": "Océano Glacial", "area": "~14.0M km²", "depth": "Fosa de Molloy (5.550 m)", "fact": "Rodea el Polo Norte y está cubierto por banquisas polares de hielo."},
+    "en": {"type": "Glacial Ocean", "area": "~14.0M km²", "depth": "Molloy Deep (5,550 m)", "fact": "Surrounds the North Pole and is covered by polar sea ice."}
   },
   {
     "id": "southern_ocean",
     "name_es": "Océano Antártico",
     "name_en": "Southern Ocean",
     "icon": "🧊",
-    "centroid": [0, -68],
-    "bounds": {"minLon": -180, "maxLon": 180, "minLat": -90, "maxLat": -58},
+    "priority": 3,
+    "radiusDeg": 18.0,
+    "centroid": [0.0, -68.0],
+    "bounds": {"minLon": -180.0, "maxLon": 180.0, "minLat": -90.0, "maxLat": -58.0},
     "es": {"type": "Océano Glacial", "area": "~20.3M km²", "depth": "Fosa de las Sandwich del Sur (7.236 m)", "fact": "Rodea la Antártida con la potente corriente circumpolar."},
     "en": {"type": "Glacial Ocean", "area": "~20.3M km²", "depth": "South Sandwich Trench (7,236 m)", "fact": "Encircles Antarctica with the powerful Circumpolar Current."}
-  },
-  {
-    "id": "mediterranean_sea",
-    "name_es": "Mar Mediterráneo",
-    "name_en": "Mediterranean Sea",
-    "icon": "🏝️",
-    "centroid": [18, 35],
-    "bounds": {"minLon": -5, "maxLon": 36, "minLat": 30, "maxLat": 45},
-    "es": {"type": "Mar Interior", "area": "~2.5M km²", "depth": "Fosa de Calipso (5.267 m)", "fact": "Cuna de civilizaciones históricas (Grecia, Roma, Egipto)."},
-    "en": {"type": "Inland Sea", "area": "~2.5M km²", "depth": "Calypso Deep (5,267 m)", "fact": "Cradle of ancient civilizations (Greece, Rome, Egypt)."}
-  },
-  {
-    "id": "caribbean_sea",
-    "name_es": "Mar Caribe",
-    "name_en": "Caribbean Sea",
-    "icon": "🏝️",
-    "centroid": [-75, 15],
-    "bounds": {"minLon": -88, "maxLon": -60, "minLat": 9, "maxLat": 22},
-    "es": {"type": "Mar Marginal", "area": "~2.75M km²", "depth": "Fosa de las Caimán (7.686 m)", "fact": "Famoso por sus aguas turquesas, arrecifes de coral y miles de islas."},
-    "en": {"type": "Marginal Sea", "area": "~2.75M km²", "depth": "Cayman Trench (7,686 m)", "fact": "Famous for turquoise waters, coral reefs, and tropical islands."}
-  },
-  {
-    "id": "coral_sea",
-    "name_es": "Mar del Coral",
-    "name_en": "Coral Sea",
-    "icon": "🐠",
-    "centroid": [155, -18],
-    "bounds": {"minLon": 142, "maxLon": 170, "minLat": -30, "maxLat": -10},
-    "es": {"type": "Mar Marginal", "area": "~4.8M km²", "depth": "Fosa de las Nuevas Hébridas (7.570 m)", "fact": "Alberga la Gran Barrera de Coral, el arrecife más grande del mundo."},
-    "en": {"type": "Marginal Sea", "area": "~4.8M km²", "depth": "New Hebrides Trench (7,570 m)", "fact": "Home to the Great Barrier Reef, the largest coral system on Earth."}
-  },
-  {
-    "id": "arabian_sea",
-    "name_es": "Mar Arábigo",
-    "name_en": "Arabian Sea",
-    "icon": "🌊",
-    "centroid": [65, 16],
-    "bounds": {"minLon": 50, "maxLon": 78, "minLat": 5, "maxLat": 26},
-    "es": {"type": "Mar Marginal", "area": "~3.86M km²", "depth": "Cuenca Arábiga (4.652 m)", "fact": "Histórica ruta de comercio marítimo entre India y Medio Oriente."},
-    "en": {"type": "Marginal Sea", "area": "~3.86M km²", "depth": "Arabian Basin (4,652 m)", "fact": "Historic maritime trade route between India and the Middle East."}
-  },
-  {
-    "id": "south_china_sea",
-    "name_es": "Mar de la China Meridional",
-    "name_en": "South China Sea",
-    "icon": "🌊",
-    "centroid": [114, 12],
-    "bounds": {"minLon": 102, "maxLon": 122, "minLat": 1, "maxLat": 23},
-    "es": {"type": "Mar Marginal", "area": "~3.5M km²", "depth": "Fosa de Manila (5.014 m)", "fact": "Por aquí transita un tercio del transporte marítimo mundial."},
-    "en": {"type": "Marginal Sea", "area": "~3.5M km²", "depth": "Manila Trench (5,014 m)", "fact": "One-third of global maritime shipping passes through here."}
-  },
-  {
-    "id": "bering_sea",
-    "name_es": "Mar de Bering",
-    "name_en": "Bering Sea",
-    "icon": "🧊",
-    "centroid": [-175, 58],
-    "bounds": {"minLon": 160, "maxLon": -158, "minLat": 50, "maxLat": 66},
-    "es": {"type": "Mar Marginal", "area": "~2.0M km²", "depth": "Cuenca Bowers (4.097 m)", "fact": "Separa Asia de América mediante el Estrecho de Bering."},
-    "en": {"type": "Marginal Sea", "area": "~2.0M km²", "depth": "Bowers Basin (4,097 m)", "fact": "Separates Asia from North America at the Bering Strait."}
-  },
-  {
-    "id": "gulf_of_mexico",
-    "name_es": "Golfo de México",
-    "name_en": "Gulf of Mexico",
-    "icon": "🏝️",
-    "centroid": [-90, 25],
-    "bounds": {"minLon": -98, "maxLon": -80, "minLat": 18, "maxLat": 30},
-    "es": {"type": "Golfo Oceánico", "area": "~1.6M km²", "depth": "Sima de Sigsbee (4.384 m)", "fact": "Origina la corriente del Golfo, que lleva calor al norte de Europa."},
-    "en": {"type": "Oceanic Gulf", "area": "~1.6M km²", "depth": "Sigsbee Deep (4,384 m)", "fact": "Origin of the Gulf Stream, carrying warmth to northern Europe."}
-  },
-  {
-    "id": "red_sea",
-    "name_es": "Mar Rojo",
-    "name_en": "Red Sea",
-    "icon": "🏝️",
-    "centroid": [38, 21],
-    "bounds": {"minLon": 32, "maxLon": 44, "minLat": 12, "maxLat": 28},
-    "es": {"type": "Golfo / Mar Interior", "area": "~438.000 km²", "depth": "Fosa de Suakin (3.040 m)", "fact": "Conectado al Mediterráneo por el histórico Canal de Suez."},
-    "en": {"type": "Inland Sea", "area": "~438,000 km²", "depth": "Suakin Deep (3,040 m)", "fact": "Connected to the Mediterranean via the Suez Canal."}
-  },
-  {
-    "id": "baltic_sea",
-    "name_es": "Mar Báltico",
-    "name_en": "Baltic Sea",
-    "icon": "🌊",
-    "centroid": [19, 58],
-    "bounds": {"minLon": 10, "maxLon": 30, "minLat": 53, "maxLat": 66},
-    "es": {"type": "Mar Interior Salobre", "area": "~377.000 km²", "depth": "Fosa de Landsort (459 m)", "fact": "El cuerpo de agua salobre interior más grande del mundo."},
-    "en": {"type": "Brackish Inland Sea", "area": "~377,000 km²", "depth": "Landsort Deep (459 m)", "fact": "The largest body of brackish water in the world."}
-  },
-  {
-    "id": "north_sea",
-    "name_es": "Mar del Norte",
-    "name_en": "North Sea",
-    "icon": "🌊",
-    "centroid": [3, 56],
-    "bounds": {"minLon": -4, "maxLon": 10, "minLat": 51, "maxLat": 62},
-    "es": {"type": "Mar Marginal", "area": "~570.000 km²", "depth": "Fosa de Noruega (725 m)", "fact": "Famoso por su rica pesca y plataformas de energía eólica marina."},
-    "en": {"type": "Marginal Sea", "area": "~570,000 km²", "depth": "Norwegian Trench (725 m)", "fact": "Famous for rich fisheries and offshore wind energy platforms."}
   }
 ]
 
