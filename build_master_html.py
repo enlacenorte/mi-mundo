@@ -2207,6 +2207,30 @@ html_template = """<!DOCTYPE html>
         window.addEventListener('resize', () => this.initDimensions());
       }
 
+      isPointInsideCountry(feat, coords) {
+        if (!feat || !feat.centroid) return false;
+
+        const rawName = feat.properties && feat.properties.name ? feat.properties.name : "";
+        
+        // Distancia angular máxima de seguridad según el tamaño del país para descartar polígonos invertidos
+        const LARGE_RADII = {
+          "Russia": 50, "Canada": 45, "United States of America": 45, "China": 40,
+          "Brazil": 32, "Australia": 32, "India": 26, "Argentina": 26,
+          "Kazakhstan": 26, "Algeria": 24, "Dem. Rep. Congo": 24, "Saudi Arabia": 24,
+          "Mexico": 24, "Indonesia": 32, "Chile": 28
+        };
+        const maxRadius = LARGE_RADII[rawName] || 16.0;
+
+        const distDeg = d3.geoDistance(coords, feat.centroid) * (180 / Math.PI);
+        if (distDeg > maxRadius) return false;
+
+        try {
+          return d3.geoContains(feat, coords);
+        } catch(e) {
+          return false;
+        }
+      }
+
       handleGlobeClick(clientX, clientY) {
         const rect = this.canvas.getBoundingClientRect();
         const dpr = window.devicePixelRatio || 1;
@@ -2216,11 +2240,11 @@ html_template = """<!DOCTYPE html>
         const coords = this.projection.invert([x, y]);
         if (!coords || isNaN(coords[0]) || isNaN(coords[1])) return;
 
-        // 1. Detección directa de países mediante d3.geoContains
+        // 1. Detección directa de países con filtro de seguridad contra polígonos invertidos
         let matchedFeature = null;
         for (let i = 0; i < this.worldFeatures.length; i++) {
           const feat = this.worldFeatures[i];
-          if (d3.geoContains(feat, coords)) {
+          if (this.isPointInsideCountry(feat, coords)) {
             matchedFeature = feat;
             break;
           }
@@ -2292,6 +2316,7 @@ html_template = """<!DOCTYPE html>
         if (this.isSpinning) return;
         this.selectedFeature = feature;
         this.selectedWater = null;
+        this.waterPinCoords = null;
         this.pulseTime = 0;
         audioSynth.playTargetLock();
 
