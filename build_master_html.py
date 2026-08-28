@@ -1170,7 +1170,32 @@ html_template = """<!DOCTYPE html>
       text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
     }
 
-    /* Botón Sonido */
+    /* Botón Pantalla Completa & Sonido */
+    .fullscreen-toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 56px;
+      background: rgba(10, 16, 32, 0.75);
+      border: 1px solid rgba(0, 243, 255, 0.4);
+      color: var(--neon-cyan);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 1.1rem;
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .fullscreen-toggle-btn:hover {
+      background: rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+    }
+
     .sound-toggle-btn {
       position: absolute;
       top: 10px;
@@ -1188,6 +1213,12 @@ html_template = """<!DOCTYPE html>
       z-index: 10;
       font-size: 1rem;
       box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .sound-toggle-btn:hover {
+      background: rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
     }
 
     /* Canvas FX */
@@ -1321,7 +1352,8 @@ html_template = """<!DOCTYPE html>
     </div>
   </div>
 
-  <!-- Botón de sonido -->
+  <!-- Botón de Pantalla Completa y Sonido -->
+  <button id="fullscreen-btn" class="fullscreen-toggle-btn" title="Pantalla Completa">⛶</button>
   <button id="sound-btn" class="sound-toggle-btn" title="Activar/Silenciar Sonido">🔊</button>
 
   <!-- Controles de Zoom en Pantalla -->
@@ -3013,11 +3045,54 @@ html_template = """<!DOCTYPE html>
     const initialsInput = document.getElementById('player-initials');
     const saveScoreBtn = document.getElementById('save-score-btn');
     const modalMenuBtn = document.getElementById('modal-menu-btn');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
     const soundBtn = document.getElementById('sound-btn');
     const triviaModal = document.getElementById('trivia-modal');
     const triviaFlagBadge = document.getElementById('trivia-flag-badge');
     const triviaText = document.getElementById('trivia-text');
     const triviaCloseBtn = document.getElementById('trivia-close-btn');
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        const docEl = document.documentElement;
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen().catch(() => {});
+        } else if (docEl.webkitRequestFullscreen) {
+          docEl.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    }
+
+    function tryEnterFullscreen() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        const docEl = document.documentElement;
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen().catch(() => {});
+        } else if (docEl.webkitRequestFullscreen) {
+          docEl.webkitRequestFullscreen();
+        }
+      }
+    }
+
+    function updateFullscreenIcon() {
+      const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+      fullscreenBtn.textContent = isFs ? '🗗' : '⛶';
+      fullscreenBtn.title = isFs ? (currentLang === 'es' ? 'Salir de pantalla completa' : 'Exit fullscreen') : (currentLang === 'es' ? 'Pantalla completa' : 'Fullscreen');
+    }
+
+    fullscreenBtn.addEventListener('click', () => {
+      audioSynth.init();
+      toggleFullscreen();
+    });
+
+    document.addEventListener('fullscreenchange', updateFullscreenIcon);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
 
     function showComicBurst(customHtml = null, streakLevel = 2) {
       let content = customHtml;
@@ -3121,6 +3196,7 @@ html_template = """<!DOCTYPE html>
     // Iniciar Partida
     splashStartBtn.addEventListener('click', () => {
       audioSynth.init();
+      tryEnterFullscreen();
       ufoManager.dismiss();
       typewriterManager.hideImmediate();
       if (navigator.vibrate) navigator.vibrate(30);
@@ -3136,6 +3212,7 @@ html_template = """<!DOCTYPE html>
     // Iniciar Entrenamiento (Giro Libre, Sin Selección Inicial, Pantalla Despejada)
     splashTrainBtn.addEventListener('click', () => {
       audioSynth.init();
+      tryEnterFullscreen();
       ufoManager.dismiss();
       audioSynth.stopUfoSound();
       typewriterManager.hideImmediate();
