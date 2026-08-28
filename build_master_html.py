@@ -1683,9 +1683,9 @@ html_template = """<!DOCTYPE html>
         <button id="save-score-btn" class="diff-btn active" style="width: 100%; padding: 8px; font-weight: 900;" id="txt-save-score-btn">REGISTRAR RÉCORD</button>
       </div>
 
-      <!-- Tabla Top 5 con Efecto FX de Barrida de Luz Vertical -->
+      <!-- Tabla Top 10 con Efecto FX de Barrida de Luz Vertical -->
       <div id="leaderboard-section">
-        <div style="font-family: var(--font-display); font-size: 0.78rem; color: var(--neon-cyan); letter-spacing: 1.5px; margin-top: 6px; font-weight: 800;" id="txt-leaderboard-title">🏆 SALÓN DE RÉCORDS (TOP 5)</div>
+        <div style="font-family: var(--font-display); font-size: 0.78rem; color: var(--neon-cyan); letter-spacing: 1.5px; margin-top: 6px; font-weight: 800;" id="txt-leaderboard-title">🏆 SALÓN DE RÉCORDS (TOP 10)</div>
         <div class="leaderboard-card-wrapper">
           <div class="leaderboard-light-sweep-fx"></div>
           <table class="leaderboard-table">
@@ -1795,7 +1795,7 @@ html_template = """<!DOCTYPE html>
         pointsWord: "PUNTOS",
         initialsLabel: "INGRESA TUS 4 INICIALES:",
         saveRecordBtn: "REGISTRAR RÉCORD",
-        hallOfFame: "🏆 SALÓN DE RÉCORDS (TOP 5)",
+        hallOfFame: "🏆 SALÓN DE RÉCORDS (TOP 10)",
         thPos: "POS",
         thPlayer: "JUGADOR",
         thLevel: "NIVEL",
@@ -1843,7 +1843,7 @@ html_template = """<!DOCTYPE html>
         pointsWord: "POINTS",
         initialsLabel: "ENTER YOUR 4 INITIALS:",
         saveRecordBtn: "SAVE RECORD",
-        hallOfFame: "🏆 HALL OF FAME (TOP 5)",
+        hallOfFame: "🏆 HALL OF FAME (TOP 10)",
         thPos: "POS",
         thPlayer: "PLAYER",
         thLevel: "LEVEL",
@@ -1891,7 +1891,7 @@ html_template = """<!DOCTYPE html>
         pointsWord: "ポイント",
         initialsLabel: "イニシャル4文字を入力:",
         saveRecordBtn: "記録を保存",
-        hallOfFame: "🏆 殿堂入り (TOP 5)",
+        hallOfFame: "🏆 殿堂入り (TOP 10)",
         thPos: "順位",
         thPlayer: "プレイヤー",
         thLevel: "難易度",
@@ -1939,7 +1939,7 @@ html_template = """<!DOCTYPE html>
         pointsWord: "分",
         initialsLabel: "输入4位缩写名:",
         saveRecordBtn: "保存记录",
-        hallOfFame: "🏆 排行榜 (TOP 5)",
+        hallOfFame: "🏆 排行榜 (TOP 10)",
         thPos: "排名",
         thPlayer: "玩家",
         thLevel: "难度",
@@ -1987,7 +1987,7 @@ html_template = """<!DOCTYPE html>
         pointsWord: "نقطة",
         initialsLabel: "أدخل 4 أحرف:",
         saveRecordBtn: "حفظ الرقم القياسي",
-        hallOfFame: "🏆 لوحة الشرف (أفضل 5)",
+        hallOfFame: "🏆 لوحة الشرف (أفضل 10)",
         thPos: "المركز",
         thPlayer: "اللاعب",
         thLevel: "المستوى",
@@ -3489,28 +3489,63 @@ html_template = """<!DOCTYPE html>
        ========================================================================== */
     class HighScoreManager {
       constructor() {
-        this.storageKey = 'fg_capitales_leaderboard_v2';
+        this.storageKey = 'MIMUNDO_HIGHSCORES_TOP10';
         this.scores = this.loadScores();
       }
 
       loadScores() {
         try {
-          const raw = localStorage.getItem(this.storageKey);
-          if (raw) return JSON.parse(raw);
+          const raw = localStorage.getItem(this.storageKey) || localStorage.getItem('fg_capitales_leaderboard_v2');
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              const defaultFallback = [
+                { initials: "MAGL", score: 1850, diff: "EXP" },
+                { initials: "COLB", score: 1600, diff: "EXP" },
+                { initials: "FRAN", score: 1350, diff: "EXP" },
+                { initials: "MARP", score: 1100, diff: "MED" },
+                { initials: "ALEX", score: 950, diff: "MED" },
+                { initials: "GIUD", score: 800, diff: "MED" },
+                { initials: "NEON", score: 650, diff: "FAC" },
+                { initials: "AMER", score: 500, diff: "FAC" },
+                { initials: "CAPS", score: 380, diff: "FAC" },
+                { initials: "GEO1", score: 250, diff: "FAC" }
+              ];
+              // Si tiene menos de 10, rellenar con los récords históricos predeterminados
+              const combined = [...parsed];
+              defaultFallback.forEach(defItem => {
+                if (combined.length < 10) combined.push(defItem);
+              });
+              combined.sort((a, b) => b.score - a.score);
+              return combined.slice(0, 10);
+            }
+          }
         } catch (e) {}
         return [
-          { initials: "FRAN", score: 1200, diff: "EXP" },
-          { initials: "GIUD", score: 950, diff: "MED" },
-          { initials: "ALEX", score: 720, diff: "FAC" },
-          { initials: "NEON", score: 500, diff: "FAC" },
-          { initials: "CAPS", score: 350, diff: "FAC" }
+          { initials: "MAGL", score: 1850, diff: "EXP" },
+          { initials: "COLB", score: 1600, diff: "EXP" },
+          { initials: "FRAN", score: 1350, diff: "EXP" },
+          { initials: "MARP", score: 1100, diff: "MED" },
+          { initials: "ALEX", score: 950, diff: "MED" },
+          { initials: "GIUD", score: 800, diff: "MED" },
+          { initials: "NEON", score: 650, diff: "FAC" },
+          { initials: "AMER", score: 500, diff: "FAC" },
+          { initials: "CAPS", score: 380, diff: "FAC" },
+          { initials: "GEO1", score: 250, diff: "FAC" }
         ];
       }
 
       saveScores() {
         try {
           localStorage.setItem(this.storageKey, JSON.stringify(this.scores));
+          localStorage.setItem('fg_capitales_leaderboard_v2', JSON.stringify(this.scores));
         } catch (e) {}
+      }
+
+      qualifiesForTop10(newScore) {
+        if (!newScore || newScore <= 0) return false;
+        if (this.scores.length < 10) return true;
+        return newScore > this.scores[this.scores.length - 1].score;
       }
 
       addScore(initials, score, diff) {
@@ -3518,7 +3553,7 @@ html_template = """<!DOCTYPE html>
         const cleanDiff = diff === 'easy' ? (currentLang === 'es' ? 'FAC' : 'EASY') : (diff === 'medium' ? (currentLang === 'es' ? 'MED' : 'MED') : (currentLang === 'es' ? 'EXP' : 'EXP'));
         this.scores.push({ initials: cleanInitials, score: score, diff: cleanDiff });
         this.scores.sort((a, b) => b.score - a.score);
-        this.scores = this.scores.slice(0, 5);
+        this.scores = this.scores.slice(0, 10);
         this.saveScores();
       }
 
@@ -3526,9 +3561,9 @@ html_template = """<!DOCTYPE html>
         const body = document.getElementById(containerBodyId);
         if (!body) return;
         body.innerHTML = '';
+        const medals = ['🥇 1°', '🥈 2°', '🥉 3°', '4°', '5°', '6°', '7°', '8°', '9°', '10°'];
         this.scores.forEach((s, idx) => {
           const tr = document.createElement('tr');
-          const medals = ['🥇 1°', '🥈 2°', '🥉 3°', '4°', '5°'];
           tr.innerHTML = `
             <td>${medals[idx] || (idx + 1 + '°')}</td>
             <td><strong style="letter-spacing: 2px;">${s.initials}</strong></td>
@@ -4549,10 +4584,17 @@ html_template = """<!DOCTYPE html>
       spinBtn.disabled = true;
       spinBtn.style.display = 'none';
       finalScoreText.textContent = `${I18N[currentLang].finalScore} ${score} ${I18N[currentLang].pointsWord}`;
-      document.getElementById('initials-container').style.display = 'flex';
-      initialsInput.value = '';
+      
+      const qualifiesTop10 = score > 0 && scoreManager.qualifiesForTop10(score);
+      const initialsContainer = document.getElementById('initials-container');
+      if (initialsContainer) {
+        initialsContainer.style.display = qualifiesTop10 ? 'flex' : 'none';
+      }
+      if (initialsInput) initialsInput.value = '';
+      
       scoreManager.renderTable('leaderboard-body');
       gameModal.classList.remove('hidden');
+      InactivityManager.reset();
     }
 
     setLanguage('es');
