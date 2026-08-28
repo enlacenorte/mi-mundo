@@ -153,29 +153,34 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      background: rgba(14, 26, 54, 0.8);
+      gap: 5px;
+      background: rgba(14, 26, 54, 0.85);
       border: 1px solid var(--neon-cyan);
       border-radius: 24px;
-      padding: 4px 8px;
+      padding: 3px 6px;
       box-shadow: 0 0 14px rgba(0, 243, 255, 0.25);
-      margin-bottom: 2px;
+      margin-top: 8px;
+      width: 100%;
+      max-width: 350px;
     }
 
     .lang-btn {
       background: transparent;
       border: none;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.75);
       font-family: var(--font-display);
-      font-size: 0.78rem;
+      font-size: 0.70rem;
       font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 18px;
+      padding: 5px 6px;
+      border-radius: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      gap: 3px;
+      flex: 1;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .lang-btn.active {
@@ -187,8 +192,8 @@
 
     .splash-logo-radar {
       position: relative;
-      width: 68px;
-      height: 68px;
+      width: 62px;
+      height: 62px;
       border: 2px solid var(--neon-cyan);
       border-radius: 50%;
       display: flex;
@@ -213,19 +218,103 @@
     }
 
     .splash-globe-icon {
-      font-size: 1.95rem;
+      font-size: 1.85rem;
       filter: drop-shadow(0 0 12px var(--neon-cyan));
     }
 
-    .splash-title {
+    /* ==========================================================================
+       CARTEL DE RUTA CON FOQUITOS EN MOVIMIENTO (HIGHWAY MARQUEE BULB SIGN)
+       ========================================================================== */
+    .marquee-sign-box {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      margin: 2px 0 4px 0;
+      background: radial-gradient(ellipse at center, rgba(35, 22, 6, 0.95) 0%, rgba(10, 5, 2, 0.98) 100%);
+      border: 2.5px solid #ffe600;
+      border-radius: 14px;
+      box-shadow: 
+        0 0 22px rgba(255, 230, 0, 0.5),
+        inset 0 0 14px rgba(255, 140, 0, 0.4),
+        0 0 32px rgba(255, 0, 127, 0.25);
+    }
+
+    .splash-title.marquee-bulb-title {
       font-family: var(--font-display);
-      font-size: clamp(1.45rem, 6.2vw, 2rem);
+      font-size: clamp(1.45rem, 6.6vw, 2.1rem);
       font-weight: 900;
-      letter-spacing: 3px;
-      color: #fff;
+      letter-spacing: 3.5px;
       text-transform: uppercase;
-      text-shadow: 0 0 12px var(--neon-cyan), 0 0 28px rgba(0, 243, 255, 0.6);
-      line-height: 1.1;
+      line-height: 1.15;
+      color: #ffe600;
+      /* Foquitos incandescentes dentro de los caracteres */
+      background: 
+        radial-gradient(circle, #ffffff 18%, #ffe600 45%, #ff5500 72%, transparent 82%),
+        linear-gradient(90deg, #ffe600, #ff007f, #00f3ff, #ffe600);
+      background-size: 6px 6px, 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 10px rgba(255, 230, 0, 0.85)) drop-shadow(0 0 24px rgba(255, 102, 0, 0.7));
+      animation: marqueeBulbMotion 1.8s linear infinite;
+    }
+
+    @keyframes marqueeBulbMotion {
+      0% {
+        background-position: 0px 0px, 0% 50%;
+        filter: drop-shadow(0 0 8px rgba(255, 230, 0, 0.7)) drop-shadow(0 0 18px rgba(255, 102, 0, 0.5));
+      }
+      50% {
+        background-position: 6px 6px, 100% 50%;
+        filter: drop-shadow(0 0 16px rgba(255, 240, 60, 0.98)) drop-shadow(0 0 28px rgba(255, 0, 127, 0.85));
+      }
+      100% {
+        background-position: 12px 12px, 200% 50%;
+        filter: drop-shadow(0 0 8px rgba(255, 230, 0, 0.7)) drop-shadow(0 0 18px rgba(255, 102, 0, 0.5));
+      }
+    }
+
+    /* Filas de foquitos de marquesina en movimiento */
+    .marquee-bulb-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 5px;
+      padding: 1px 2px;
+    }
+
+    .marquee-bulb-dot {
+      width: 5.5px;
+      height: 5.5px;
+      border-radius: 50%;
+      background: #ffe600;
+      box-shadow: 0 0 7px #ffe600;
+      animation: bulbChase 0.75s infinite alternate;
+    }
+
+    .marquee-bulb-dot:nth-child(2n) {
+      animation-delay: 0.18s;
+      background: #ff007f;
+      box-shadow: 0 0 7px #ff007f;
+    }
+
+    .marquee-bulb-dot:nth-child(3n) {
+      animation-delay: 0.36s;
+      background: #00f3ff;
+      box-shadow: 0 0 7px #00f3ff;
+    }
+
+    .marquee-bulb-dot:nth-child(4n) {
+      animation-delay: 0.54s;
+      background: #39ff14;
+      box-shadow: 0 0 7px #39ff14;
+    }
+
+    @keyframes bulbChase {
+      0% { transform: scale(0.65); opacity: 0.3; }
+      100% { transform: scale(1.35); opacity: 1; filter: brightness(1.6); }
     }
 
     /* ==========================================================================
@@ -994,27 +1083,68 @@
       text-transform: uppercase;
     }
 
+    .leaderboard-card-wrapper {
+      position: relative;
+      width: 100%;
+      margin: 8px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(4, 10, 24, 0.75);
+      border: 1.5px solid rgba(0, 243, 255, 0.35);
+      box-shadow: 0 0 16px rgba(0, 243, 255, 0.15), inset 0 0 12px rgba(0, 243, 255, 0.08);
+    }
+
+    /* EFECTO DE LUZ EN BARRIDA DE ARRIBA HACIA ABAJO EN LOS PUESTOS (FX VERTICAL SCAN) */
+    .leaderboard-light-sweep-fx {
+      position: absolute;
+      top: -80px;
+      left: 0;
+      width: 100%;
+      height: 48px;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 243, 255, 0) 0%,
+        rgba(0, 243, 255, 0.4) 35%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(0, 243, 255, 0.4) 65%,
+        rgba(0, 243, 255, 0) 100%
+      );
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.9), 0 0 35px rgba(0, 243, 255, 0.5);
+      pointer-events: none;
+      animation: leaderboardVerticalSweep 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      mix-blend-mode: screen;
+      z-index: 5;
+    }
+
+    @keyframes leaderboardVerticalSweep {
+      0% { top: -60px; opacity: 0; }
+      12% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: 105%; opacity: 0; }
+    }
+
     .leaderboard-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 10px 0;
+      margin: 0;
       font-family: var(--font-display);
       font-size: 0.82rem;
     }
 
     .leaderboard-table th {
       color: var(--neon-cyan);
-      border-bottom: 1px solid rgba(0, 243, 255, 0.3);
-      padding: 6px 4px;
+      background: rgba(0, 243, 255, 0.08);
+      border-bottom: 1px solid rgba(0, 243, 255, 0.35);
+      padding: 7px 4px;
       font-size: 0.7rem;
       letter-spacing: 1px;
       text-transform: uppercase;
     }
 
     .leaderboard-table td {
-      padding: 5px 4px;
+      padding: 6px 4px;
       color: #d0e8ff;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .leaderboard-table tr:first-child td {
@@ -1259,26 +1389,39 @@
     </svg>
   </div>
 
-  <!-- SPLASH SCREEN INICIAL CON SELECTOR DE IDIOMA -->
+  <!-- SPLASH SCREEN INICIAL -->
   <div id="splash-screen">
     <div class="splash-content">
-      
-      <!-- Banderas Selector de Idioma -->
-      <div class="lang-selector-bar" id="lang-selector-bar">
-        <button class="lang-btn active" data-lang="es">
-          <span>🇪🇸</span> Español
-        </button>
-        <button class="lang-btn" data-lang="en">
-          <span>🇬🇧</span> English
-        </button>
-      </div>
 
-      <!-- Icono Planisferio y Título MI MUNDO ARRIBA -->
+      <!-- Icono Planisferio Radar ARRIBA -->
       <div class="splash-logo-radar">
         <span class="splash-globe-icon">🌐</span>
       </div>
       
-      <h1 class="splash-title" id="txt-splash-title">MI MUNDO</h1>
+      <!-- CARTEL DE RUTA CON FOQUITOS EN MOVIMIENTO -->
+      <div class="marquee-sign-box">
+        <div class="marquee-bulb-row">
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+        </div>
+        <h1 class="splash-title marquee-bulb-title" id="txt-splash-title">MI MUNDO</h1>
+        <div class="marquee-bulb-row">
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+          <span class="marquee-bulb-dot"></span>
+        </div>
+      </div>
       
       <!-- TACÓMETRO GAUGE SEMICIRCULAR (VERDE / AMARILLO / ROJO) -->
       <div id="difficulty-gauge-container" class="difficulty-gauge-container">
@@ -1306,6 +1449,22 @@
       <div class="splash-action-row">
         <button id="splash-start-btn" class="splash-btn-start">JUGAR</button>
         <button id="splash-train-btn" class="splash-btn-train">ENTRENAR</button>
+      </div>
+
+      <!-- Banderas Selector de 4 Idiomas (ABAJO DE TODO) -->
+      <div class="lang-selector-bar" id="lang-selector-bar">
+        <button class="lang-btn active" data-lang="es">
+          <span>🇪🇸</span> ES
+        </button>
+        <button class="lang-btn" data-lang="en">
+          <span>🇬🇧</span> EN
+        </button>
+        <button class="lang-btn" data-lang="ja">
+          <span>🇯🇵</span> 日本語
+        </button>
+        <button class="lang-btn" data-lang="zh">
+          <span>🇨🇳</span> 中文
+        </button>
       </div>
     </div>
   </div>
@@ -1421,22 +1580,25 @@
         <button id="save-score-btn" class="diff-btn active" style="width: 100%; padding: 8px; font-weight: 900;" id="txt-save-score-btn">REGISTRAR RÉCORD</button>
       </div>
 
-      <!-- Tabla Top 5 -->
+      <!-- Tabla Top 5 con Efecto FX de Barrida de Luz Vertical -->
       <div id="leaderboard-section">
-        <div style="font-family: var(--font-display); font-size: 0.75rem; color: var(--neon-cyan); letter-spacing: 1.5px; margin-top: 6px;" id="txt-leaderboard-title">🏆 SALÓN DE RÉCORDS (TOP 5)</div>
-        <table class="leaderboard-table">
-          <thead>
-            <tr>
-              <th id="th-pos">POS</th>
-              <th id="th-player">JUGADOR</th>
-              <th id="th-level">NIVEL</th>
-              <th id="th-pts">PUNTOS</th>
-            </tr>
-          </thead>
-          <tbody id="leaderboard-body">
-            <!-- Renderizado dinámico -->
-          </tbody>
-        </table>
+        <div style="font-family: var(--font-display); font-size: 0.78rem; color: var(--neon-cyan); letter-spacing: 1.5px; margin-top: 6px; font-weight: 800;" id="txt-leaderboard-title">🏆 SALÓN DE RÉCORDS (TOP 5)</div>
+        <div class="leaderboard-card-wrapper">
+          <div class="leaderboard-light-sweep-fx"></div>
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th id="th-pos">POS</th>
+                <th id="th-player">JUGADOR</th>
+                <th id="th-level">NIVEL</th>
+                <th id="th-pts">PUNTOS</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- BOTÓN ÚNICO: VOLVER AL INICIO -->
@@ -1588,6 +1750,98 @@
           3: ["GENIUS! 🧠⚡", "SUPERSTAR! 🌟", "KEEP GOING! 💪", "ZAP! ⚡"],
           4: ["CHAMPION! 🏆", "UNSTOPPABLE! 🔥", "MASTER! 👑", "POW! 💥"],
           5: ["LEGENDARY! 🌟👑", "WORLD MASTER! 🌍🔥", "PERFECTION! 💎", "BAM! 💣"]
+        }
+      },
+      ja: {
+        appTitle: "私の世界",
+        diffLabel: "難易度 / 倍率",
+        easy: "簡単",
+        easySub: "16秒 • x1",
+        med: "普通",
+        medSub: "10秒 • x1.5",
+        exp: "エキスパート",
+        expSub: "5秒 • x2.0 ⚡",
+        playBtn: "プレイ",
+        trainBtn: "練習",
+        score: "スコア",
+        streak: "連勝",
+        level: "レベル",
+        lives: "ライフ",
+        trainHudTitle: "探検モード",
+        trainHudSub: "国や海をタップ",
+        trainExit: "メニューに戻る",
+        spinBtn: "地球を回す！",
+        spinningBtn: "回転中...",
+        nextSpinBtn: "次のスピン！",
+        spinAgainBtn: "もう一度回す！",
+        timeoutBtn: "時間切れ！回す",
+        triviaBadge: "知っていましたか？",
+        triviaBtn: "次へ！",
+        gameoverTitle: "ゲームオーバー！",
+        finalScore: "最終スコア:",
+        pointsWord: "ポイント",
+        initialsLabel: "イニシャル4文字を入力:",
+        saveRecordBtn: "記録を保存",
+        hallOfFame: "🏆 殿堂入り (TOP 5)",
+        thPos: "順位",
+        thPlayer: "プレイヤー",
+        thLevel: "難易度",
+        thPts: "スコア",
+        mainMenuBtn: "ホームに戻る",
+        ufoToastBig: "🛸 <span class='alien-hunted-badge'>👽<span class='alien-cross-line'></span></span> UFO撃墜！x2 ボーナス",
+        ufoToastSmall: "🛸 <span class='alien-hunted-badge'>👽<span class='alien-cross-line'></span></span> 高速UFO！x4 ボーナス",
+        ufoBombBoom: "💥 ドカン！💀 -200 点",
+        comicPhrases: {
+          2: ["いこう！ 🚀", "ナイス！ ✨", "最高！ 🔥", "ドカン！ 💥"],
+          3: ["天才！ 🧠⚡", "素晴らしい！ 🌟", "その調子！ 💪", "ザップ！ ⚡"],
+          4: ["チャンピオン！ 🏆", "無敵！ 🔥", "マスター！ 👑", "パウ！ 💥"],
+          5: ["伝説レベル！ 🌟👑", "世界の覇者！ 🌍🔥", "パーフェクト！ 💎", "バム！ 💣"]
+        }
+      },
+      zh: {
+        appTitle: "我的世界",
+        diffLabel: "难度 / 得分倍率",
+        easy: "简单",
+        easySub: "16秒 • x1",
+        med: "中等",
+        medSub: "10秒 • x1.5",
+        exp: "专家",
+        expSub: "5秒 • x2.0 ⚡",
+        playBtn: "开始游戏",
+        trainBtn: "训练模式",
+        score: "得分",
+        streak: "连胜",
+        level: "难度",
+        lives: "生命",
+        trainHudTitle: "探索模式",
+        trainHudSub: "点击国家或海洋",
+        trainExit: "返回菜单",
+        spinBtn: "转动地球！",
+        spinningBtn: "旋转中...",
+        nextSpinBtn: "下一个！",
+        spinAgainBtn: "再次转动！",
+        timeoutBtn: "时间到！转动",
+        triviaBadge: "你知道吗？",
+        triviaBtn: "继续！",
+        gameoverTitle: "游戏结束！",
+        finalScore: "最终得分:",
+        pointsWord: "分",
+        initialsLabel: "输入4位缩写名:",
+        saveRecordBtn: "保存记录",
+        hallOfFame: "🏆 排行榜 (TOP 5)",
+        thPos: "排名",
+        thPlayer: "玩家",
+        thLevel: "难度",
+        thPts: "得分",
+        mainMenuBtn: "返回主页",
+        ufoToastBig: "🛸 <span class='alien-hunted-badge'>👽<span class='alien-cross-line'></span></span> 击落UFO！x2 奖励",
+        ufoToastSmall: "🛸 <span class='alien-hunted-badge'>👽<span class='alien-cross-line'></span></span> 极速UFO！x4 奖励",
+        ufoBombBoom: "💥 轰！💀 -200 分",
+        comicPhrases: {
+          2: ["加油！ 🚀", "太棒了！ ✨", "太厉害了！ 🔥", "轰！ 💥"],
+          3: ["天才！ 🧠⚡", "超神！ 🌟", "继续保持！ 💪", "电击！ ⚡"],
+          4: ["冠军！ 🏆", "势不可挡！ 🔥", "大师级！ 👑", "重击！ 💥"],
+          5: ["传奇巅峰！ 🌟👑", "世界之王！ 🌍🔥", "完美无瑕！ 💎", "炸裂！ 💣"]
         }
       }
     };
