@@ -21,6 +21,11 @@ html_template = """<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   
+  <!-- PREVENCIÓN DE CACHE EN NAVEGADORES, GITHUB PAGES & VERCEL -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <!-- COMPATIBILIDAD TOTAL CON IPHONE (IOS SAFARI) & ANDROID -->
   <title>Mi Mundo / My World</title>
   <meta name="application-name" content="Mi Mundo">
@@ -127,9 +132,9 @@ html_template = """<!DOCTYPE html>
       width: 100%;
       height: 100%;
       height: 100dvh;
-      background: rgba(4, 7, 16, 0.98);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(4, 7, 16, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -140,8 +145,8 @@ html_template = """<!DOCTYPE html>
     }
 
     #splash-screen.hidden {
+      display: none !important;
       opacity: 0;
-      transform: scale(1.05);
       pointer-events: none;
     }
 
