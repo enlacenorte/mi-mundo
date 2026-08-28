@@ -481,38 +481,6 @@ html_template = """<!DOCTYPE html>
       transform: scale(0.95);
     }
 
-    /* Controles de Zoom en Pantalla */
-    .zoom-controls {
-      position: absolute;
-      right: 12px;
-      bottom: 85px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      z-index: 10;
-    }
-
-    .zoom-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(8, 16, 32, 0.88);
-      border: 1.5px solid var(--neon-cyan);
-      color: var(--neon-cyan);
-      font-size: 1.25rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 0 12px rgba(0, 243, 255, 0.35);
-    }
-
-    .zoom-btn:active {
-      transform: scale(0.92);
-      background: rgba(0, 243, 255, 0.3);
-    }
-
     /* Área Central del Globo */
     #globe-container {
       position: relative;
@@ -1221,7 +1189,18 @@ html_template = """<!DOCTYPE html>
       box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
     }
 
-    /* Canvas FX */
+    /* Canvas Fondo Espacial (Estrellas & Cometas) */
+    #bg-space-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Canvas FX (Partículas, Rayos Plasma, Confeti) */
     #fx-canvas {
       position: fixed;
       top: 0;
@@ -1352,18 +1331,15 @@ html_template = """<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- Canvas de Fondo Espacial (Estrellas Parpadeantes y Cometas con Rastro de Fósforo) -->
+  <canvas id="bg-space-canvas"></canvas>
+
+  <!-- Canvas de partículas y rayos FX -->
+  <canvas id="fx-canvas"></canvas>
+
   <!-- Botón de Pantalla Completa y Sonido -->
   <button id="fullscreen-btn" class="fullscreen-toggle-btn" title="Pantalla Completa">⛶</button>
   <button id="sound-btn" class="sound-toggle-btn" title="Activar/Silenciar Sonido">🔊</button>
-
-  <!-- Controles de Zoom en Pantalla -->
-  <div class="zoom-controls">
-    <button id="zoom-in-btn" class="zoom-btn" title="Acercar">+</button>
-    <button id="zoom-out-btn" class="zoom-btn" title="Alejar">−</button>
-  </div>
-
-  <!-- Canvas de partículas FX -->
-  <canvas id="fx-canvas"></canvas>
 
   <div id="app">
     <!-- Header / HUD del Juego -->
@@ -1977,16 +1953,273 @@ html_template = """<!DOCTYPE html>
           osc.stop(t + 1.25);
         } catch(e){}
       }
+
+      playPlasmaZap() {
+        if (this.muted || !this.ctx) return;
+        try {
+          const t = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const filter = this.ctx.createBiquadFilter();
+
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(1200, t);
+          osc.frequency.exponentialRampToValueAtTime(95, t + 0.24);
+
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(2100, t);
+          filter.frequency.exponentialRampToValueAtTime(320, t + 0.24);
+          filter.Q.value = 4.2;
+
+          gain.gain.setValueAtTime(0.18, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.24);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(t);
+          osc.stop(t + 0.24);
+        } catch(e){}
+      }
+
+      playHeartbeat(urgency = 0) {
+        if (this.muted || !this.ctx) return;
+        try {
+          const t = this.ctx.currentTime;
+          
+          // Primer golpe (LUB) - sub-bass profundo y resonante
+          const osc1 = this.ctx.createOscillator();
+          const gain1 = this.ctx.createGain();
+          const filter1 = this.ctx.createBiquadFilter();
+
+          const baseFreq = 54 + urgency * 12;
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(baseFreq, t);
+          osc1.frequency.exponentialRampToValueAtTime(28, t + 0.12);
+
+          filter1.type = 'lowpass';
+          filter1.frequency.setValueAtTime(95, t);
+
+          gain1.gain.setValueAtTime(0.42 + urgency * 0.25, t);
+          gain1.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+
+          osc1.connect(filter1);
+          filter1.connect(gain1);
+          gain1.connect(this.ctx.destination);
+
+          osc1.start(t);
+          osc1.stop(t + 0.13);
+
+          // Segundo golpe (DUB) - 100ms después
+          const t2 = t + 0.095;
+          const osc2 = this.ctx.createOscillator();
+          const gain2 = this.ctx.createGain();
+          const filter2 = this.ctx.createBiquadFilter();
+
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(baseFreq * 0.88, t2);
+          osc2.frequency.exponentialRampToValueAtTime(24, t2 + 0.10);
+
+          filter2.type = 'lowpass';
+          filter2.frequency.setValueAtTime(85, t2);
+
+          gain2.gain.setValueAtTime(0.30 + urgency * 0.20, t2);
+          gain2.gain.exponentialRampToValueAtTime(0.001, t2 + 0.10);
+
+          osc2.connect(filter2);
+          filter2.connect(gain2);
+          gain2.connect(this.ctx.destination);
+
+          osc2.start(t2);
+          osc2.stop(t2 + 0.11);
+
+          if (navigator.vibrate) {
+            navigator.vibrate([22, 45, 16]);
+          }
+        } catch(e){}
+      }
     }
 
     /* ==========================================================================
-       9. SISTEMA FESTIVO DE PAPELITOS DE COLORES Y CONFETI
+       8. SISTEMA DE FONDO ESPACIAL: ESTRELLAS PARPADEANTES & COMETAS CON RASTRO
+       ========================================================================== */
+    class BackgroundSpaceFX {
+      constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d');
+        this.stars = [];
+        this.comets = [];
+        this.lastCometTime = Date.now();
+        this.nextCometInterval = Math.random() * 4000 + 3500;
+        this.resize();
+        this.initStars();
+        window.addEventListener('resize', () => {
+          this.resize();
+          this.initStars();
+        });
+        this.animate = this.animate.bind(this);
+        requestAnimationFrame(this.animate);
+      }
+
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      initStars() {
+        this.stars = [];
+        const count = Math.floor((window.innerWidth * window.innerHeight) / 7200);
+        const colors = ['#ffffff', '#00f3ff', '#ff007f', '#ffe600', '#c77dff', '#70e000'];
+
+        for (let i = 0; i < count; i++) {
+          const isSparkle = (i % 6 === 0);
+          this.stars.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            r: isSparkle ? (Math.random() * 1.6 + 1.2) : (Math.random() * 1.1 + 0.5),
+            baseAlpha: Math.random() * 0.45 + 0.25,
+            phase: Math.random() * Math.PI * 2,
+            speed: Math.random() * 0.035 + 0.015,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            isSparkle: isSparkle
+          });
+        }
+      }
+
+      spawnComet() {
+        const fromLeft = Math.random() > 0.45;
+        const startX = fromLeft ? Math.random() * (this.canvas.width * 0.6) : (Math.random() * (this.canvas.width * 0.4) + this.canvas.width * 0.6);
+        const startY = -40;
+        const angle = fromLeft ? (Math.PI / 4 + (Math.random() - 0.5) * 0.25) : (3 * Math.PI / 4 + (Math.random() - 0.5) * 0.25);
+        const speed = Math.random() * 8 + 9;
+
+        const colors = [
+          { head: '#ffffff', trail: '#00f3ff', glow: 'rgba(0, 243, 255, 0.45)' },
+          { head: '#ffffff', trail: '#ff007f', glow: 'rgba(255, 0, 127, 0.45)' },
+          { head: '#ffffff', trail: '#39ff14', glow: 'rgba(57, 255, 20, 0.45)' },
+          { head: '#ffffff', trail: '#ffe600', glow: 'rgba(255, 230, 0, 0.45)' }
+        ];
+        const colorSet = colors[Math.floor(Math.random() * colors.length)];
+
+        this.comets.push({
+          x: startX,
+          y: startY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          colorSet: colorSet,
+          history: [],
+          maxHistory: 20,
+          alive: true
+        });
+      }
+
+      animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // 1. Estrellas Parpadeantes con destellos en cruz
+        for (let i = 0; i < this.stars.length; i++) {
+          const s = this.stars[i];
+          s.phase += s.speed;
+          const currentAlpha = Math.max(0.1, s.baseAlpha + Math.sin(s.phase) * 0.38);
+
+          this.ctx.save();
+          this.ctx.globalAlpha = currentAlpha;
+          this.ctx.fillStyle = s.color;
+          this.ctx.shadowColor = s.color;
+          this.ctx.shadowBlur = s.isSparkle ? 7 : 2;
+
+          this.ctx.beginPath();
+          this.ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          this.ctx.fill();
+
+          if (s.isSparkle && currentAlpha > 0.42) {
+            this.ctx.strokeStyle = s.color;
+            this.ctx.lineWidth = 0.8;
+            const arm = s.r * 2.8;
+            this.ctx.beginPath();
+            this.ctx.moveTo(s.x - arm, s.y);
+            this.ctx.lineTo(s.x + arm, s.y);
+            this.ctx.moveTo(s.x, s.y - arm);
+            this.ctx.lineTo(s.x, s.y + arm);
+            this.ctx.stroke();
+          }
+
+          this.ctx.restore();
+        }
+
+        // 2. Control de Cometas Aleatorios
+        const now = Date.now();
+        if (now - this.lastCometTime > this.nextCometInterval) {
+          this.spawnComet();
+          this.lastCometTime = now;
+          this.nextCometInterval = Math.random() * 6000 + 4000;
+        }
+
+        // 3. Cometas con Rastro de Fósforo Iluminado
+        for (let i = this.comets.length - 1; i >= 0; i--) {
+          const c = this.comets[i];
+          c.history.unshift({ x: c.x, y: c.y });
+          if (c.history.length > c.maxHistory) c.history.pop();
+
+          c.x += c.vx;
+          c.y += c.vy;
+
+          if (c.x < -150 || c.x > this.canvas.width + 150 || c.y > this.canvas.height + 150) {
+            c.alive = false;
+          }
+
+          if (!c.alive && c.history.length === 0) {
+            this.comets.splice(i, 1);
+            continue;
+          }
+
+          this.ctx.save();
+
+          if (c.history.length > 1) {
+            for (let h = 0; h < c.history.length - 1; h++) {
+              const p1 = c.history[h];
+              const p2 = c.history[h + 1];
+              const trailPct = 1 - (h / c.history.length);
+
+              this.ctx.strokeStyle = c.colorSet.trail;
+              this.ctx.globalAlpha = trailPct * 0.85;
+              this.ctx.lineWidth = Math.max(0.6, trailPct * 3.8);
+              this.ctx.shadowColor = c.colorSet.trail;
+              this.ctx.shadowBlur = 12;
+
+              this.ctx.beginPath();
+              this.ctx.moveTo(p1.x, p1.y);
+              this.ctx.lineTo(p2.x, p2.y);
+              this.ctx.stroke();
+            }
+          }
+
+          this.ctx.globalAlpha = 1;
+          this.ctx.fillStyle = c.colorSet.head;
+          this.ctx.shadowColor = c.colorSet.trail;
+          this.ctx.shadowBlur = 16;
+          this.ctx.beginPath();
+          this.ctx.arc(c.x, c.y, 3.0, 0, Math.PI * 2);
+          this.ctx.fill();
+
+          this.ctx.restore();
+        }
+
+        requestAnimationFrame(this.animate);
+      }
+    }
+
+    /* ==========================================================================
+       9. SISTEMA FESTIVO DE CONFETI Y RAYOS DE PLASMA CONTRA LA TIERRA
        ========================================================================== */
     class NeonParticlesFX {
       constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
         this.particles = [];
+        this.plasmaBolts = [];
+        this.plasmaSparks = [];
         this.resize();
         window.addEventListener('resize', () => this.resize());
         this.animate = this.animate.bind(this);
@@ -2027,8 +2260,155 @@ html_template = """<!DOCTYPE html>
         }
       }
 
+      spawnPlasmaBolt(startX, startY, endX, endY) {
+        const segments = [];
+        const numSegments = 16;
+        let prevX = startX;
+        let prevY = startY;
+
+        for (let i = 1; i <= numSegments; i++) {
+          const t = i / numSegments;
+          const baseX = startX + (endX - startX) * t;
+          const baseY = startY + (endY - startY) * t;
+
+          const maxDisplacement = Math.sin(t * Math.PI) * 32;
+          const offsetX = (Math.random() - 0.5) * maxDisplacement;
+          const offsetY = (Math.random() - 0.5) * maxDisplacement;
+
+          const curX = (i === numSegments) ? endX : baseX + offsetX;
+          const curY = (i === numSegments) ? endY : baseY + offsetY;
+
+          segments.push({ x1: prevX, y1: prevY, x2: curX, y2: curY });
+          prevX = curX;
+          prevY = curY;
+        }
+
+        const branches = [];
+        for (let b = 0; b < 3; b++) {
+          const branchIdx = Math.floor(Math.random() * (segments.length - 6)) + 3;
+          const origin = segments[branchIdx];
+          let bx = origin.x1;
+          let by = origin.y1;
+          const bSegs = [];
+          for (let s = 0; s < 4; s++) {
+            const nextBx = bx + (Math.random() - 0.5) * 38;
+            const nextBy = by + Math.random() * 26 + 12;
+            bSegs.push({ x1: bx, y1: by, x2: nextBx, y2: nextBy });
+            bx = nextBx;
+            by = nextBy;
+          }
+          branches.push(bSegs);
+        }
+
+        const boltColor = Math.random() > 0.5 ? '#ff007f' : '#00f3ff';
+        this.plasmaBolts.push({
+          segments: segments,
+          branches: branches,
+          alpha: 1.0,
+          decay: 0.05,
+          impactX: endX,
+          impactY: endY,
+          color: boltColor
+        });
+
+        // Chispas de impacto en la Tierra
+        for (let k = 0; k < 18; k++) {
+          const ang = Math.random() * Math.PI * 2;
+          const spd = Math.random() * 4.5 + 2.2;
+          this.plasmaSparks.push({
+            x: endX,
+            y: endY,
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd,
+            alpha: 1.0,
+            decay: 0.045,
+            color: boltColor
+          });
+        }
+      }
+
       animate() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // 1. Rayos de Plasma del OVNI
+        for (let i = this.plasmaBolts.length - 1; i >= 0; i--) {
+          const bolt = this.plasmaBolts[i];
+          bolt.alpha -= bolt.decay;
+          if (bolt.alpha <= 0) {
+            this.plasmaBolts.splice(i, 1);
+            continue;
+          }
+
+          this.ctx.save();
+          this.ctx.globalAlpha = bolt.alpha;
+
+          // Capa exterior de resplandor neón
+          this.ctx.strokeStyle = bolt.color;
+          this.ctx.lineWidth = 6;
+          this.ctx.shadowColor = bolt.color;
+          this.ctx.shadowBlur = 18;
+          this.ctx.beginPath();
+          bolt.segments.forEach(seg => {
+            this.ctx.moveTo(seg.x1, seg.y1);
+            this.ctx.lineTo(seg.x2, seg.y2);
+          });
+          this.ctx.stroke();
+
+          // Capa interna blanca brillante
+          this.ctx.strokeStyle = '#ffffff';
+          this.ctx.lineWidth = 1.8;
+          this.ctx.beginPath();
+          bolt.segments.forEach(seg => {
+            this.ctx.moveTo(seg.x1, seg.y1);
+            this.ctx.lineTo(seg.x2, seg.y2);
+          });
+          this.ctx.stroke();
+
+          // Ramificaciones de plasma
+          bolt.branches.forEach(bSegs => {
+            this.ctx.strokeStyle = bolt.color;
+            this.ctx.lineWidth = 2.2;
+            this.ctx.beginPath();
+            bSegs.forEach(seg => {
+              this.ctx.moveTo(seg.x1, seg.y1);
+              this.ctx.lineTo(seg.x2, seg.y2);
+            });
+            this.ctx.stroke();
+          });
+
+          // Anillo de impacto en la Tierra
+          this.ctx.strokeStyle = bolt.color;
+          this.ctx.lineWidth = 3;
+          this.ctx.beginPath();
+          this.ctx.arc(bolt.impactX, bolt.impactY, (1 - bolt.alpha) * 28 + 6, 0, Math.PI * 2);
+          this.ctx.stroke();
+
+          this.ctx.restore();
+        }
+
+        // 2. Chispas de plasma
+        for (let i = this.plasmaSparks.length - 1; i >= 0; i--) {
+          const spk = this.plasmaSparks[i];
+          spk.x += spk.vx;
+          spk.y += spk.vy;
+          spk.alpha -= spk.decay;
+          if (spk.alpha <= 0) {
+            this.plasmaSparks.splice(i, 1);
+            continue;
+          }
+
+          this.ctx.save();
+          this.ctx.globalAlpha = spk.alpha;
+          this.ctx.fillStyle = spk.color;
+          this.ctx.shadowColor = spk.color;
+          this.ctx.shadowBlur = 8;
+          this.ctx.beginPath();
+          this.ctx.arc(spk.x, spk.y, 2.2, 0, Math.PI * 2);
+          this.ctx.fill();
+          this.ctx.restore();
+        }
+
+        // 3. Confeti
         for (let i = this.particles.length - 1; i >= 0; i--) {
           const p = this.particles[i];
           p.x += p.vx;
@@ -2053,6 +2433,7 @@ html_template = """<!DOCTYPE html>
           this.ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
           this.ctx.restore();
         }
+
         requestAnimationFrame(this.animate);
       }
     }
@@ -2847,6 +3228,8 @@ html_template = """<!DOCTYPE html>
 
         this.el.style.display = 'block';
         this.timeAlive = Date.now();
+        this.lastZapTime = Date.now();
+        this.nextZapInterval = Math.random() * 800 + 1000;
 
         audioSynth.startUfoSound(this.isFast);
         this.updatePos();
@@ -2872,6 +3255,30 @@ html_template = """<!DOCTYPE html>
         if (this.y > window.innerHeight * 0.6) this.vy = -Math.abs(this.vy);
 
         this.el.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
+
+        // RAYOS DE PLASMA ALEATORIOS CONTRA LA TIERRA
+        const now = Date.now();
+        if (now - this.lastZapTime > this.nextZapInterval) {
+          this.lastZapTime = now;
+          this.nextZapInterval = Math.random() * 1100 + 1300;
+
+          const ufoCenterX = this.x + (this.isFast ? 23 : 33);
+          const ufoBottomY = this.y + (this.isFast ? 30 : 42);
+
+          const globeRect = globe.canvas.getBoundingClientRect();
+          const globeCenterX = globeRect.left + globeRect.width / 2;
+          const globeCenterY = globeRect.top + globeRect.height / 2;
+          const radius = (globeRect.width / 2) * 0.85;
+
+          const impactAngle = Math.random() * Math.PI * 2;
+          const targetX = globeCenterX + Math.cos(impactAngle) * (radius * (Math.random() * 0.75 + 0.25));
+          const targetY = globeCenterY + Math.sin(impactAngle) * (radius * (Math.random() * 0.75 + 0.25));
+
+          if (particlesFX) {
+            particlesFX.spawnPlasmaBolt(ufoCenterX, ufoBottomY, targetX, targetY);
+          }
+          audioSynth.playPlasmaZap();
+        }
 
         const outOfBounds = (this.vx > 0 && this.x > window.innerWidth + 80) || (this.vx < 0 && this.x < -80);
         const expired = (Date.now() - this.timeAlive > 7200);
@@ -2978,7 +3385,9 @@ html_template = """<!DOCTYPE html>
        14. CONTROLADOR PRINCIPAL DEL JUEGO BILINGÜE
        ========================================================================== */
     const audioSynth = new NeonAudioSynth();
+    const bgSpaceFX = new BackgroundSpaceFX('bg-space-canvas');
     const particlesFX = new NeonParticlesFX('fx-canvas');
+    window.particlesFX = particlesFX;
     const scoreManager = new HighScoreManager();
     const ufoManager = new RetroUFOManager('ufo-element', 'ufo-bomb');
     const typewriterManager = new TeletypeConsoleManager('training-teletype-bar', 'teletype-content', 'teletype-flag-container', 'teletype-close-btn');
@@ -3020,8 +3429,6 @@ html_template = """<!DOCTYPE html>
     const splashTrainBtn = document.getElementById('splash-train-btn');
     const trainingHud = document.getElementById('training-hud');
     const trainingExitBtn = document.getElementById('training-exit-btn');
-    const zoomInBtn = document.getElementById('zoom-in-btn');
-    const zoomOutBtn = document.getElementById('zoom-out-btn');
     const comicToast = document.getElementById('comic-toast');
     const comicToastText = document.getElementById('comic-toast-text');
 
@@ -3176,9 +3583,6 @@ html_template = """<!DOCTYPE html>
         setLanguage(btn.dataset.lang);
       });
     });
-
-    zoomInBtn.addEventListener('click', () => globe.zoomIn());
-    zoomOutBtn.addEventListener('click', () => globe.zoomOut());
 
     function setupDiffButtons(containerId) {
       document.querySelectorAll(`#${containerId} .diff-btn`).forEach(btn => {
@@ -3387,11 +3791,24 @@ html_template = """<!DOCTYPE html>
       isAnswering = true;
 
       let lastAlarmSecond = -1;
+      let lastHeartbeatTime = Date.now();
 
       timerInterval = setInterval(() => {
         timeLeft -= 0.1;
         const pct = Math.max(0, (timeLeft / totalRoundTime) * 100);
         timerBar.style.width = `${pct}%`;
+
+        // LATIDO DE CORAZÓN DE SONIDO ULTRA BAJO QUE SE ACELERA (Sub-Bass Heartbeat)
+        const timeFraction = Math.max(0, timeLeft / totalRoundTime);
+        if (timeFraction <= 0.65 && timeLeft > 0) {
+          // El intervalo entre latidos disminuye de 1.3s a 0.35s conforme se agota el tiempo
+          const currentHeartbeatInterval = Math.max(340, 1300 * Math.pow(timeFraction, 1.25));
+          const now = Date.now();
+          if (now - lastHeartbeatTime >= currentHeartbeatInterval) {
+            lastHeartbeatTime = now;
+            audioSynth.playHeartbeat(1 - timeFraction);
+          }
+        }
 
         const alarmThreshold = currentDifficulty === 'hard' ? 2.0 : 3.2;
         if (timeLeft <= alarmThreshold && timeLeft > 0) {
