@@ -214,18 +214,18 @@ html_template = """<!DOCTYPE html>
 
     .splash-logo-radar {
       position: relative;
-      width: 86px;
-      height: 86px;
-      border: 2.5px solid var(--neon-cyan);
+      width: 130px;
+      height: 130px;
+      border: 3.5px solid var(--neon-cyan);
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       background: radial-gradient(circle, rgba(0, 243, 255, 0.28) 0%, rgba(10, 22, 54, 0.92) 75%);
       box-shadow: 
-        0 0 38px rgba(0, 243, 255, 0.85),
-        inset 0 0 25px rgba(0, 243, 255, 0.5),
-        0 0 65px rgba(255, 0, 127, 0.45);
+        0 0 48px rgba(0, 243, 255, 0.85),
+        inset 0 0 35px rgba(0, 243, 255, 0.5),
+        0 0 85px rgba(255, 0, 127, 0.45);
       animation: globePulseBreath 2.4s ease-in-out infinite alternate;
     }
 
@@ -235,10 +235,10 @@ html_template = """<!DOCTYPE html>
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      border-top: 3.5px solid var(--neon-magenta);
-      border-right: 3.5px solid transparent;
+      border-top: 4px solid var(--neon-magenta);
+      border-right: 4px solid transparent;
       animation: radarSpin 2.2s linear infinite;
-      filter: drop-shadow(0 0 8px var(--neon-magenta));
+      filter: drop-shadow(0 0 10px var(--neon-magenta));
     }
 
     @keyframes radarSpin {
@@ -249,32 +249,32 @@ html_template = """<!DOCTYPE html>
     @keyframes globePulseBreath {
       0% {
         transform: scale(0.95);
-        box-shadow: 0 0 26px rgba(0, 243, 255, 0.6), inset 0 0 16px rgba(0, 243, 255, 0.4), 0 0 45px rgba(255, 0, 127, 0.35);
+        box-shadow: 0 0 32px rgba(0, 243, 255, 0.6), inset 0 0 20px rgba(0, 243, 255, 0.4), 0 0 55px rgba(255, 0, 127, 0.35);
         border-color: var(--neon-cyan);
       }
       50% {
         transform: scale(1.05);
-        box-shadow: 0 0 50px rgba(0, 243, 255, 1), inset 0 0 32px rgba(255, 230, 0, 0.65), 0 0 80px rgba(255, 0, 127, 0.7);
+        box-shadow: 0 0 60px rgba(0, 243, 255, 1), inset 0 0 40px rgba(255, 230, 0, 0.65), 0 0 95px rgba(255, 0, 127, 0.7);
         border-color: var(--neon-gold);
       }
       100% {
         transform: scale(1.08);
-        box-shadow: 0 0 60px rgba(0, 243, 255, 1), inset 0 0 40px rgba(0, 243, 255, 0.8), 0 0 100px rgba(255, 0, 127, 0.85);
+        box-shadow: 0 0 75px rgba(0, 243, 255, 1), inset 0 0 50px rgba(0, 243, 255, 0.8), 0 0 120px rgba(255, 0, 127, 0.85);
         border-color: var(--neon-magenta);
       }
     }
 
     .splash-globe-icon {
-      font-size: 2.85rem;
-      filter: drop-shadow(0 0 16px #00f3ff) drop-shadow(0 0 30px #ff007f);
+      font-size: 4.3rem;
+      filter: drop-shadow(0 0 22px #00f3ff) drop-shadow(0 0 40px #ff007f);
       animation: globeHeartbeatLatency 2.4s ease-in-out infinite alternate;
       line-height: 1;
     }
 
     @keyframes globeHeartbeatLatency {
-      0% { transform: scale(0.92) rotate(0deg); filter: drop-shadow(0 0 14px #00f3ff); }
-      50% { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 30px #ffe600) drop-shadow(0 0 45px #ff007f); }
-      100% { transform: scale(1.03) rotate(-5deg); filter: drop-shadow(0 0 26px #00f3ff) drop-shadow(0 0 40px #39ff14); }
+      0% { transform: scale(0.92) rotate(0deg); filter: drop-shadow(0 0 18px #00f3ff); }
+      50% { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 38px #ffe600) drop-shadow(0 0 55px #ff007f); }
+      100% { transform: scale(1.03) rotate(-5deg); filter: drop-shadow(0 0 32px #00f3ff) drop-shadow(0 0 50px #39ff14); }
     }
 
     /* Botón Compartir por WhatsApp */
@@ -324,22 +324,22 @@ html_template = """<!DOCTYPE html>
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 6px 14px;
-      margin: 2px 0 4px 0;
+      padding: 8px 18px;
+      margin: 4px 0 6px 0;
       background: radial-gradient(ellipse at center, rgba(35, 22, 6, 0.95) 0%, rgba(10, 5, 2, 0.98) 100%);
-      border: 2.5px solid #ffe600;
-      border-radius: 14px;
+      border: 3px solid #ffe600;
+      border-radius: 16px;
       box-shadow: 
-        0 0 22px rgba(255, 230, 0, 0.5),
-        inset 0 0 14px rgba(255, 140, 0, 0.4),
-        0 0 32px rgba(255, 0, 127, 0.25);
+        0 0 28px rgba(255, 230, 0, 0.55),
+        inset 0 0 18px rgba(255, 140, 0, 0.45),
+        0 0 42px rgba(255, 0, 127, 0.3);
     }
 
     .splash-title.marquee-bulb-title {
       font-family: var(--font-display);
-      font-size: clamp(1.45rem, 6.6vw, 2.1rem);
+      font-size: clamp(2.15rem, 9.8vw, 3.15rem);
       font-weight: 900;
-      letter-spacing: 3.5px;
+      letter-spacing: 4.5px;
       text-transform: uppercase;
       line-height: 1.15;
       color: #ffe600;
@@ -350,7 +350,7 @@ html_template = """<!DOCTYPE html>
       background-size: 6px 6px, 300% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 10px rgba(255, 230, 0, 0.85)) drop-shadow(0 0 24px rgba(255, 102, 0, 0.7));
+      filter: drop-shadow(0 0 12px rgba(255, 230, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 102, 0, 0.75));
       animation: marqueeBulbMotion 1.8s linear infinite;
     }
 
@@ -4064,9 +4064,9 @@ html_template = """<!DOCTYPE html>
 
       reset() {
         this.clear();
-        const isTraining = globe && globe.isTrainingMode;
-        const isGameOverOpen = gameModal && !gameModal.classList.contains('hidden');
-        if (isTraining || isGameOverOpen) {
+        // Si la pantalla inicial está oculta, el usuario está jugando, entrenando o en records
+        const isNotSplash = splashScreen && splashScreen.classList.contains('hidden');
+        if (isNotSplash) {
           this.timer = setTimeout(() => {
             this.onTimeout();
           }, this.timeoutMs);
@@ -4082,26 +4082,40 @@ html_template = """<!DOCTYPE html>
 
       onTimeout() {
         this.clear();
-        if (globe && globe.isTrainingMode) {
-          typewriterManager.hideImmediate();
+        if (triviaDismissTimer) {
+          clearTimeout(triviaDismissTimer);
+          triviaDismissTimer = null;
+        }
+        clearInterval(timerInterval);
+        isAnswering = false;
+
+        if (triviaModal) triviaModal.classList.add('hidden');
+        if (gameModal) gameModal.classList.add('hidden');
+
+        if (globe) {
           globe.isTrainingMode = false;
           globe.selectedFeature = null;
           globe.selectedWater = null;
-          trainingHud.style.display = 'none';
-          hudBar.style.display = 'flex';
-          splashScreen.classList.remove('hidden');
           globe.resetZoom();
         }
-        if (gameModal && !gameModal.classList.contains('hidden')) {
-          gameModal.classList.add('hidden');
-          splashScreen.classList.remove('hidden');
-        }
+        if (typewriterManager) typewriterManager.hideImmediate();
+        if (ufoManager) ufoManager.dismiss();
+        if (audioSynth) audioSynth.stopUfoSound();
+
+        if (trainingHud) trainingHud.style.display = 'none';
+        if (hudBar) hudBar.style.display = 'none';
+        if (countryCard) countryCard.style.display = 'none';
+        if (optionsContainer) optionsContainer.style.display = 'none';
+        if (timerContainer) timerContainer.style.display = 'none';
+        if (spinBtn) spinBtn.style.display = 'none';
+
+        if (splashScreen) splashScreen.classList.remove('hidden');
       }
     };
 
     ['pointerdown', 'touchstart', 'mousemove', 'keydown', 'wheel'].forEach(evt => {
       window.addEventListener(evt, () => {
-        if ((globe && globe.isTrainingMode) || (gameModal && !gameModal.classList.contains('hidden'))) {
+        if (splashScreen && splashScreen.classList.contains('hidden')) {
           InactivityManager.reset();
         }
       }, { passive: true });
@@ -4132,7 +4146,7 @@ html_template = """<!DOCTYPE html>
     splashStartBtn.addEventListener('click', () => {
       audioSynth.init();
       tryEnterFullscreen();
-      InactivityManager.clear();
+      InactivityManager.reset();
       ufoManager.dismiss();
       typewriterManager.hideImmediate();
       if (navigator.vibrate) navigator.vibrate(30);
@@ -4143,6 +4157,8 @@ html_template = """<!DOCTYPE html>
       trainingHud.style.display = 'none';
       totalRoundTime = TIME_LIMITS[currentDifficulty];
       resetGame();
+      // Primer giro 100% automático sin necesidad de que el usuario pulse el botón
+      spinBtn.click();
     });
 
     // Iniciar Entrenamiento (Giro Libre, Sin Selección Inicial, Pantalla Despejada)
