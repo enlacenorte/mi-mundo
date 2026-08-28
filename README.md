@@ -1,171 +1,168 @@
-# 🌍 Mi Mundo / My World / 私の世界 / 我的世界 / عالمي
+# 🌍 My World (Mi Mundo / 私の世界 / 我的世界 / عالمي)
 
 <div align="center">
 
-![Mi Mundo - Videojuego Infantil Educativo](https://img.shields.io/badge/🎮_Mi_Mundo-Videojuego_Educativo_Gratuito-00f3ff?style=for-the-badge)
-[![Vercel Live](https://img.shields.io/badge/🚀_Jugar_en_Vivo-myworld--play.vercel.app-ff007f?style=for-the-badge&logo=vercel)](https://myworld-play.vercel.app)
+![My World - Free Kids Geography Game](https://img.shields.io/badge/🎮_My_World-Free_Educational_Game-00f3ff?style=for-the-badge)
+[![Play Live on Vercel](https://img.shields.io/badge/🚀_Play_Live-myworld--play.vercel.app-ff007f?style=for-the-badge&logo=vercel)](https://myworld-play.vercel.app)
 [![GitHub Pages](https://img.shields.io/badge/🌐_GitHub_Pages-enlacenorte.github.io-39ff14?style=for-the-badge&logo=github)](https://enlacenorte.github.io/mi-mundo/)
 
-### 🎮 **Videojuego Gratuito Infantil y Familiar para Aprender Geografía Jugando**
-### 🌟 *100% Free Educational Kids Game: Learn World Geography, Capitals, Oceans & Currencies through 3D Vector Play*
-> **Dedicado con todo el ❤️ a Francisco Giudice / Dedicated with love to Francisco Giudice**
+### 🎮 **Free Interactive 3D Geography Quiz, World Capitals Challenge & Planetary Exploration Game for Kids, Families and Schools**
+> **Dedicated with ❤️ to Francisco Giudice**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Children & Schools](https://img.shields.io/badge/Público-Niños%20y%20Escuelas%20(100%25%20Seguro)-39ff14)](https://myworld-play.vercel.app)
-[![Languages](https://img.shields.io/badge/Idiomas-5_Idiomas_(ES_·_EN_·_JA_·_ZH_·_AR)-ffe600)](#-soporte-multilingüe-en-5-idiomas--5-languages)
-[![Single-File HTML5](https://img.shields.io/badge/HTML5-Single--File_App-E34F26?logo=html5&logoColor=white)](https://html.spec.whatwg.org/)
+[![Kids & Classroom Safe](https://img.shields.io/badge/Audience-Kids%20%26%20Classrooms%20(100%25%20Safe)-39ff14)](https://myworld-play.vercel.app)
+[![Category](https://img.shields.io/badge/Category-Educational%20Kids%20Game%20%7C%20Geography%20Trivia%20%7C%20World%20Challenge-ff007f)](https://github.com/enlacenorte/mi-mundo)
+[![5 Global Languages](https://img.shields.io/badge/Languages-EN%20·%20ES%20·%20JA%20·%20ZH%20·%20AR%20(RTL)-ffe600)](#-multilingual-architecture-5-languages)
+[![Single-File HTML5](https://img.shields.io/badge/HTML5-Zero--Dependency%20App-E34F26?logo=html5&logoColor=white)](https://html.spec.whatwg.org/)
 [![D3.js v7](https://img.shields.io/badge/D3.js-v7_Orthographic_Globe-F9A03C?logo=d3.js&logoColor=white)](https://d3js.org/)
-[![Web Audio API](https://img.shields.io/badge/Audio-Synthesized_Chiptune-00f3ff)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+[![Web Audio API](https://img.shields.io/badge/Audio-Procedural_Chiptune_Synth-00f3ff)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 
 </div>
 
 ---
 
-## 🌟 ¿Qué es "Mi Mundo"? / What is "Mi Mundo"?
+## 🌟 Overview / About "My World"
 
-**Mi Mundo (My World)** es un videojuego web educativo **100% gratuito**, interactivo, seguro y sin publicidad, desarrollado especialmente para que niñas, niños, estudiantes y familias exploren el planeta Tierra y aprendan geografía de forma inmersiva y entretenida.
+**My World** is a **100% free, child-safe, ad-free educational web game** designed for children, students, teachers, and curious minds to explore Earth and master world geography through play.
 
-Combinando la emoción de los juegos arcade retro con la cartografía geoespacial moderna, el jugador interactúa con un **globo terráqueo vectorial 3D**, respondiendo preguntas sobre países y capitales, descubriendo datos curiosos, explorando océanos y mares, consultando husos horarios en tiempo real y cazando platillos voladores con efectos de sonido chiptune sintetizados en tiempo real.
+Blending the thrills of retro 80s arcade gaming with modern interactive geospatial visualization, players spin a **real-time 3D vector globe**, answer multiple-choice capital questions, discover fascinating geographic trivia, explore closed seas and oceans, check live local time across timezones, and zap flying saucers in a bonus mini-game with chiptune sound effects synthesized directly in the browser.
 
-> 🔒 **100% Seguro para Niños**: Cero anuncios, cero compras dentro de la aplicación, cero recolección de datos personales, funciona directamente en el navegador sin descargas.
-
----
-
-## 🕹️ Modos de Juego / Game Modes
-
-### 1. 🏆 Modo Partida / Quiz de Capitales del Mundo
-* **Giro Cinemático y Centrado 3D**: Al pulsar "JUGAR", el planeta realiza un primer giro automático suave y enfoca el país objetivo con trayectorias esféricas (*Great-Circle*).
-* **Multiple Choice Inteligente**: Cuatro opciones de respuesta donde las 3 opciones incorrectas (distractores) pertenecen al mismo continente o región geográfica para fomentar el razonamiento y deducción.
-* **3 Niveles de Dificultad Dinámicos**:
-  * 🟢 **Fácil**: 16 segundos por pregunta (Multiplicador x1.0).
-  * 🟡 **Medio**: 10 segundos por pregunta (Multiplicador x1.5).
-  * 🔴 **Experto**: 5 segundos por pregunta con alarma visual y sonora (Multiplicador x2.0 ⚡).
-* **🛸 Minijuego de OVNI Estilo Asteroids**:
-  * Naves extraterrestres cruzan la pantalla de forma casual con efectos sonoros retro.
-  * ¡Tocar el OVNI a tiempo otorga un multiplicador de bonificación (x2 o x4) y un cartel cómic alien!
-  * Si el OVNI escapa, suelta una bomba que genera un temblor sísmico en pantalla y activa una alarma roja en el planeta.
-* **🏆 Salón de Récords (TOP 10)**:
-  * Tabla con las 10 mejores puntuaciones históricas (🥇 1°, 🥈 2°, 🥉 3° y 4° a 10°).
-  * Solo los jugadores que logran entrar en los diez primeros puestos acceden al registro de sus 4 iniciales.
-  * Persistencia garantizada en almacenamiento local del navegador.
-
-### 2. 🧭 Modo Exploración Libre y Entrenamiento (Free Exploration)
-* **Atlas Completo de 177 Países Soberanos**: Toca cualquier país del mundo para desplegar su ficha técnica completa (Capital, Continente, Población estimada, Idiomas oficiales, Fecha de independencia/fundación, Moneda con símbolo y Bandera en alta definición).
-* **🕒 Hora Local en Tiempo Real**: Muestra el reloj en vivo con la hora exacta de la capital seleccionada calculada según su zona horaria IANA oficial.
-* **🌊 23 Mares y Océanos Interactivos**: Identifica y resalta con anillos luminosos mares cerrados y semi-cerrados (*Mar Caspio, Mar Negro, Mar Mediterráneo, Mar Rojo, Golfo Pérsico, Mar Báltico, Mar del Norte, Mar Caribe, etc.*) y grandes masas de agua oceánicas (*Pacífico, Atlántico, Índico, Ártico, Antártico*).
-* **Consola Telegráfica Retro con Sonido de Teclado Mecánico**: Efecto máquina de escribir con audio procedural de clics mecánicos.
+> 🛡️ **100% Child & Classroom Safe**: Zero advertisements, zero in-app purchases, zero account registration, and zero data tracking. Runs smoothly on all modern browsers (smartphones, tablets, Chromebooks, and PCs).
 
 ---
 
-## 🌐 Soporte Multilingüe en 5 Idiomas / 5 Languages
+## 🕹️ Game Modes & Features
 
-El juego cuenta con traducción **100% nativa e integral** (sin textos en inglés mezclados ni traducciones automáticas rotas) en 5 idiomas globales:
+### 1. 🏆 Capitals Challenge & World Quiz Mode
+* **Cinematic 3D Globe Navigation**: Clicking **"PLAY"** triggers an automatic smooth spherical spin (*Great-Circle interpolation*) to lock onto the target country.
+* **Intelligent Regional Distractors**: Multiple-choice options feature capitals from the same continent or neighboring region to encourage critical geographical reasoning rather than blind guessing.
+* **3 Dynamic Difficulty Tiers**:
+  * 🟢 **Easy**: 16 seconds per question (x1.0 multiplier).
+  * 🟡 **Medium**: 10 seconds per question (x1.5 multiplier).
+  * 🔴 **Expert**: 5 seconds per question with pulsating visual and auditory emergency alarms (x2.0 multiplier ⚡).
+* **🛸 Retro UFO Asteroids Bonus Mini-Game**:
+  * Flying saucers casually streak across the sky with retro chiptune audio.
+  * Zapping a UFO awards **multiplier bonuses (x2 or x4)** with a comic-style crossed-out alien badge (`👽🚫`).
+  * If a UFO escapes, it drops an explosive bomb causing a **2-second earthquake screen shake, mobile haptic vibration, and fluorescent red globe alert shockwaves**.
+* **🏆 Hall of Fame (Top 10 Scoreboard)**:
+  * Persistent 10-slot leaderboard (`1st` to `10th` with 🥇, 🥈, 🥉 medals).
+  * Players only unlock the 4-initial registration form if their score qualifies for the **Top 10**.
 
-| Idioma | Nombre | Código | Características |
+### 2. 🧭 Free Planetary Exploration Mode (Training)
+* **Comprehensive 177-Country Atlas**: Tap any country to inspect its capital, continent, population, official languages, independence/foundation year, currency name/symbol, and high-definition SVG flag.
+* **🕒 Live Local Time per Country**: Real-time digital clock displaying the current time for each capital based on official IANA timezones.
+* **🌊 23 Interactive Seas & Oceans**: Tap water bodies to identify and highlight closed and semi-closed seas (*Caspian Sea, Black Sea, Mediterranean, Red Sea, Persian Gulf, Baltic Sea, North Sea, Caribbean Sea, Sea of Japan, Coral Sea, Bering Sea, etc.*) and the 5 major oceans (*Pacific, Atlantic, Indian, Arctic, Antarctic*).
+* **Retro Teletype Console**: Vintage typewriter effect with mechanical key click audio (`playKeyClick()`) and automatic dismissal timer.
+
+---
+
+## 🌐 Multilingual Architecture (5 Languages)
+
+**My World** includes **100% native, full-sentence translations** with zero mixed English/Spanish fallback strings:
+
+| Language | Native Name | Code | Highlights |
 | :--- | :--- | :---: | :--- |
-| **Español** | Español | `es` | Vocabulario geográfico educativo y carteles de cómic clásicos. |
-| **Inglés** | English | `en` | Vocabulario internacional estandarizado. |
-| **Japonés** | 日本語 | `ja` | Tipografía adaptada, nombres de países en Katakana/Kanji y términos geográficos precisos. |
-| **Chino** | 中文 | `zh` | Caracteres simplificados estándar para todas las naciones, capitales y hechos. |
-| **Árabe** | العربية | `ar` | Tipografía árabe nativa con soporte de lectura de derecha a izquierda (**RTL**). |
+| **English** | English | `en` | Standardized international geographic terminology. |
+| **Spanish** | Español | `es` | Educational vocabulary and classic comic celebration toasts. |
+| **Japanese** | 日本語 | `ja` | Authentic Katakana country names, Kanji geographical taxonomy, and localized trivia. |
+| **Chinese** | 中文 | `zh` | Simplified Chinese characters across all 177 nations, 23 seas, and 155 facts. |
+| **Arabic** | العربية | `ar` | Native Arabic typography with seamless Right-to-Left (**RTL**) layout support. |
 
 ---
 
-## 🛠️ Especificaciones Técnicas y Arquitectura / Technical Specifications
+## 🛠️ Technical Architecture & Engineering Specifications
 
 ```
 mi-mundo/
-├── index.html                   # Build de producción monolítico (HTML5 + CSS + JS + Datos)
-├── adivina_las_capitales.html   # Build maestro de desarrollo
-├── build_master_html.py         # Compilador maestro de datos e interfaz
-├── atlas_5l.json                # Base de datos de 177 países en 5 idiomas
-├── oceans_5l.json               # Base de datos de 23 mares y océanos en 5 idiomas
-├── trivia_155.json              # 155 curiosidades geográficas traducidas a 5 idiomas
-├── countries-110m.json          # Topología geoespacial TopoJSON de continentes
-└── README.md                    # Documentación técnica y pedagógica
+├── index.html                   # Monolithic production bundle (HTML5 + CSS + JS + Datasets)
+├── adivina_las_capitales.html   # Master development build
+├── build_master_html.py         # Python dataset & HTML compiler
+├── atlas_5l.json                # 177-country dataset in 5 languages
+├── oceans_5l.json               # 23 oceans & seas dataset in 5 languages
+├── trivia_155.json              # 155 geographic trivia facts in 5 languages
+├── countries-110m.json          # TopoJSON geospatial vector topology
+└── README.md                    # Technical & pedagogical documentation
 ```
 
-### 1. Motor de Globo Vectorial 3D (`NeonVectorGlobe`)
-- **Proyección**: Proyección ortográfica D3.js (`d3.geoOrthographic`) combinada con trazado de caminos en Canvas 2D (`d3.geoPath`).
-- **Navegación Esférica**: Interpolación de rotación mediante cálculo de gran círculo (*Spherical Slerp / Great-Circle Navigation*), evitando distorsiones polares y asegurando transiciones suaves a 60 FPS.
-- **Detección Geométrica**: Algoritmo `d3.geoContains` para detección por coordenadas táctiles/cursor de países, complementado con cálculo de distancia geodésica euclidiana/esférica para identificar los 23 mares y océanos.
-- **Efectos Neón Multi-Capa**: Renderizado de atmósfera terrestre con gradientes radiales, halos de luz cian/magenta y efecto de onda de choque roja durante impactos de bomba.
+### 1. 3D Vector Globe Engine (`NeonVectorGlobe`)
+- **Rendering & Projection**: Built on [D3.js v7](https://d3js.org/) using `d3.geoOrthographic` and rendered onto an HTML5 2D Canvas (`d3.geoPath`).
+- **Spherical Interpolation**: Smooth quaternion / Great-Circle navigation (*Spherical Slerp*) eliminates polar singularity distortion and delivers consistent 60 FPS transitions.
+- **Geospatial Detection**: Uses `d3.geoContains` for polygon hit testing on countries and geodesic Euclidean distance calculations for the 23 water bodies.
+- **Atmospheric Visuals**: Multi-layer radial glow, pulsating neon halos, and dynamic red shockwave rings on explosive impact.
 
-### 2. Motor de Audio Sintetizado Procedural (`NeonAudioSynth`)
-- **Cero Archivos Externos**: 100% generado mediante la **Web Audio API** del navegador a través de osciladores de onda senoidal, triangular y cuadrada, filtros paso bajo y nodos de ganancia dinámica.
-- **Efectos Sintetizados**:
-  - `playCorrect()`: Acorde mayor sintetizado en arpegio ascendente.
-  - `playFailure()`: Ruido blanco descendente con atenuación exponencial.
-  - `playKeyClick()`: Simulación de pulsación mecánica de microswitch.
-  - `startUfoSound()`: Modulación de frecuencia vibratoria estilo sci-fi de los años 80.
-  - `playBombExplosion()`: Explosión estéreo con filtro pasa bajos y decaimiento armónico.
+### 2. Procedural Audio Synthesizer (`NeonAudioSynth`)
+- **Zero External Audio Assets**: Audio is synthesized at runtime via the **Web Audio API** using custom oscillators, biquad low-pass filters, and dynamic gain envelopes.
+- **Synthesized FX**:
+  - `playCorrect()`: Ascending major triad arpeggio.
+  - `playFailure()`: Descending noise burst with exponential decay.
+  - `playKeyClick()`: Microswitch key strike sound.
+  - `startUfoSound()`: Modulated sci-fi warble with speed-based pitch scaling.
+  - `playBombExplosion()`: Stereo low-pass explosive rumble with harmonic distortion.
 
-### 3. Sistema de Temporizador Global de Inactividad (`InactivityManager`)
-- Monitorea todas las vistas interactivas (Partida en curso, Entrenamiento, Trivia emergente, Fin de Juego y Salón de Récords).
-- Reinicia el contador de **12 segundos** ante cualquier interacción física (toque, clic, movimiento de mouse o pulsación de tecla).
-- En ausencia de actividad, limpia los estados y retorna limpiamente a la pantalla de bienvenida con el globo en rotación libre.
+### 3. Global Inactivity Engine (`InactivityManager`)
+- Monitors user engagement across all active views (Gameplay, Quiz Popups, Training Mode, Game Over, and Leaderboard).
+- Resets a **12-second countdown** upon pointer, touch, scroll, or keyboard interactions.
+- If inactive for 12 seconds, cleanly resets game state, dismisses modals, and returns to the ambient welcome screen.
 
-### 4. Partículas Neón y Fondo Espacial (`BackgroundSpaceFX` & `NeonParticlesFX`)
-- Fondo espacial dinámico con estrellas parpadeantes (*sparkles*) y cometas con estela luminosa cruzando en trayectorias aleatorias.
-- Emisor de confeti poligonal y rayos de plasma en Canvas 2D independientes optimizados para no saturar el hilo de renderizado principal.
-
----
-
-## 🚀 Despliegue y Acceso / Live Access
-
-El juego se encuentra desplegado y optimizado para acceso universal instantáneo:
-
-* 🌐 **Dominio Principal (Vercel)**: [https://myworld-play.vercel.app](https://myworld-play.vercel.app)
-* 🌐 **Espejo GitHub Pages**: [https://enlacenorte.github.io/mi-mundo/](https://enlacenorte.github.io/mi-mundo/)
-* 📂 **Repositorio Oficial**: [https://github.com/enlacenorte/mi-mundo.git](https://github.com/enlacenorte/mi-mundo.git)
+### 4. Background FX & Particle Systems (`BackgroundSpaceFX` & `NeonParticlesFX`)
+- Multi-threaded canvas starfield featuring twinkling stars and randomized comets with glowing tails.
+- Dynamic 2D canvas emitter for celebration confetti and plasma lightning bolts.
 
 ---
 
-## 💻 Ejecución Local / Local Development
+## 🚀 Live Access & Play Links
 
-No requiere servidores web complejos ni dependencias de Node.js en tiempo de ejecución:
+* 🌐 **Production URL (Vercel)**: [https://myworld-play.vercel.app](https://myworld-play.vercel.app)
+* 🌐 **GitHub Pages Mirror**: [https://enlacenorte.github.io/mi-mundo/](https://enlacenorte.github.io/mi-mundo/)
+* 📂 **GitHub Repository**: [https://github.com/enlacenorte/mi-mundo.git](https://github.com/enlacenorte/mi-mundo.git)
+
+---
+
+## 💻 Local Development & Offline Play
+
+No package managers or backend servers required:
 
 ```bash
-# 1. Clonar el repositorio
+# 1. Clone the repository
 git clone https://github.com/enlacenorte/mi-mundo.git
 cd mi-mundo
 
-# 2. Abrir en cualquier navegador moderno
-# En Windows (PowerShell):
+# 2. Open index.html directly in any browser
+# Windows (PowerShell):
 Start-Process index.html
 
-# En macOS:
+# macOS:
 open index.html
 
-# En Linux:
+# Linux:
 xdg-open index.html
 ```
 
-Para recompilar y actualizar los datasets de países, mares o trivias:
+To recompile or modify datasets:
 ```bash
 python build_master_html.py
 ```
 
 ---
 
-## 📚 Valor Educativo para Niñas, Niños y Escuelas
+## 📚 Educational Benefits for Kids, Parents & Classrooms
 
-1. **Memoria Visual y Espacial**: Al girar el planeta en 3D, el estudiante asocia cada país y capital con su ubicación real en el mapa, su continente y su entorno marítimo.
-2. **Razonamiento Deductivo**: Las opciones de respuesta presentan capitales geográficamente cercanas, estimulando el análisis en lugar de la memorización mecánica.
-3. **Cultura General Integral**: Proporciona datos sobre más de 155 curiosidades del mundo (récords mundiales, monumentos, maravillas naturales e historia).
-4. **Pensamiento Temporal Global**: Ayuda a comprender cómo funcionan los husos horarios y la rotación de la Tierra mediante los relojes en vivo por país.
-5. **Multilingüismo**: Permite a niños y jóvenes comparar cómo se escriben y pronuncian los nombres de países y capitales en 5 sistemas de escritura distintos (Latino, Kanji/Katakana, Hanzi y Árabe).
+1. **Spatial & Visual Memory**: By rotating the 3D globe, students develop strong mental maps connecting nations, continents, and maritime borders.
+2. **Critical Thinking**: Regional distractors encourage deductive reasoning over rote memorization.
+3. **Global Cultural Awareness**: Features 155+ trivia facts covering world records, historic monuments, and natural wonders.
+4. **Timezone Comprehension**: Live local clocks help children understand Earth's rotation and international time differences.
+5. **Language Exploration**: Compare country names and geographic concepts across 5 distinct writing systems (Latin, Japanese Katakana/Kanji, Chinese Hanzi, and Arabic RTL script).
 
 ---
 
-## 📄 Licencia / License
+## 📄 License
 
-Este proyecto es de código abierto y está distribuido bajo la licencia **MIT**. Eres libre de usarlo, compartirlo y adaptarlo con fines educativos y de entretenimiento.
+This project is open-source software licensed under the **MIT License**. Free for educational, classroom, and personal use.
 
 ---
 
 <div align="center">
 
-**Mi Mundo (My World)** • Creado con ❤️ para **Francisco Giudice** y todos los pequeños exploradores del mundo 🌍🚀
+**My World** • Created with ❤️ for **Francisco Giudice** and young explorers worldwide 🌍🚀
 
 </div>
