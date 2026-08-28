@@ -2190,28 +2190,45 @@
         window.addEventListener('resize', () => this.initDimensions());
       }
 
-      isPointInsideCountry(feat, coords) {
-        if (!feat || !feat.centroid) return false;
-
-        const rawName = feat.properties && feat.properties.name ? feat.properties.name : "";
-        
-        // Distancia angular máxima de seguridad según el tamaño del país para descartar polígonos invertidos
-        const LARGE_RADII = {
-          "Russia": 50, "Canada": 45, "United States of America": 45, "China": 40,
-          "Brazil": 32, "Australia": 32, "India": 26, "Argentina": 26,
-          "Kazakhstan": 26, "Algeria": 24, "Dem. Rep. Congo": 24, "Saudi Arabia": 24,
-          "Mexico": 24, "Indonesia": 32, "Chile": 28
-        };
-        const maxRadius = LARGE_RADII[rawName] || 16.0;
-
-        const distDeg = d3.geoDistance(coords, feat.centroid) * (180 / Math.PI);
-        if (distDeg > maxRadius) return false;
-
-        try {
-          return d3.geoContains(feat, coords);
-        } catch(e) {
-          return false;
+      isPointInRing(point, ring) {
+        const x = point[0], y = point[1];
+        let inside = false;
+        const n = ring.length;
+        for (let i = 0, j = n - 1; i < n; j = i++) {
+          const xi = ring[i][0], yi = ring[i][1];
+          const xj = ring[j][0], yj = ring[j][1];
+          const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+          if (intersect) inside = !inside;
         }
+        return inside;
+      }
+
+      isPointInCountryFeature(coords, feature) {
+        if (!feature || !feature.geometry) return false;
+        const geom = feature.geometry;
+        if (geom.type === 'Polygon') {
+          if (this.isPointInRing(coords, geom.coordinates[0])) {
+            for (let h = 1; h < geom.coordinates.length; h++) {
+              if (this.isPointInRing(coords, geom.coordinates[h])) return false;
+            }
+            return true;
+          }
+        } else if (geom.type === 'MultiPolygon') {
+          for (let p = 0; p < geom.coordinates.length; p++) {
+            const poly = geom.coordinates[p];
+            if (this.isPointInRing(coords, poly[0])) {
+              let inHole = false;
+              for (let h = 1; h < poly.length; h++) {
+                if (this.isPointInRing(coords, poly[h])) {
+                  inHole = true;
+                  break;
+                }
+              }
+              if (!inHole) return true;
+            }
+          }
+        }
+        return false;
       }
 
       handleGlobeClick(clientX, clientY) {
@@ -2223,11 +2240,11 @@
         const coords = this.projection.invert([x, y]);
         if (!coords || isNaN(coords[0]) || isNaN(coords[1])) return;
 
-        // 1. Detección directa de países con filtro de seguridad contra polígonos invertidos
+        // 1. Detección directa de países mediante Ray-Casting 2D
         let matchedFeature = null;
         for (let i = 0; i < this.worldFeatures.length; i++) {
           const feat = this.worldFeatures[i];
-          if (this.isPointInsideCountry(feat, coords)) {
+          if (this.isPointInCountryFeature(coords, feat)) {
             matchedFeature = feat;
             break;
           }
