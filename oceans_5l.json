@@ -1,0 +1,1175 @@
+[
+  {
+    "id": "great_lakes",
+    "name_es": "Grandes Lagos de Norteamérica",
+    "name_en": "Great Lakes of North America",
+    "name_ja": "Great Lakes of North America",
+    "name_zh": "Great Lakes of North America",
+    "name_ar": "Great Lakes of North America",
+    "icon": "🏞️",
+    "priority": 1,
+    "radiusDeg": 5.0,
+    "centroid": [
+      -84.5,
+      45.0
+    ],
+    "bounds": {
+      "minLon": -93.0,
+      "maxLon": -76.0,
+      "minLat": 41.0,
+      "maxLat": 49.5
+    },
+    "es": {
+      "type": "Sistema de Lagos Glaciares",
+      "area": "~244.106 km²",
+      "depth": "Lago Superior (406 m)",
+      "fact": "Contienen el 21% de toda el agua dulce superficial líquida del planeta Tierra."
+    },
+    "en": {
+      "type": "Glacial Freshwater Lake System",
+      "area": "~244,106 km²",
+      "depth": "Lake Superior (406 m)",
+      "fact": "Contain 21% of the world's surface fresh water."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~244,106 km²",
+      "depth": "Lake Superior (406 m)",
+      "fact": "海洋地理学的特徴: Contain 21% of the world's surface fresh water."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~244,106 km²",
+      "depth": "Lake Superior (406 m)",
+      "fact": "海洋地理特征: Contain 21% of the world's surface fresh water."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~244,106 km²",
+      "depth": "Lake Superior (406 m)",
+      "fact": "معلومات جغرافية: Contain 21% of the world's surface fresh water."
+    }
+  },
+  {
+    "id": "sea_of_azov",
+    "name_es": "Mar de Azov",
+    "name_en": "Sea of Azov",
+    "name_ja": "Sea of Azov",
+    "name_zh": "Sea of Azov",
+    "name_ar": "Sea of Azov",
+    "icon": "🌊",
+    "priority": 1,
+    "radiusDeg": 2.5,
+    "centroid": [
+      36.5,
+      46.0
+    ],
+    "bounds": {
+      "minLon": 34.5,
+      "maxLon": 39.5,
+      "minLat": 45.0,
+      "maxLat": 47.3
+    },
+    "es": {
+      "type": "Mar Interior Somero",
+      "area": "~39.000 km²",
+      "depth": "Máx. 14 m (El más somero del planeta)",
+      "fact": "Es el mar más somero del mundo; conectado al Mar Negro por el estrecho de Kerch."
+    },
+    "en": {
+      "type": "Shallow Inland Sea",
+      "area": "~39,000 km²",
+      "depth": "Max. 14 m (Shallowest sea on Earth)",
+      "fact": "The shallowest sea on Earth, connected to the Black Sea via the Kerch Strait."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~39,000 km²",
+      "depth": "Max. 14 m (Shallowest sea on Earth)",
+      "fact": "海洋地理学的特徴: The shallowest sea on Earth, connected to the Black Sea via the Kerch Strait."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~39,000 km²",
+      "depth": "Max. 14 m (Shallowest sea on Earth)",
+      "fact": "海洋地理特征: The shallowest sea on Earth, connected to the Black Sea via the Kerch Strait."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~39,000 km²",
+      "depth": "Max. 14 m (Shallowest sea on Earth)",
+      "fact": "معلومات جغرافية: The shallowest sea on Earth, connected to the Black Sea via the Kerch Strait."
+    }
+  },
+  {
+    "id": "caspian_sea",
+    "name_es": "Mar Caspio",
+    "name_en": "Caspian Sea",
+    "name_ja": "Caspian Sea",
+    "name_zh": "Caspian Sea",
+    "name_ar": "Caspian Sea",
+    "icon": "🌊",
+    "priority": 1,
+    "radiusDeg": 5.5,
+    "centroid": [
+      50.5,
+      41.5
+    ],
+    "bounds": {
+      "minLon": 46.5,
+      "maxLon": 55.0,
+      "minLat": 36.5,
+      "maxLat": 47.2
+    },
+    "es": {
+      "type": "Mar Interior / Lago Endorreico",
+      "area": "~371.000 km²",
+      "depth": "Fosa Meridional (1.025 m)",
+      "fact": "Es el cuerpo de agua interior cerrado más grande del planeta."
+    },
+    "en": {
+      "type": "Inland Sea / Endorheic Basin",
+      "area": "~371,000 km²",
+      "depth": "South Caspian Depression (1,025 m)",
+      "fact": "The largest enclosed inland body of water on Earth."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~371,000 km²",
+      "depth": "South Caspian Depression (1,025 m)",
+      "fact": "海洋地理学的特徴: The largest enclosed inland body of water on Earth."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~371,000 km²",
+      "depth": "South Caspian Depression (1,025 m)",
+      "fact": "海洋地理特征: The largest enclosed inland body of water on Earth."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~371,000 km²",
+      "depth": "South Caspian Depression (1,025 m)",
+      "fact": "معلومات جغرافية: The largest enclosed inland body of water on Earth."
+    }
+  },
+  {
+    "id": "black_sea",
+    "name_es": "Mar Negro",
+    "name_en": "Black Sea",
+    "name_ja": "Black Sea",
+    "name_zh": "Black Sea",
+    "name_ar": "Black Sea",
+    "icon": "🌊",
+    "priority": 1,
+    "radiusDeg": 5.5,
+    "centroid": [
+      34.5,
+      43.5
+    ],
+    "bounds": {
+      "minLon": 27.5,
+      "maxLon": 42.0,
+      "minLat": 40.8,
+      "maxLat": 46.8
+    },
+    "es": {
+      "type": "Mar Interior",
+      "area": "~436.400 km²",
+      "depth": "Máx. 2.212 m",
+      "fact": "Conectado al Mediterráneo por el Bósforo; el 90% de sus aguas profundas carece de oxígeno."
+    },
+    "en": {
+      "type": "Inland Sea",
+      "area": "~436,400 km²",
+      "depth": "Max. 2,212 m",
+      "fact": "Connected to the Mediterranean via the Bosphorus; 90% of its deep water is anoxic."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~436,400 km²",
+      "depth": "Max. 2,212 m",
+      "fact": "海洋地理学的特徴: Connected to the Mediterranean via the Bosphorus; 90% of its deep water is anoxic."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~436,400 km²",
+      "depth": "Max. 2,212 m",
+      "fact": "海洋地理特征: Connected to the Mediterranean via the Bosphorus; 90% of its deep water is anoxic."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~436,400 km²",
+      "depth": "Max. 2,212 m",
+      "fact": "معلومات جغرافية: Connected to the Mediterranean via the Bosphorus; 90% of its deep water is anoxic."
+    }
+  },
+  {
+    "id": "red_sea",
+    "name_es": "Mar Rojo",
+    "name_en": "Red Sea",
+    "name_ja": "Red Sea",
+    "name_zh": "Red Sea",
+    "name_ar": "Red Sea",
+    "icon": "🏝️",
+    "priority": 1,
+    "radiusDeg": 4.5,
+    "centroid": [
+      38.0,
+      21.0
+    ],
+    "bounds": {
+      "minLon": 32.2,
+      "maxLon": 44.0,
+      "minLat": 12.5,
+      "maxLat": 28.5
+    },
+    "es": {
+      "type": "Golfo / Mar Interior",
+      "area": "~438.000 km²",
+      "depth": "Fosa de Suakin (3.040 m)",
+      "fact": "Conectado al Mediterráneo por el Canal de Suez y famoso por sus arrecifes de coral."
+    },
+    "en": {
+      "type": "Inland Sea / Gulf",
+      "area": "~438,000 km²",
+      "depth": "Suakin Deep (3,040 m)",
+      "fact": "Connected to the Mediterranean via the Suez Canal; famous for vibrant coral reefs."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~438,000 km²",
+      "depth": "Suakin Deep (3,040 m)",
+      "fact": "海洋地理学的特徴: Connected to the Mediterranean via the Suez Canal; famous for vibrant coral reefs."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~438,000 km²",
+      "depth": "Suakin Deep (3,040 m)",
+      "fact": "海洋地理特征: Connected to the Mediterranean via the Suez Canal; famous for vibrant coral reefs."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~438,000 km²",
+      "depth": "Suakin Deep (3,040 m)",
+      "fact": "معلومات جغرافية: Connected to the Mediterranean via the Suez Canal; famous for vibrant coral reefs."
+    }
+  },
+  {
+    "id": "persian_gulf",
+    "name_es": "Golfo Pérsico / Arábigo",
+    "name_en": "Persian Gulf",
+    "name_ja": "Persian Gulf",
+    "name_zh": "Persian Gulf",
+    "name_ar": "Persian Gulf",
+    "icon": "🏝️",
+    "priority": 1,
+    "radiusDeg": 3.5,
+    "centroid": [
+      51.5,
+      26.5
+    ],
+    "bounds": {
+      "minLon": 47.8,
+      "maxLon": 56.5,
+      "minLat": 23.8,
+      "maxLat": 30.5
+    },
+    "es": {
+      "type": "Golfo Marino Interior",
+      "area": "~251.000 km²",
+      "depth": "Máx. 90 m",
+      "fact": "Rico en perlas históricas y una de las rutas energéticas más transitadas del mundo."
+    },
+    "en": {
+      "type": "Inland Marine Gulf",
+      "area": "~251,000 km²",
+      "depth": "Max. 90 m",
+      "fact": "Historic pearl center and one of the most vital maritime energy choke points."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~251,000 km²",
+      "depth": "Max. 90 m",
+      "fact": "海洋地理学的特徴: Historic pearl center and one of the most vital maritime energy choke points."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~251,000 km²",
+      "depth": "Max. 90 m",
+      "fact": "海洋地理特征: Historic pearl center and one of the most vital maritime energy choke points."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~251,000 km²",
+      "depth": "Max. 90 m",
+      "fact": "معلومات جغرافية: Historic pearl center and one of the most vital maritime energy choke points."
+    }
+  },
+  {
+    "id": "baltic_sea",
+    "name_es": "Mar Báltico",
+    "name_en": "Baltic Sea",
+    "name_ja": "Baltic Sea",
+    "name_zh": "Baltic Sea",
+    "name_ar": "Baltic Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 5.0,
+    "centroid": [
+      19.0,
+      58.0
+    ],
+    "bounds": {
+      "minLon": 10.0,
+      "maxLon": 30.0,
+      "minLat": 53.5,
+      "maxLat": 66.0
+    },
+    "es": {
+      "type": "Mar Interior Salobre",
+      "area": "~377.000 km²",
+      "depth": "Fosa de Landsort (459 m)",
+      "fact": "El cuerpo de agua salobre interior más grande del mundo, con baja salinidad."
+    },
+    "en": {
+      "type": "Brackish Inland Sea",
+      "area": "~377,000 km²",
+      "depth": "Landsort Deep (459 m)",
+      "fact": "The largest body of brackish inland water in the world."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~377,000 km²",
+      "depth": "Landsort Deep (459 m)",
+      "fact": "海洋地理学的特徴: The largest body of brackish inland water in the world."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~377,000 km²",
+      "depth": "Landsort Deep (459 m)",
+      "fact": "海洋地理特征: The largest body of brackish inland water in the world."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~377,000 km²",
+      "depth": "Landsort Deep (459 m)",
+      "fact": "معلومات جغرافية: The largest body of brackish inland water in the world."
+    }
+  },
+  {
+    "id": "north_sea",
+    "name_es": "Mar del Norte",
+    "name_en": "North Sea",
+    "name_ja": "North Sea",
+    "name_zh": "North Sea",
+    "name_ar": "North Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 4.5,
+    "centroid": [
+      3.0,
+      56.0
+    ],
+    "bounds": {
+      "minLon": -4.0,
+      "maxLon": 10.0,
+      "minLat": 51.0,
+      "maxLat": 62.0
+    },
+    "es": {
+      "type": "Mar Marginal",
+      "area": "~570.000 km²",
+      "depth": "Fosa de Noruega (725 m)",
+      "fact": "Famoso por su rica pesca y plataformas de energía eólica marina."
+    },
+    "en": {
+      "type": "Marginal Sea",
+      "area": "~570,000 km²",
+      "depth": "Norwegian Trench (725 m)",
+      "fact": "Famous for rich fisheries and offshore wind energy platforms."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~570,000 km²",
+      "depth": "Norwegian Trench (725 m)",
+      "fact": "海洋地理学的特徴: Famous for rich fisheries and offshore wind energy platforms."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~570,000 km²",
+      "depth": "Norwegian Trench (725 m)",
+      "fact": "海洋地理特征: Famous for rich fisheries and offshore wind energy platforms."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~570,000 km²",
+      "depth": "Norwegian Trench (725 m)",
+      "fact": "معلومات جغرافية: Famous for rich fisheries and offshore wind energy platforms."
+    }
+  },
+  {
+    "id": "mediterranean_sea",
+    "name_es": "Mar Mediterráneo",
+    "name_en": "Mediterranean Sea",
+    "name_ja": "地中海",
+    "name_zh": "地中海",
+    "name_ar": "البحر الأبيض المتوسط",
+    "icon": "🏝️",
+    "priority": 2,
+    "radiusDeg": 8.5,
+    "centroid": [
+      18.0,
+      35.0
+    ],
+    "bounds": {
+      "minLon": -5.5,
+      "maxLon": 36.0,
+      "minLat": 30.0,
+      "maxLat": 45.0
+    },
+    "es": {
+      "type": "Mar Interior",
+      "area": "~2.5M km²",
+      "depth": "Fosa de Calipso (5.267 m)",
+      "fact": "Cuna de civilizaciones históricas (Grecia, Roma, Egipto, Fenicia)."
+    },
+    "en": {
+      "type": "Inland Sea",
+      "area": "~2.5M km²",
+      "depth": "Calypso Deep (5,267 m)",
+      "fact": "Cradle of ancient civilizations (Greece, Rome, Egypt, Phoenicia)."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~2.5M km²",
+      "depth": "Calypso Deep (5,267 m)",
+      "fact": "海洋地理学的特徴: Cradle of ancient civilizations (Greece, Rome, Egypt, Phoenicia)."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~2.5M km²",
+      "depth": "Calypso Deep (5,267 m)",
+      "fact": "海洋地理特征: Cradle of ancient civilizations (Greece, Rome, Egypt, Phoenicia)."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~2.5M km²",
+      "depth": "Calypso Deep (5,267 m)",
+      "fact": "معلومات جغرافية: Cradle of ancient civilizations (Greece, Rome, Egypt, Phoenicia)."
+    }
+  },
+  {
+    "id": "caribbean_sea",
+    "name_es": "Mar Caribe",
+    "name_en": "Caribbean Sea",
+    "name_ja": "カリブ海",
+    "name_zh": "加勒比海",
+    "name_ar": "البحر الكاريبي",
+    "icon": "🏝️",
+    "priority": 2,
+    "radiusDeg": 8.0,
+    "centroid": [
+      -75.0,
+      15.0
+    ],
+    "bounds": {
+      "minLon": -88.0,
+      "maxLon": -60.0,
+      "minLat": 9.0,
+      "maxLat": 22.0
+    },
+    "es": {
+      "type": "Mar Marginal",
+      "area": "~2.75M km²",
+      "depth": "Fosa de las Caimán (7.686 m)",
+      "fact": "Famoso por sus aguas turquesas, arrecifes de coral y miles de islas tropicales."
+    },
+    "en": {
+      "type": "Marginal Sea",
+      "area": "~2.75M km²",
+      "depth": "Cayman Trench (7,686 m)",
+      "fact": "Famous for turquoise waters, coral reefs, and tropical islands."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~2.75M km²",
+      "depth": "Cayman Trench (7,686 m)",
+      "fact": "海洋地理学的特徴: Famous for turquoise waters, coral reefs, and tropical islands."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~2.75M km²",
+      "depth": "Cayman Trench (7,686 m)",
+      "fact": "海洋地理特征: Famous for turquoise waters, coral reefs, and tropical islands."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~2.75M km²",
+      "depth": "Cayman Trench (7,686 m)",
+      "fact": "معلومات جغرافية: Famous for turquoise waters, coral reefs, and tropical islands."
+    }
+  },
+  {
+    "id": "gulf_of_mexico",
+    "name_es": "Golfo de México",
+    "name_en": "Gulf of Mexico",
+    "name_ja": "Gulf of Mexico",
+    "name_zh": "Gulf of Mexico",
+    "name_ar": "Gulf of Mexico",
+    "icon": "🏝️",
+    "priority": 2,
+    "radiusDeg": 6.5,
+    "centroid": [
+      -90.0,
+      25.0
+    ],
+    "bounds": {
+      "minLon": -98.0,
+      "maxLon": -81.0,
+      "minLat": 18.0,
+      "maxLat": 30.5
+    },
+    "es": {
+      "type": "Golfo Oceánico",
+      "area": "~1.6M km²",
+      "depth": "Sima de Sigsbee (4.384 m)",
+      "fact": "Origina la corriente del Golfo, que lleva calor hacia el norte de Europa."
+    },
+    "en": {
+      "type": "Oceanic Gulf",
+      "area": "~1.6M km²",
+      "depth": "Sigsbee Deep (4,384 m)",
+      "fact": "Origin of the Gulf Stream, carrying warmth to northern Europe."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~1.6M km²",
+      "depth": "Sigsbee Deep (4,384 m)",
+      "fact": "海洋地理学的特徴: Origin of the Gulf Stream, carrying warmth to northern Europe."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~1.6M km²",
+      "depth": "Sigsbee Deep (4,384 m)",
+      "fact": "海洋地理特征: Origin of the Gulf Stream, carrying warmth to northern Europe."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~1.6M km²",
+      "depth": "Sigsbee Deep (4,384 m)",
+      "fact": "معلومات جغرافية: Origin of the Gulf Stream, carrying warmth to northern Europe."
+    }
+  },
+  {
+    "id": "sea_of_japan",
+    "name_es": "Mar del Japón / Mar del Este",
+    "name_en": "Sea of Japan / East Sea",
+    "name_ja": "Sea of Japan / East Sea",
+    "name_zh": "Sea of Japan / East Sea",
+    "name_ar": "Sea of Japan / East Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 6.0,
+    "centroid": [
+      134.0,
+      40.0
+    ],
+    "bounds": {
+      "minLon": 127.0,
+      "maxLon": 142.0,
+      "minLat": 35.0,
+      "maxLat": 52.0
+    },
+    "es": {
+      "type": "Mar Marginal",
+      "area": "~978.000 km²",
+      "depth": "Cuenca de Japón (3.742 m)",
+      "fact": "Casi cerrado por el archipiélago japonés y la península coreana."
+    },
+    "en": {
+      "type": "Marginal Sea",
+      "area": "~978,000 km²",
+      "depth": "Japan Basin (3,742 m)",
+      "fact": "Nearly enclosed by the Japanese archipelago and Korean peninsula."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~978,000 km²",
+      "depth": "Japan Basin (3,742 m)",
+      "fact": "海洋地理学的特徴: Nearly enclosed by the Japanese archipelago and Korean peninsula."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~978,000 km²",
+      "depth": "Japan Basin (3,742 m)",
+      "fact": "海洋地理特征: Nearly enclosed by the Japanese archipelago and Korean peninsula."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~978,000 km²",
+      "depth": "Japan Basin (3,742 m)",
+      "fact": "معلومات جغرافية: Nearly enclosed by the Japanese archipelago and Korean peninsula."
+    }
+  },
+  {
+    "id": "coral_sea",
+    "name_es": "Mar del Coral",
+    "name_en": "Coral Sea",
+    "name_ja": "Coral Sea",
+    "name_zh": "Coral Sea",
+    "name_ar": "Coral Sea",
+    "icon": "🐠",
+    "priority": 2,
+    "radiusDeg": 8.0,
+    "centroid": [
+      155.0,
+      -18.0
+    ],
+    "bounds": {
+      "minLon": 142.0,
+      "maxLon": 170.0,
+      "minLat": -30.0,
+      "maxLat": -10.0
+    },
+    "es": {
+      "type": "Mar Marginal",
+      "area": "~4.8M km²",
+      "depth": "Fosa de las Nuevas Hébridas (7.570 m)",
+      "fact": "Alberga la Gran Barrera de Coral, el mayor ser vivo visible desde el espacio."
+    },
+    "en": {
+      "type": "Marginal Sea",
+      "area": "~4.8M km²",
+      "depth": "New Hebrides Trench (7,570 m)",
+      "fact": "Home to the Great Barrier Reef, the largest living structure on Earth."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~4.8M km²",
+      "depth": "New Hebrides Trench (7,570 m)",
+      "fact": "海洋地理学的特徴: Home to the Great Barrier Reef, the largest living structure on Earth."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~4.8M km²",
+      "depth": "New Hebrides Trench (7,570 m)",
+      "fact": "海洋地理特征: Home to the Great Barrier Reef, the largest living structure on Earth."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~4.8M km²",
+      "depth": "New Hebrides Trench (7,570 m)",
+      "fact": "معلومات جغرافية: Home to the Great Barrier Reef, the largest living structure on Earth."
+    }
+  },
+  {
+    "id": "arabian_sea",
+    "name_es": "Mar Arábigo",
+    "name_en": "Arabian Sea",
+    "name_ja": "Arabian Sea",
+    "name_zh": "Arabian Sea",
+    "name_ar": "Arabian Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 8.0,
+    "centroid": [
+      65.0,
+      16.0
+    ],
+    "bounds": {
+      "minLon": 50.0,
+      "maxLon": 78.0,
+      "minLat": 5.0,
+      "maxLat": 26.0
+    },
+    "es": {
+      "type": "Mar Marginal",
+      "area": "~3.86M km²",
+      "depth": "Cuenca Arábiga (4.652 m)",
+      "fact": "Histórica ruta de comercio marítimo de las especias y la seda."
+    },
+    "en": {
+      "type": "Marginal Sea",
+      "area": "~3.86M km²",
+      "depth": "Arabian Basin (4,652 m)",
+      "fact": "Historic maritime trade route for spices and silks."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~3.86M km²",
+      "depth": "Arabian Basin (4,652 m)",
+      "fact": "海洋地理学的特徴: Historic maritime trade route for spices and silks."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~3.86M km²",
+      "depth": "Arabian Basin (4,652 m)",
+      "fact": "海洋地理特征: Historic maritime trade route for spices and silks."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~3.86M km²",
+      "depth": "Arabian Basin (4,652 m)",
+      "fact": "معلومات جغرافية: Historic maritime trade route for spices and silks."
+    }
+  },
+  {
+    "id": "south_china_sea",
+    "name_es": "Mar de la China Meridional",
+    "name_en": "South China Sea",
+    "name_ja": "South China Sea",
+    "name_zh": "South China Sea",
+    "name_ar": "South China Sea",
+    "icon": "🌊",
+    "priority": 2,
+    "radiusDeg": 8.0,
+    "centroid": [
+      114.0,
+      12.0
+    ],
+    "bounds": {
+      "minLon": 102.0,
+      "maxLon": 122.0,
+      "minLat": 1.0,
+      "maxLat": 23.0
+    },
+    "es": {
+      "type": "Mar Marginal",
+      "area": "~3.5M km²",
+      "depth": "Fosa de Manila (5.014 m)",
+      "fact": "Por aquí transita más de un tercio del comercio marítimo de todo el planeta."
+    },
+    "en": {
+      "type": "Marginal Sea",
+      "area": "~3.5M km²",
+      "depth": "Manila Trench (5,014 m)",
+      "fact": "More than one-third of global maritime trade passes through here."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~3.5M km²",
+      "depth": "Manila Trench (5,014 m)",
+      "fact": "海洋地理学的特徴: More than one-third of global maritime trade passes through here."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~3.5M km²",
+      "depth": "Manila Trench (5,014 m)",
+      "fact": "海洋地理特征: More than one-third of global maritime trade passes through here."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~3.5M km²",
+      "depth": "Manila Trench (5,014 m)",
+      "fact": "معلومات جغرافية: More than one-third of global maritime trade passes through here."
+    }
+  },
+  {
+    "id": "bering_sea",
+    "name_es": "Mar de Bering",
+    "name_en": "Bering Sea",
+    "name_ja": "Bering Sea",
+    "name_zh": "Bering Sea",
+    "name_ar": "Bering Sea",
+    "icon": "🧊",
+    "priority": 2,
+    "radiusDeg": 7.0,
+    "centroid": [
+      -175.0,
+      58.0
+    ],
+    "bounds": {
+      "minLon": 160.0,
+      "maxLon": -158.0,
+      "minLat": 50.0,
+      "maxLat": 66.0
+    },
+    "es": {
+      "type": "Mar Marginal",
+      "area": "~2.0M km²",
+      "depth": "Cuenca Bowers (4.097 m)",
+      "fact": "Separa Asia de América a través del histórico Estrecho de Bering."
+    },
+    "en": {
+      "type": "Marginal Sea",
+      "area": "~2.0M km²",
+      "depth": "Bowers Basin (4,097 m)",
+      "fact": "Separates Asia from the Americas via the Bering Strait."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~2.0M km²",
+      "depth": "Bowers Basin (4,097 m)",
+      "fact": "海洋地理学的特徴: Separates Asia from the Americas via the Bering Strait."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~2.0M km²",
+      "depth": "Bowers Basin (4,097 m)",
+      "fact": "海洋地理特征: Separates Asia from the Americas via the Bering Strait."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~2.0M km²",
+      "depth": "Bowers Basin (4,097 m)",
+      "fact": "معلومات جغرافية: Separates Asia from the Americas via the Bering Strait."
+    }
+  },
+  {
+    "id": "pacific_north",
+    "name_es": "Océano Pacífico Norte",
+    "name_en": "North Pacific Ocean",
+    "name_ja": "太平洋",
+    "name_zh": "太平洋",
+    "name_ar": "المحيط الهادئ",
+    "icon": "🌊",
+    "priority": 3,
+    "radiusDeg": 22.0,
+    "centroid": [
+      -160.0,
+      28.0
+    ],
+    "bounds": {
+      "minLon": 115.0,
+      "maxLon": -95.0,
+      "minLat": 0.0,
+      "maxLat": 66.0
+    },
+    "es": {
+      "type": "Océano",
+      "area": "~165.2M km² (Total Pacífico)",
+      "depth": "Fosa de las Marianas (11.034 m)",
+      "fact": "Es el océano más grande y profundo del planeta Tierra."
+    },
+    "en": {
+      "type": "Ocean",
+      "area": "~165.2M km² (Total Pacific)",
+      "depth": "Mariana Trench (11,034 m)",
+      "fact": "The largest and deepest ocean on Earth."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~165.2M km² (Total Pacific)",
+      "depth": "Mariana Trench (11,034 m)",
+      "fact": "海洋地理学的特徴: The largest and deepest ocean on Earth."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~165.2M km² (Total Pacific)",
+      "depth": "Mariana Trench (11,034 m)",
+      "fact": "海洋地理特征: The largest and deepest ocean on Earth."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~165.2M km² (Total Pacific)",
+      "depth": "Mariana Trench (11,034 m)",
+      "fact": "معلومات جغرافية: The largest and deepest ocean on Earth."
+    }
+  },
+  {
+    "id": "pacific_south",
+    "name_es": "Océano Pacífico Sur",
+    "name_en": "South Pacific Ocean",
+    "name_ja": "太平洋",
+    "name_zh": "太平洋",
+    "name_ar": "المحيط الهادئ",
+    "icon": "🌊",
+    "priority": 3,
+    "radiusDeg": 24.0,
+    "centroid": [
+      -130.0,
+      -32.0
+    ],
+    "bounds": {
+      "minLon": 135.0,
+      "maxLon": -68.0,
+      "minLat": -60.0,
+      "maxLat": 0.0
+    },
+    "es": {
+      "type": "Océano",
+      "area": "~165.2M km² (Total Pacífico)",
+      "depth": "Fosa de Tonga (10.882 m)",
+      "fact": "Alberga el 'Punto Nemo', el lugar más remoto y alejado de tierra firme."
+    },
+    "en": {
+      "type": "Ocean",
+      "area": "~165.2M km² (Total Pacific)",
+      "depth": "Tonga Trench (10,882 m)",
+      "fact": "Home to 'Point Nemo', the oceanic pole of inaccessibility."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~165.2M km² (Total Pacific)",
+      "depth": "Tonga Trench (10,882 m)",
+      "fact": "海洋地理学的特徴: Home to 'Point Nemo', the oceanic pole of inaccessibility."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~165.2M km² (Total Pacific)",
+      "depth": "Tonga Trench (10,882 m)",
+      "fact": "海洋地理特征: Home to 'Point Nemo', the oceanic pole of inaccessibility."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~165.2M km² (Total Pacific)",
+      "depth": "Tonga Trench (10,882 m)",
+      "fact": "معلومات جغرافية: Home to 'Point Nemo', the oceanic pole of inaccessibility."
+    }
+  },
+  {
+    "id": "atlantic_north",
+    "name_es": "Océano Atlántico Norte",
+    "name_en": "North Atlantic Ocean",
+    "name_ja": "大西洋",
+    "name_zh": "大西洋",
+    "name_ar": "المحيط الأطلسي",
+    "icon": "🌊",
+    "priority": 3,
+    "radiusDeg": 20.0,
+    "centroid": [
+      -42.0,
+      32.0
+    ],
+    "bounds": {
+      "minLon": -82.0,
+      "maxLon": 0.0,
+      "minLat": 0.0,
+      "maxLat": 66.0
+    },
+    "es": {
+      "type": "Océano",
+      "area": "~106.5M km² (Total Atlántico)",
+      "depth": "Fosa de Puerto Rico (8.376 m)",
+      "fact": "Separa América de Europa y África; el 2.° océano más extenso."
+    },
+    "en": {
+      "type": "Ocean",
+      "area": "~106.5M km² (Total Atlantic)",
+      "depth": "Puerto Rico Trench (8,376 m)",
+      "fact": "Separates the Americas from Europe and Africa; 2nd largest."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~106.5M km² (Total Atlantic)",
+      "depth": "Puerto Rico Trench (8,376 m)",
+      "fact": "海洋地理学的特徴: Separates the Americas from Europe and Africa; 2nd largest."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~106.5M km² (Total Atlantic)",
+      "depth": "Puerto Rico Trench (8,376 m)",
+      "fact": "海洋地理特征: Separates the Americas from Europe and Africa; 2nd largest."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~106.5M km² (Total Atlantic)",
+      "depth": "Puerto Rico Trench (8,376 m)",
+      "fact": "معلومات جغرافية: Separates the Americas from Europe and Africa; 2nd largest."
+    }
+  },
+  {
+    "id": "atlantic_south",
+    "name_es": "Océano Atlántico Sur",
+    "name_en": "South Atlantic Ocean",
+    "name_ja": "大西洋",
+    "name_zh": "大西洋",
+    "name_ar": "المحيط الأطلسي",
+    "icon": "🌊",
+    "priority": 3,
+    "radiusDeg": 20.0,
+    "centroid": [
+      -18.0,
+      -30.0
+    ],
+    "bounds": {
+      "minLon": -70.0,
+      "maxLon": 22.0,
+      "minLat": -60.0,
+      "maxLat": 0.0
+    },
+    "es": {
+      "type": "Océano",
+      "area": "~106.5M km² (Total Atlántico)",
+      "depth": "Fosa de las Sandwich del Sur (8.428 m)",
+      "fact": "Rico en corrientes marinas y fauna antártica."
+    },
+    "en": {
+      "type": "Ocean",
+      "area": "~106.5M km² (Total Atlantic)",
+      "depth": "South Sandwich Trench (8,428 m)",
+      "fact": "Rich in marine currents and diverse wildlife."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~106.5M km² (Total Atlantic)",
+      "depth": "South Sandwich Trench (8,428 m)",
+      "fact": "海洋地理学的特徴: Rich in marine currents and diverse wildlife."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~106.5M km² (Total Atlantic)",
+      "depth": "South Sandwich Trench (8,428 m)",
+      "fact": "海洋地理特征: Rich in marine currents and diverse wildlife."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~106.5M km² (Total Atlantic)",
+      "depth": "South Sandwich Trench (8,428 m)",
+      "fact": "معلومات جغرافية: Rich in marine currents and diverse wildlife."
+    }
+  },
+  {
+    "id": "indian_ocean",
+    "name_es": "Océano Índico",
+    "name_en": "Indian Ocean",
+    "name_ja": "インド洋",
+    "name_zh": "印度洋",
+    "name_ar": "المحيط الهندي",
+    "icon": "🌊",
+    "priority": 3,
+    "radiusDeg": 20.0,
+    "centroid": [
+      78.0,
+      -18.0
+    ],
+    "bounds": {
+      "minLon": 20.0,
+      "maxLon": 135.0,
+      "minLat": -60.0,
+      "maxLat": 30.0
+    },
+    "es": {
+      "type": "Océano",
+      "area": "~70.5M km²",
+      "depth": "Fosa de Java (7.450 m)",
+      "fact": "Es el océano más cálido del mundo y vital ruta de comercio."
+    },
+    "en": {
+      "type": "Ocean",
+      "area": "~70.5M km²",
+      "depth": "Java Trench (7,450 m)",
+      "fact": "The warmest ocean in the world and historic trading route."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~70.5M km²",
+      "depth": "Java Trench (7,450 m)",
+      "fact": "海洋地理学的特徴: The warmest ocean in the world and historic trading route."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~70.5M km²",
+      "depth": "Java Trench (7,450 m)",
+      "fact": "海洋地理特征: The warmest ocean in the world and historic trading route."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~70.5M km²",
+      "depth": "Java Trench (7,450 m)",
+      "fact": "معلومات جغرافية: The warmest ocean in the world and historic trading route."
+    }
+  },
+  {
+    "id": "arctic_ocean",
+    "name_es": "Océano Ártico",
+    "name_en": "Arctic Ocean",
+    "name_ja": "北極海",
+    "name_zh": "北冰洋",
+    "name_ar": "المحيط المتجمد الشمالي",
+    "icon": "🧊",
+    "priority": 3,
+    "radiusDeg": 16.0,
+    "centroid": [
+      0.0,
+      84.0
+    ],
+    "bounds": {
+      "minLon": -180.0,
+      "maxLon": 180.0,
+      "minLat": 66.0,
+      "maxLat": 90.0
+    },
+    "es": {
+      "type": "Océano Glacial",
+      "area": "~14.0M km²",
+      "depth": "Fosa de Molloy (5.550 m)",
+      "fact": "Rodea el Polo Norte y está cubierto por banquisas polares de hielo."
+    },
+    "en": {
+      "type": "Glacial Ocean",
+      "area": "~14.0M km²",
+      "depth": "Molloy Deep (5,550 m)",
+      "fact": "Surrounds the North Pole and is covered by polar sea ice."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~14.0M km²",
+      "depth": "Molloy Deep (5,550 m)",
+      "fact": "海洋地理学的特徴: Surrounds the North Pole and is covered by polar sea ice."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~14.0M km²",
+      "depth": "Molloy Deep (5,550 m)",
+      "fact": "海洋地理特征: Surrounds the North Pole and is covered by polar sea ice."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~14.0M km²",
+      "depth": "Molloy Deep (5,550 m)",
+      "fact": "معلومات جغرافية: Surrounds the North Pole and is covered by polar sea ice."
+    }
+  },
+  {
+    "id": "southern_ocean",
+    "name_es": "Océano Antártico",
+    "name_en": "Southern Ocean",
+    "name_ja": "南極海",
+    "name_zh": "南冰洋",
+    "name_ar": "المحيط المتجمد الجنوبي",
+    "icon": "🧊",
+    "priority": 3,
+    "radiusDeg": 18.0,
+    "centroid": [
+      0.0,
+      -68.0
+    ],
+    "bounds": {
+      "minLon": -180.0,
+      "maxLon": 180.0,
+      "minLat": -90.0,
+      "maxLat": -58.0
+    },
+    "es": {
+      "type": "Océano Glacial",
+      "area": "~20.3M km²",
+      "depth": "Fosa de las Sandwich del Sur (7.236 m)",
+      "fact": "Rodea la Antártida con la potente corriente circumpolar."
+    },
+    "en": {
+      "type": "Glacial Ocean",
+      "area": "~20.3M km²",
+      "depth": "South Sandwich Trench (7,236 m)",
+      "fact": "Encircles Antarctica with the powerful Circumpolar Current."
+    },
+    "ja": {
+      "type": "海洋 / 海域",
+      "area": "~20.3M km²",
+      "depth": "South Sandwich Trench (7,236 m)",
+      "fact": "海洋地理学的特徴: Encircles Antarctica with the powerful Circumpolar Current."
+    },
+    "zh": {
+      "type": "海洋 / 海域",
+      "area": "~20.3M km²",
+      "depth": "South Sandwich Trench (7,236 m)",
+      "fact": "海洋地理特征: Encircles Antarctica with the powerful Circumpolar Current."
+    },
+    "ar": {
+      "type": "مسطح مائي / محيط",
+      "area": "~20.3M km²",
+      "depth": "South Sandwich Trench (7,236 m)",
+      "fact": "معلومات جغرافية: Encircles Antarctica with the powerful Circumpolar Current."
+    }
+  }
+]

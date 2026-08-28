@@ -11,9 +11,15 @@ with open('trivia_155.json', 'r', encoding='utf-8') as f:
 
 trivia_json_str = json.dumps(trivia_data, separators=(',', ':'), ensure_ascii=False)
 
-atlas_json_str = json.dumps(generate_enriched_atlas.raw_atlas, separators=(',', ':'), ensure_ascii=False)
+with open('atlas_5l.json', 'r', encoding='utf-8') as f:
+    atlas_data = json.load(f)
 
-oceans_json_str = json.dumps(generate_enriched_atlas.OCEANS_AND_SEAS, separators=(',', ':'), ensure_ascii=False)
+atlas_json_str = json.dumps(atlas_data, separators=(',', ':'), ensure_ascii=False)
+
+with open('oceans_5l.json', 'r', encoding='utf-8') as f:
+    oceans_data = json.load(f)
+
+oceans_json_str = json.dumps(oceans_data, separators=(',', ':'), ensure_ascii=False)
 
 html_template = """<!DOCTYPE html>
 <html lang="es">
@@ -3391,12 +3397,15 @@ html_template = """<!DOCTYPE html>
 
         this.flagEl.innerHTML = getFlagHtml(flag, d.name);
 
-        let line = "";
-        if (currentLang === 'es') {
-          line = `${d.name.toUpperCase()}  |  📍 Capital: ${d.capital}  |  🕒 Hora: ${localTime}  |  🪙 Moneda: ${d.curr}  |  🌍 Continente: ${d.continent}  |  🏛️ Año: ${d.indep}  |  👥 Hab.: ${d.pop}  |  🗣️ Idioma: ${d.lang}`;
-        } else {
-          line = `${d.name.toUpperCase()}  |  📍 Capital: ${d.capital}  |  🕒 Time: ${localTime}  |  🪙 Currency: ${d.curr}  |  🌍 Continent: ${d.continent}  |  🏛️ Year: ${d.indep}  |  👥 Pop.: ${d.pop}  |  🗣️ Language: ${d.lang}`;
-        }
+        const LBL = {
+          es: { cap: "📍 Capital:", time: "🕒 Hora:", curr: "🪙 Moneda:", cont: "🌍 Continente:", yr: "🏛️ Año:", pop: "👥 Hab.:", lang: "🗣️ Idioma:" },
+          en: { cap: "📍 Capital:", time: "🕒 Time:", curr: "🪙 Currency:", cont: "🌍 Continent:", yr: "🏛️ Year:", pop: "👥 Pop.:", lang: "🗣️ Language:" },
+          ja: { cap: "📍 首都:", time: "🕒 現地時間:", curr: "🪙 通貨:", cont: "🌍 大陸:", yr: "🏛️ 設立・独立:", pop: "👥 人口:", lang: "🗣️ 公用語:" },
+          zh: { cap: "📍 首都:", time: "🕒 当地时间:", curr: "🪙 货币:", cont: "🌍 大洲:", yr: "🏛️ 独立/建国:", pop: "👥 人口:", lang: "🗣️ 官方语言:" },
+          ar: { cap: "📍 العاصمة:", time: "🕒 الوقت المحلي:", curr: "🪙 العملة:", cont: "🌍 القارة:", yr: "🏛️ التأسيس:", pop: "👥 السكان:", lang: "🗣️ اللغة:" }
+        }[currentLang] || { cap: "📍 Capital:", time: "🕒 Time:", curr: "🪙 Currency:", cont: "🌍 Continent:", yr: "🏛️ Year:", pop: "👥 Pop.:", lang: "🗣️ Language:" };
+
+        let line = `${d.name.toUpperCase()}  |  ${LBL.cap} ${d.capital}  |  ${LBL.time} ${localTime}  |  ${LBL.curr} ${d.curr}  |  ${LBL.cont} ${d.continent}  |  ${LBL.yr} ${d.indep}  |  ${LBL.pop} ${d.pop}  |  ${LBL.lang} ${d.lang}`;
 
         this.startTypewriter(line);
       }
@@ -3405,19 +3414,22 @@ html_template = """<!DOCTYPE html>
         if (!ocean) return;
         this.hideImmediate();
 
-        const name = currentLang === 'es' ? ocean.name_es : ocean.name_en;
+        const name = ocean[`name_${currentLang}`] || ocean.name_en || ocean.name_es;
         const d = ocean[currentLang] || ocean.es;
 
         this.flagEl.innerHTML = `<span style="font-size:1.3em; margin-right:4px;">⛵</span>`;
 
         let coordStr = coords ? ` (${Math.abs(Math.round(coords[1]))}°${coords[1] >= 0 ? 'N' : 'S'}, ${Math.abs(Math.round(coords[0]))}°${coords[0] >= 0 ? 'E' : 'O'})` : '';
 
-        let line = "";
-        if (currentLang === 'es') {
-          line = `⛵ ${name.toUpperCase()}${coordStr}  |  🌍 Tipo: ${d.type}  |  📏 Área: ${d.area}  |  ⚓ Prof. Máx.: ${d.depth}  |  💡 Dato: ${d.fact}`;
-        } else {
-          line = `⛵ ${name.toUpperCase()}${coordStr}  |  🌍 Type: ${d.type}  |  📏 Area: ${d.area}  |  ⚓ Max Depth: ${d.depth}  |  💡 Fact: ${d.fact}`;
-        }
+        const OLBL = {
+          es: { type: "🌍 Tipo:", area: "📏 Área:", depth: "⚓ Prof. Máx.:", fact: "💡 Curiosidad:" },
+          en: { type: "🌍 Type:", area: "📏 Area:", depth: "⚓ Max Depth:", fact: "💡 Fact:" },
+          ja: { type: "🌍 種類:", area: "📏 面積:", depth: "⚓ 最深部:", fact: "💡 特徴・豆知識:" },
+          zh: { type: "🌍 类型:", area: "📏 面积:", depth: "⚓ 最大深度:", fact: "💡 特点趣闻:" },
+          ar: { type: "🌍 النوع:", area: "📏 المساحة:", depth: "⚓ أقصى عمق:", fact: "💡 معلومة:" }
+        }[currentLang] || { type: "🌍 Type:", area: "📏 Area:", depth: "⚓ Max Depth:", fact: "💡 Fact:" };
+
+        let line = `⛵ ${name.toUpperCase()}${coordStr}  |  ${OLBL.type} ${d.type}  |  ${OLBL.area} ${d.area}  |  ${OLBL.depth} ${d.depth}  |  ${OLBL.fact} ${d.fact}`;
 
         this.startTypewriter(line);
       }
