@@ -1,5 +1,4 @@
 import json
-import generate_enriched_atlas
 
 with open('countries-110m.json', 'r', encoding='utf-8') as f:
     topo_data = json.load(f)
@@ -4101,7 +4100,11 @@ html_template = """<!DOCTYPE html>
     };
 
     ['pointerdown', 'touchstart', 'mousemove', 'keydown', 'wheel'].forEach(evt => {
-      window.addEventListener(evt, () => InactivityManager.reset(), { passive: true });
+      window.addEventListener(evt, () => {
+        if ((globe && globe.isTrainingMode) || (gameModal && !gameModal.classList.contains('hidden'))) {
+          InactivityManager.reset();
+        }
+      }, { passive: true });
     });
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
