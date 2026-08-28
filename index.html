@@ -228,87 +228,75 @@
       line-height: 1.1;
     }
 
-    .splash-tagline {
-      font-family: var(--font-display);
-      font-size: clamp(0.68rem, 2.9vw, 0.8rem);
-      font-weight: 700;
-      color: var(--neon-gold);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(255, 230, 0, 0.7);
-      padding: 3px 10px;
-      background: rgba(255, 230, 0, 0.08);
-      border: 1px solid rgba(255, 230, 0, 0.35);
-      border-radius: 20px;
-    }
-
-    .diff-label {
-      font-family: var(--font-display);
-      font-size: 0.68rem;
-      color: rgba(0, 243, 255, 0.85);
-      letter-spacing: 1.5px;
-      margin-bottom: -5px;
-      text-transform: uppercase;
-    }
-
-    .splash-diff-group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      width: 100%;
-    }
-
-    .diff-btn {
-      background: rgba(18, 30, 60, 0.8);
-      border: 1px solid rgba(0, 243, 255, 0.3);
-      color: #fff;
-      font-family: var(--font-display);
-      font-size: 0.72rem;
-      padding: 8px 3px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+    /* ==========================================================================
+       TACÓMETRO GAUGE SEMICIRCULAR DE DIFICULTAD
+       ========================================================================== */
+    .difficulty-gauge-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      justify-content: center;
+      width: 100%;
+      margin: 4px 0 6px 0;
+      cursor: pointer;
     }
 
-    .diff-sub {
-      font-size: 0.58rem;
-      opacity: 0.8;
-      font-family: var(--font-body);
-      font-weight: normal;
+    .gauge-svg {
+      width: 185px;
+      height: 105px;
+      overflow: visible;
+      filter: drop-shadow(0 0 14px rgba(0, 243, 255, 0.25));
     }
 
-    .diff-btn.active {
-      background: var(--neon-cyan);
-      color: #000;
+    .gauge-segment {
+      cursor: pointer;
+      opacity: 0.55;
+      transition: opacity 0.25s ease, filter 0.25s ease;
+    }
+
+    .gauge-segment:hover,
+    .gauge-segment.active {
+      opacity: 1;
+      filter: drop-shadow(0 0 10px currentColor);
+    }
+
+    .gauge-selected-label {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
       font-weight: 800;
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 14px var(--neon-cyan);
+      letter-spacing: 2px;
+      margin-top: 2px;
+      transition: color 0.25s ease, text-shadow 0.25s ease;
     }
-    .diff-btn.active .diff-sub {
-      color: #000;
-      font-weight: bold;
+
+    /* FILA DE BOTONES JUGAR Y ENTRENAR (LADO A LADO) */
+    .splash-action-row {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      width: 100%;
+      margin-top: 6px;
     }
 
     .splash-btn-start {
-      width: 100%;
+      flex: 1;
       background: linear-gradient(135deg, var(--neon-magenta) 0%, #7928ca 50%, var(--neon-cyan) 100%);
       background-size: 200% 200%;
       color: #fff;
       font-family: var(--font-display);
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 900;
       letter-spacing: 2px;
-      padding: 12px;
+      padding: 13px 6px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 0 26px rgba(255, 0, 127, 0.55), inset 0 0 10px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 24px rgba(255, 0, 127, 0.55), inset 0 0 10px rgba(255, 255, 255, 0.35);
       transition: transform 0.2s ease;
       animation: gradientShift 3.5s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .splash-btn-start:active {
@@ -316,15 +304,15 @@
     }
 
     .splash-btn-train {
-      width: 100%;
+      flex: 1;
       background: rgba(0, 243, 255, 0.12);
       border: 1.5px solid var(--neon-cyan);
       color: var(--neon-cyan);
       font-family: var(--font-display);
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      padding: 10px;
+      font-size: 1.02rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      padding: 13px 6px;
       border-radius: 12px;
       cursor: pointer;
       box-shadow: 0 0 16px rgba(0, 243, 255, 0.25);
@@ -332,11 +320,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
     }
 
     .splash-btn-train:active {
-      transform: scale(0.97);
+      transform: scale(0.96);
       background: rgba(0, 243, 255, 0.25);
     }
 
@@ -1286,36 +1273,40 @@
         </button>
       </div>
 
+      <!-- Icono Planisferio y Título MI MUNDO ARRIBA -->
       <div class="splash-logo-radar">
         <span class="splash-globe-icon">🌐</span>
       </div>
       
       <h1 class="splash-title" id="txt-splash-title">MI MUNDO</h1>
       
-      <div class="splash-tagline">Designed for Francisco Giudice</div>
-      
-      <div class="diff-label" id="txt-diff-label">DIFICULTAD / MULTIPLICADOR</div>
-      <div class="splash-diff-group" id="splash-diff-group">
-        <button class="diff-btn active" data-diff="easy">
-          <span class="diff-title-span" id="txt-diff-easy">FÁCIL</span>
-          <span class="diff-sub" id="txt-diff-easy-sub">16s • x1</span>
-        </button>
-        <button class="diff-btn" data-diff="medium">
-          <span class="diff-title-span" id="txt-diff-med">MEDIO</span>
-          <span class="diff-sub" id="txt-diff-med-sub">10s • x1.5</span>
-        </button>
-        <button class="diff-btn" data-diff="hard">
-          <span class="diff-title-span" id="txt-diff-exp">EXPERTO</span>
-          <span class="diff-sub" id="txt-diff-exp-sub">5s • x2.0 ⚡</span>
-        </button>
+      <!-- TACÓMETRO GAUGE SEMICIRCULAR (VERDE / AMARILLO / ROJO) -->
+      <div id="difficulty-gauge-container" class="difficulty-gauge-container">
+        <svg class="gauge-svg" viewBox="0 0 200 115">
+          <!-- Arco Verde (Fácil • 180° a 122°) -->
+          <path id="gauge-arc-easy" class="gauge-segment active" data-diff="easy" d="M 25 95 A 75 75 0 0 1 60.26 31.40" fill="none" stroke="#39ff14" stroke-width="18" stroke-linecap="round" />
+          <!-- Arco Amarillo (Medio • 118° a 62°) -->
+          <path id="gauge-arc-med" class="gauge-segment" data-diff="medium" d="M 64.79 28.78 A 75 75 0 0 1 135.21 28.78" fill="none" stroke="#ffe600" stroke-width="18" stroke-linecap="butt" />
+          <!-- Arco Rojo (Difícil / Experto • 58° a 0°) -->
+          <path id="gauge-arc-hard" class="gauge-segment" data-diff="hard" d="M 139.74 31.40 A 75 75 0 0 1 175 95" fill="none" stroke="#ff0033" stroke-width="18" stroke-linecap="round" />
+          
+          <!-- Aguja / Puntero Neón -->
+          <g id="gauge-needle-group" class="gauge-needle" style="transform-origin: 100px 95px; transform: rotate(-60deg); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);">
+            <line x1="100" y1="95" x2="100" y2="35" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" filter="drop-shadow(0 0 6px #00f3ff)" />
+            <polygon points="96,48 104,48 100,28" fill="#00f3ff" />
+          </g>
+          <!-- Tapa Central -->
+          <circle cx="100" cy="95" r="9" fill="#0c162d" stroke="#00f3ff" stroke-width="3" />
+          <circle cx="100" cy="95" r="3.5" fill="#ffffff" />
+        </svg>
+        <div id="gauge-selected-label" class="gauge-selected-label" style="color: #39ff14; text-shadow: 0 0 10px #39ff14;">FÁCIL • 16s • x1</div>
       </div>
 
-      <button id="splash-start-btn" class="splash-btn-start">¡JUGAR PARTIDA!</button>
-      
-      <!-- BOTÓN MODO ENTRENAMIENTO -->
-      <button id="splash-train-btn" class="splash-btn-train">
-        <span>🧭</span> <span id="txt-splash-train-btn">MODO ENTRENAMIENTO Y EXPLORACIÓN</span>
-      </button>
+      <!-- BOTONES JUGAR Y ENTRENAR UNO AL LADO DEL OTRO -->
+      <div class="splash-action-row">
+        <button id="splash-start-btn" class="splash-btn-start">JUGAR</button>
+        <button id="splash-train-btn" class="splash-btn-train">ENTRENAR</button>
+      </div>
     </div>
   </div>
 
@@ -1509,7 +1500,6 @@
     const I18N = {
       es: {
         appTitle: "MI MUNDO",
-        tagline: "Designed for Francisco Giudice",
         diffLabel: "DIFICULTAD / MULTIPLICADOR",
         easy: "FÁCIL",
         easySub: "16s • x1",
@@ -1517,8 +1507,8 @@
         medSub: "10s • x1.5",
         exp: "EXPERTO",
         expSub: "5s • x2.0 ⚡",
-        playBtn: "¡JUGAR PARTIDA!",
-        trainBtn: "MODO ENTRENAMIENTO Y EXPLORACIÓN",
+        playBtn: "JUGAR",
+        trainBtn: "ENTRENAR",
         score: "PUNTOS",
         streak: "RACHA",
         level: "NIVEL",
@@ -1556,7 +1546,6 @@
       },
       en: {
         appTitle: "MY WORLD",
-        tagline: "Designed for Francisco Giudice",
         diffLabel: "DIFFICULTY / MULTIPLIER",
         easy: "EASY",
         easySub: "16s • x1",
@@ -1564,8 +1553,8 @@
         medSub: "10s • x1.5",
         exp: "EXPERT",
         expSub: "5s • x2.0 ⚡",
-        playBtn: "PLAY GAME!",
-        trainBtn: "EXPLORATION & TRAINING MODE",
+        playBtn: "PLAY",
+        trainBtn: "TRAIN",
         score: "SCORE",
         streak: "STREAK",
         level: "LEVEL",
@@ -3157,20 +3146,21 @@
         this.el.addEventListener('touchstart', onHit, { passive: false });
         this.el.addEventListener('mousedown', onHit);
 
-        // Frecuencia dinámica de OVNIs (cada 5.5s con 75% de probabilidad)
+        // Frecuencia casual de OVNIs SOLO en partida (cada 18s con 40% de probabilidad)
         setInterval(() => {
           const isTriviaOpen = triviaModal && !triviaModal.classList.contains('hidden');
-          const isGameActive = !isGameOver && splashScreen.classList.contains('hidden') && gameModal.classList.contains('hidden') && !isTriviaOpen;
+          // NUNCA aparecer en modo entrenamiento
+          const isGameActive = globe && !globe.isTrainingMode && !isGameOver && splashScreen.classList.contains('hidden') && gameModal.classList.contains('hidden') && !isTriviaOpen;
           
-          if (isGameActive && !this.active && Math.random() < 0.75) {
+          if (isGameActive && !this.active && Math.random() < 0.40) {
             this.spawn();
           }
-        }, 5500);
+        }, 18000);
       }
 
       spawn() {
         const isTriviaOpen = triviaModal && !triviaModal.classList.contains('hidden');
-        if (this.active || isTriviaOpen) return;
+        if (this.active || isTriviaOpen || (globe && globe.isTrainingMode)) return;
         
         this.active = true;
         this.isFast = (Math.random() < 0.5);
@@ -3181,18 +3171,50 @@
         this.el.style.width = `${widthPx}px`;
         this.el.style.height = `${heightPx}px`;
 
-        const fromLeft = Math.random() > 0.5;
-        this.x = fromLeft ? -widthPx : window.innerWidth + widthPx;
-        this.y = Math.random() * (window.innerHeight * 0.28) + 90;
+        // Patrones de vuelo erráticos desde distintos ejes (0: Izquierda-Derecha ondulante, 1: Derecha-Izquierda ondulante, 2: Diagonal superior-izq, 3: Diagonal superior-der, 4: Arco parabólico)
+        this.pattern = Math.floor(Math.random() * 5);
+        this.baseSpeed = this.isFast ? (Math.random() * 2.0 + 2.8) : (Math.random() * 1.2 + 1.4);
+        this.flightTime = 0;
 
-        const baseSpeed = this.isFast ? (Math.random() * 2.2 + 2.6) : (Math.random() * 1.3 + 1.3);
-        this.vx = fromLeft ? baseSpeed : -baseSpeed;
-        this.vy = (Math.random() - 0.5) * (this.isFast ? 2.6 : 1.2);
+        if (this.pattern === 0) {
+          // Izquierda -> Derecha ondulante
+          this.x = -widthPx;
+          this.y = Math.random() * (window.innerHeight * 0.25) + 85;
+          this.baseY = this.y;
+          this.vx = this.baseSpeed;
+          this.vy = 0;
+        } else if (this.pattern === 1) {
+          // Derecha -> Izquierda ondulante
+          this.x = window.innerWidth + widthPx;
+          this.y = Math.random() * (window.innerHeight * 0.25) + 85;
+          this.baseY = this.y;
+          this.vx = -this.baseSpeed;
+          this.vy = 0;
+        } else if (this.pattern === 2) {
+          // Diagonal desde arriba izquierda hacia abajo derecha
+          this.x = -widthPx;
+          this.y = 50;
+          this.vx = this.baseSpeed * 1.1;
+          this.vy = this.baseSpeed * 0.55;
+        } else if (this.pattern === 3) {
+          // Diagonal desde arriba derecha hacia abajo izquierda
+          this.x = window.innerWidth + widthPx;
+          this.y = 50;
+          this.vx = -this.baseSpeed * 1.1;
+          this.vy = this.baseSpeed * 0.55;
+        } else {
+          // Arco desde abajo hacia arriba y cruzando
+          const fromLeft = Math.random() > 0.5;
+          this.x = fromLeft ? -widthPx : window.innerWidth + widthPx;
+          this.y = window.innerHeight * 0.55;
+          this.vx = fromLeft ? this.baseSpeed : -this.baseSpeed;
+          this.vy = -this.baseSpeed * 0.7;
+        }
 
         this.el.style.display = 'block';
         this.timeAlive = Date.now();
         this.lastZapTime = Date.now();
-        this.nextZapInterval = 700; // Primer rayo casi de inmediato
+        this.nextZapInterval = 750;
 
         audioSynth.startUfoSound(this.isFast);
         this.updatePos();
@@ -3200,6 +3222,10 @@
 
       updatePos() {
         if (!this.active) return;
+        if (globe && globe.isTrainingMode) {
+          this.dismiss();
+          return;
+        }
 
         // Si se abrió el modal de trivia mientras volaba, descartarlo inmediatamente
         if (triviaModal && !triviaModal.classList.contains('hidden')) {
@@ -3207,15 +3233,25 @@
           return;
         }
 
-        this.x += this.vx;
-        this.y += this.vy;
+        this.flightTime += 0.05;
 
-        if (this.isFast && Math.random() < 0.08) {
-          this.vy = (Math.random() - 0.5) * 3.2;
+        if (this.pattern === 0 || this.pattern === 1) {
+          this.x += this.vx;
+          this.y = this.baseY + Math.sin(this.flightTime * 2.5) * 35;
+        } else if (this.pattern === 4) {
+          this.x += this.vx;
+          this.vy += 0.035; // Gravedad suave para formar el arco parabólico
+          this.y += this.vy;
+        } else {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (Math.random() < 0.04) {
+            this.vy += (Math.random() - 0.5) * 1.8; // maniobra errática repentina
+          }
         }
 
-        if (this.y < 85) this.vy = Math.abs(this.vy);
-        if (this.y > window.innerHeight * 0.6) this.vy = -Math.abs(this.vy);
+        if (this.y < 65) this.y = 65;
+        if (this.y > window.innerHeight * 0.65) this.y = window.innerHeight * 0.65;
 
         this.el.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
 
@@ -3223,7 +3259,7 @@
         const now = Date.now();
         if (now - this.lastZapTime > this.nextZapInterval) {
           this.lastZapTime = now;
-          this.nextZapInterval = Math.random() * 900 + 800; // Rayo cada 0.8s - 1.7s
+          this.nextZapInterval = Math.random() * 1100 + 1000;
 
           const ufoCenterX = this.x + (this.isFast ? 23 : 33);
           const ufoBottomY = this.y + (this.isFast ? 30 : 42);
@@ -3244,8 +3280,8 @@
           audioSynth.playPlasmaZap();
         }
 
-        const outOfBounds = (this.vx > 0 && this.x > window.innerWidth + 80) || (this.vx < 0 && this.x < -80);
-        const expired = (Date.now() - this.timeAlive > 7200);
+        const outOfBounds = (this.vx > 0 && this.x > window.innerWidth + 90) || (this.vx < 0 && this.x < -90) || (this.y > window.innerHeight * 0.7);
+        const expired = (Date.now() - this.timeAlive > 7500);
 
         if (outOfBounds || expired) {
           this.dropBombAndEscape();
@@ -3489,6 +3525,61 @@
       }
     }
 
+    function updateGaugeUI() {
+      const needle = document.getElementById('gauge-needle-group');
+      const label = document.getElementById('gauge-selected-label');
+      document.querySelectorAll('.gauge-segment').forEach(seg => {
+        seg.classList.toggle('active', seg.dataset.diff === currentDifficulty);
+      });
+
+      const rot = currentDifficulty === 'easy' ? -60 : (currentDifficulty === 'medium' ? 0 : 60);
+      const color = currentDifficulty === 'easy' ? '#39ff14' : (currentDifficulty === 'medium' ? '#ffe600' : '#ff0033');
+      const t = I18N[currentLang];
+      const name = currentDifficulty === 'easy' ? t.easy : (currentDifficulty === 'medium' ? t.med : t.exp);
+      const sub = currentDifficulty === 'easy' ? t.easySub : (currentDifficulty === 'medium' ? t.medSub : t.expSub);
+
+      if (needle) needle.style.transform = `rotate(${rot}deg)`;
+      if (label) {
+        label.textContent = `${name} • ${sub}`;
+        label.style.color = color;
+        label.style.textShadow = `0 0 10px ${color}`;
+      }
+    }
+
+    function setupDifficultyGauge() {
+      document.querySelectorAll('.gauge-segment').forEach(seg => {
+        seg.addEventListener('click', (e) => {
+          e.stopPropagation();
+          audioSynth.init();
+          currentDifficulty = seg.dataset.diff;
+          totalRoundTime = TIME_LIMITS[currentDifficulty];
+          updateGaugeUI();
+          updateHUD();
+        });
+      });
+
+      const gaugeContainer = document.getElementById('difficulty-gauge-container');
+      if (gaugeContainer) {
+        gaugeContainer.addEventListener('click', (e) => {
+          audioSynth.init();
+          const rect = gaugeContainer.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const width = rect.width;
+          if (clickX < width * 0.38) {
+            currentDifficulty = 'easy';
+          } else if (clickX > width * 0.62) {
+            currentDifficulty = 'hard';
+          } else {
+            currentDifficulty = 'medium';
+          }
+          totalRoundTime = TIME_LIMITS[currentDifficulty];
+          updateGaugeUI();
+          updateHUD();
+        });
+      }
+    }
+    setupDifficultyGauge();
+
     function setLanguage(lang) {
       currentLang = lang;
       const t = I18N[lang];
@@ -3498,12 +3589,8 @@
       });
 
       document.getElementById('txt-splash-title').textContent = t.appTitle;
-      document.getElementById('txt-diff-label').textContent = t.diffLabel;
-      document.getElementById('txt-diff-easy').textContent = t.easy;
-      document.getElementById('txt-diff-med').textContent = t.med;
-      document.getElementById('txt-diff-exp').textContent = t.exp;
       document.getElementById('splash-start-btn').textContent = t.playBtn;
-      document.getElementById('txt-splash-train-btn').textContent = t.trainBtn;
+      document.getElementById('splash-train-btn').textContent = t.trainBtn;
 
       document.getElementById('txt-hud-score').textContent = t.score;
       document.getElementById('txt-hud-streak').textContent = t.streak;
@@ -3530,6 +3617,7 @@
       document.getElementById('th-pts').textContent = t.thPts;
       document.getElementById('txt-modal-menu').textContent = t.mainMenuBtn;
 
+      updateGaugeUI();
       updateHUD();
       updateUFOBadge();
 
@@ -3546,19 +3634,6 @@
         setLanguage(btn.dataset.lang);
       });
     });
-
-    function setupDiffButtons(containerId) {
-      document.querySelectorAll(`#${containerId} .diff-btn`).forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
-          document.querySelectorAll(`.diff-btn[data-diff="${btn.dataset.diff}"]`).forEach(b => b.classList.add('active'));
-          currentDifficulty = btn.dataset.diff;
-          totalRoundTime = TIME_LIMITS[currentDifficulty];
-          updateHUD();
-        });
-      });
-    }
-    setupDiffButtons('splash-diff-group');
 
     // Iniciar Partida
     splashStartBtn.addEventListener('click', () => {
