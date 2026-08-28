@@ -1197,7 +1197,7 @@ html_template = """<!DOCTYPE html>
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
     }
 
     /* Canvas FX (Partículas, Rayos Plasma, Confeti) */
@@ -1960,26 +1960,15 @@ html_template = """<!DOCTYPE html>
           const t = this.ctx.currentTime;
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
-          const filter = this.ctx.createBiquadFilter();
-
           osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(1200, t);
-          osc.frequency.exponentialRampToValueAtTime(95, t + 0.24);
-
-          filter.type = 'bandpass';
-          filter.frequency.setValueAtTime(2100, t);
-          filter.frequency.exponentialRampToValueAtTime(320, t + 0.24);
-          filter.Q.value = 4.2;
-
-          gain.gain.setValueAtTime(0.18, t);
-          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.24);
-
-          osc.connect(filter);
-          filter.connect(gain);
+          osc.frequency.setValueAtTime(1500, t);
+          osc.frequency.exponentialRampToValueAtTime(75, t + 0.25);
+          gain.gain.setValueAtTime(0.35, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+          osc.connect(gain);
           gain.connect(this.ctx.destination);
-
           osc.start(t);
-          osc.stop(t + 0.24);
+          osc.stop(t + 0.26);
         } catch(e){}
       }
 
@@ -1988,54 +1977,35 @@ html_template = """<!DOCTYPE html>
         try {
           const t = this.ctx.currentTime;
           
-          // Primer golpe (LUB) - sub-bass profundo y resonante
+          // LUB: Ataque acústico punch (145Hz -> 55Hz) para máxima audibilidad en parlantes de PC/celular
           const osc1 = this.ctx.createOscillator();
           const gain1 = this.ctx.createGain();
-          const filter1 = this.ctx.createBiquadFilter();
-
-          const baseFreq = 54 + urgency * 12;
-          osc1.type = 'sine';
-          osc1.frequency.setValueAtTime(baseFreq, t);
-          osc1.frequency.exponentialRampToValueAtTime(28, t + 0.12);
-
-          filter1.type = 'lowpass';
-          filter1.frequency.setValueAtTime(95, t);
-
-          gain1.gain.setValueAtTime(0.42 + urgency * 0.25, t);
+          osc1.type = 'triangle';
+          osc1.frequency.setValueAtTime(145 + urgency * 35, t);
+          osc1.frequency.exponentialRampToValueAtTime(52, t + 0.12);
+          gain1.gain.setValueAtTime(0.75 + urgency * 0.25, t);
           gain1.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
-
-          osc1.connect(filter1);
-          filter1.connect(gain1);
+          osc1.connect(gain1);
           gain1.connect(this.ctx.destination);
-
           osc1.start(t);
           osc1.stop(t + 0.13);
 
-          // Segundo golpe (DUB) - 100ms después
-          const t2 = t + 0.095;
+          // DUB: 110ms después (120Hz -> 42Hz)
+          const t2 = t + 0.11;
           const osc2 = this.ctx.createOscillator();
           const gain2 = this.ctx.createGain();
-          const filter2 = this.ctx.createBiquadFilter();
-
-          osc2.type = 'sine';
-          osc2.frequency.setValueAtTime(baseFreq * 0.88, t2);
-          osc2.frequency.exponentialRampToValueAtTime(24, t2 + 0.10);
-
-          filter2.type = 'lowpass';
-          filter2.frequency.setValueAtTime(85, t2);
-
-          gain2.gain.setValueAtTime(0.30 + urgency * 0.20, t2);
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(120 + urgency * 30, t2);
+          osc2.frequency.exponentialRampToValueAtTime(42, t2 + 0.10);
+          gain2.gain.setValueAtTime(0.55 + urgency * 0.2, t2);
           gain2.gain.exponentialRampToValueAtTime(0.001, t2 + 0.10);
-
-          osc2.connect(filter2);
-          filter2.connect(gain2);
+          osc2.connect(gain2);
           gain2.connect(this.ctx.destination);
-
           osc2.start(t2);
           osc2.stop(t2 + 0.11);
 
           if (navigator.vibrate) {
-            navigator.vibrate([22, 45, 16]);
+            navigator.vibrate([30, 50, 20]);
           }
         } catch(e){}
       }
@@ -2051,7 +2021,7 @@ html_template = """<!DOCTYPE html>
         this.stars = [];
         this.comets = [];
         this.lastCometTime = Date.now();
-        this.nextCometInterval = Math.random() * 4000 + 3500;
+        this.nextCometInterval = 2500;
         this.resize();
         this.initStars();
         window.addEventListener('resize', () => {
@@ -2069,22 +2039,26 @@ html_template = """<!DOCTYPE html>
 
       initStars() {
         this.stars = [];
-        const count = Math.floor((window.innerWidth * window.innerHeight) / 7200);
-        const colors = ['#ffffff', '#00f3ff', '#ff007f', '#ffe600', '#c77dff', '#70e000'];
+        const count = Math.max(100, Math.floor((window.innerWidth * window.innerHeight) / 5000));
+        const colors = ['#ffffff', '#00f3ff', '#ff007f', '#ffe600', '#39ff14', '#ffffff'];
 
         for (let i = 0; i < count; i++) {
-          const isSparkle = (i % 6 === 0);
+          const isSparkle = (i % 5 === 0);
           this.stars.push({
             x: Math.random() * this.canvas.width,
             y: Math.random() * this.canvas.height,
-            r: isSparkle ? (Math.random() * 1.6 + 1.2) : (Math.random() * 1.1 + 0.5),
-            baseAlpha: Math.random() * 0.45 + 0.25,
+            r: isSparkle ? (Math.random() * 1.8 + 1.8) : (Math.random() * 1.3 + 1.0),
+            baseAlpha: Math.random() * 0.35 + 0.65,
             phase: Math.random() * Math.PI * 2,
-            speed: Math.random() * 0.035 + 0.015,
+            speed: Math.random() * 0.045 + 0.02,
             color: colors[Math.floor(Math.random() * colors.length)],
             isSparkle: isSparkle
           });
         }
+
+        // Lanzar cometas iniciales inmediatos
+        this.spawnComet();
+        setTimeout(() => this.spawnComet(), 1200);
       }
 
       spawnComet() {
@@ -2095,10 +2069,10 @@ html_template = """<!DOCTYPE html>
         const speed = Math.random() * 8 + 9;
 
         const colors = [
-          { head: '#ffffff', trail: '#00f3ff', glow: 'rgba(0, 243, 255, 0.45)' },
-          { head: '#ffffff', trail: '#ff007f', glow: 'rgba(255, 0, 127, 0.45)' },
-          { head: '#ffffff', trail: '#39ff14', glow: 'rgba(57, 255, 20, 0.45)' },
-          { head: '#ffffff', trail: '#ffe600', glow: 'rgba(255, 230, 0, 0.45)' }
+          { head: '#ffffff', trail: '#00f3ff', glow: 'rgba(0, 243, 255, 0.6)' },
+          { head: '#ffffff', trail: '#ff007f', glow: 'rgba(255, 0, 127, 0.6)' },
+          { head: '#ffffff', trail: '#39ff14', glow: 'rgba(57, 255, 20, 0.6)' },
+          { head: '#ffffff', trail: '#ffe600', glow: 'rgba(255, 230, 0, 0.6)' }
         ];
         const colorSet = colors[Math.floor(Math.random() * colors.length)];
 
@@ -2109,7 +2083,7 @@ html_template = """<!DOCTYPE html>
           vy: Math.sin(angle) * speed,
           colorSet: colorSet,
           history: [],
-          maxHistory: 20,
+          maxHistory: 22,
           alive: true
         });
       }
@@ -2121,22 +2095,22 @@ html_template = """<!DOCTYPE html>
         for (let i = 0; i < this.stars.length; i++) {
           const s = this.stars[i];
           s.phase += s.speed;
-          const currentAlpha = Math.max(0.1, s.baseAlpha + Math.sin(s.phase) * 0.38);
+          const currentAlpha = Math.max(0.25, s.baseAlpha + Math.sin(s.phase) * 0.35);
 
           this.ctx.save();
           this.ctx.globalAlpha = currentAlpha;
           this.ctx.fillStyle = s.color;
           this.ctx.shadowColor = s.color;
-          this.ctx.shadowBlur = s.isSparkle ? 7 : 2;
+          this.ctx.shadowBlur = s.isSparkle ? 10 : 4;
 
           this.ctx.beginPath();
           this.ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
           this.ctx.fill();
 
-          if (s.isSparkle && currentAlpha > 0.42) {
+          if (s.isSparkle && currentAlpha > 0.55) {
             this.ctx.strokeStyle = s.color;
-            this.ctx.lineWidth = 0.8;
-            const arm = s.r * 2.8;
+            this.ctx.lineWidth = 1.0;
+            const arm = s.r * 3.0;
             this.ctx.beginPath();
             this.ctx.moveTo(s.x - arm, s.y);
             this.ctx.lineTo(s.x + arm, s.y);
@@ -2153,7 +2127,7 @@ html_template = """<!DOCTYPE html>
         if (now - this.lastCometTime > this.nextCometInterval) {
           this.spawnComet();
           this.lastCometTime = now;
-          this.nextCometInterval = Math.random() * 6000 + 4000;
+          this.nextCometInterval = Math.random() * 4500 + 3500;
         }
 
         // 3. Cometas con Rastro de Fósforo Iluminado
@@ -3195,18 +3169,19 @@ html_template = """<!DOCTYPE html>
         this.el.addEventListener('touchstart', onHit, { passive: false });
         this.el.addEventListener('mousedown', onHit);
 
+        // Frecuencia dinámica de OVNIs (cada 5.5s con 75% de probabilidad)
         setInterval(() => {
-          const isTriviaOpen = !triviaModal.classList.contains('hidden');
-          const isGameActive = !globe.isTrainingMode && !isGameOver && splashScreen.classList.contains('hidden') && gameModal.classList.contains('hidden') && !isTriviaOpen;
+          const isTriviaOpen = triviaModal && !triviaModal.classList.contains('hidden');
+          const isGameActive = !isGameOver && splashScreen.classList.contains('hidden') && gameModal.classList.contains('hidden') && !isTriviaOpen;
           
-          if (isGameActive && !this.active && !globe.isSpinning && Math.random() < 0.38) {
+          if (isGameActive && !this.active && Math.random() < 0.75) {
             this.spawn();
           }
-        }, 14000);
+        }, 5500);
       }
 
       spawn() {
-        const isTriviaOpen = !triviaModal.classList.contains('hidden');
+        const isTriviaOpen = triviaModal && !triviaModal.classList.contains('hidden');
         if (this.active || isTriviaOpen) return;
         
         this.active = true;
@@ -3220,7 +3195,7 @@ html_template = """<!DOCTYPE html>
 
         const fromLeft = Math.random() > 0.5;
         this.x = fromLeft ? -widthPx : window.innerWidth + widthPx;
-        this.y = Math.random() * (window.innerHeight * 0.3) + 95;
+        this.y = Math.random() * (window.innerHeight * 0.28) + 90;
 
         const baseSpeed = this.isFast ? (Math.random() * 2.2 + 2.6) : (Math.random() * 1.3 + 1.3);
         this.vx = fromLeft ? baseSpeed : -baseSpeed;
@@ -3229,7 +3204,7 @@ html_template = """<!DOCTYPE html>
         this.el.style.display = 'block';
         this.timeAlive = Date.now();
         this.lastZapTime = Date.now();
-        this.nextZapInterval = Math.random() * 800 + 1000;
+        this.nextZapInterval = 700; // Primer rayo casi de inmediato
 
         audioSynth.startUfoSound(this.isFast);
         this.updatePos();
@@ -3239,7 +3214,7 @@ html_template = """<!DOCTYPE html>
         if (!this.active) return;
 
         // Si se abrió el modal de trivia mientras volaba, descartarlo inmediatamente
-        if (!triviaModal.classList.contains('hidden')) {
+        if (triviaModal && !triviaModal.classList.contains('hidden')) {
           this.dismiss();
           return;
         }
@@ -3256,16 +3231,17 @@ html_template = """<!DOCTYPE html>
 
         this.el.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
 
-        // RAYOS DE PLASMA ALEATORIOS CONTRA LA TIERRA
+        // RAYOS DE PLASMA CONTRA LA TIERRA
         const now = Date.now();
         if (now - this.lastZapTime > this.nextZapInterval) {
           this.lastZapTime = now;
-          this.nextZapInterval = Math.random() * 1100 + 1300;
+          this.nextZapInterval = Math.random() * 900 + 800; // Rayo cada 0.8s - 1.7s
 
           const ufoCenterX = this.x + (this.isFast ? 23 : 33);
           const ufoBottomY = this.y + (this.isFast ? 30 : 42);
 
-          const globeRect = globe.canvas.getBoundingClientRect();
+          const canvasEl = document.getElementById('globe-canvas');
+          const globeRect = canvasEl ? canvasEl.getBoundingClientRect() : { left: window.innerWidth/2, top: window.innerHeight/2, width: 300, height: 300 };
           const globeCenterX = globeRect.left + globeRect.width / 2;
           const globeCenterY = globeRect.top + globeRect.height / 2;
           const radius = (globeRect.width / 2) * 0.85;
@@ -3274,8 +3250,8 @@ html_template = """<!DOCTYPE html>
           const targetX = globeCenterX + Math.cos(impactAngle) * (radius * (Math.random() * 0.75 + 0.25));
           const targetY = globeCenterY + Math.sin(impactAngle) * (radius * (Math.random() * 0.75 + 0.25));
 
-          if (particlesFX) {
-            particlesFX.spawnPlasmaBolt(ufoCenterX, ufoBottomY, targetX, targetY);
+          if (window.particlesFX) {
+            window.particlesFX.spawnPlasmaBolt(ufoCenterX, ufoBottomY, targetX, targetY);
           }
           audioSynth.playPlasmaZap();
         }
@@ -3385,6 +3361,7 @@ html_template = """<!DOCTYPE html>
        14. CONTROLADOR PRINCIPAL DEL JUEGO BILINGÜE
        ========================================================================== */
     const audioSynth = new NeonAudioSynth();
+    const globe = new NeonVectorGlobe('globe-canvas');
     const bgSpaceFX = new BackgroundSpaceFX('bg-space-canvas');
     const particlesFX = new NeonParticlesFX('fx-canvas');
     window.particlesFX = particlesFX;
@@ -3415,8 +3392,6 @@ html_template = """<!DOCTYPE html>
     let timeLeft = 16;
     let isAnswering = false;
     let isGameOver = false;
-
-    const globe = new NeonVectorGlobe('globe-canvas');
 
     // FILTRO ESTRICTO: SOLO PAÍSES SOBERANOS EN EL QUIZ (NO TERRITORIOS O DEPENDENCIAS)
     const playableFeatures = globe.worldFeatures.filter(f => f.metaConfig && f.metaConfig.isSovereign === true);
