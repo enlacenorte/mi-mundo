@@ -192,14 +192,19 @@
 
     .splash-logo-radar {
       position: relative;
-      width: 62px;
-      height: 62px;
-      border: 2px solid var(--neon-cyan);
+      width: 86px;
+      height: 86px;
+      border: 2.5px solid var(--neon-cyan);
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 0 25px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.2);
+      background: radial-gradient(circle, rgba(0, 243, 255, 0.28) 0%, rgba(10, 22, 54, 0.92) 75%);
+      box-shadow: 
+        0 0 38px rgba(0, 243, 255, 0.85),
+        inset 0 0 25px rgba(0, 243, 255, 0.5),
+        0 0 65px rgba(255, 0, 127, 0.45);
+      animation: globePulseBreath 2.4s ease-in-out infinite alternate;
     }
 
     .splash-logo-radar::after {
@@ -208,18 +213,84 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      border-top: 3px solid var(--neon-magenta);
-      animation: radarSpin 2.5s linear infinite;
+      border-top: 3.5px solid var(--neon-magenta);
+      border-right: 3.5px solid transparent;
+      animation: radarSpin 2.2s linear infinite;
+      filter: drop-shadow(0 0 8px var(--neon-magenta));
     }
 
     @keyframes radarSpin {
-      from { rotate: 0deg; }
-      to { rotate: 360deg; }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes globePulseBreath {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 26px rgba(0, 243, 255, 0.6), inset 0 0 16px rgba(0, 243, 255, 0.4), 0 0 45px rgba(255, 0, 127, 0.35);
+        border-color: var(--neon-cyan);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 50px rgba(0, 243, 255, 1), inset 0 0 32px rgba(255, 230, 0, 0.65), 0 0 80px rgba(255, 0, 127, 0.7);
+        border-color: var(--neon-gold);
+      }
+      100% {
+        transform: scale(1.08);
+        box-shadow: 0 0 60px rgba(0, 243, 255, 1), inset 0 0 40px rgba(0, 243, 255, 0.8), 0 0 100px rgba(255, 0, 127, 0.85);
+        border-color: var(--neon-magenta);
+      }
     }
 
     .splash-globe-icon {
-      font-size: 1.85rem;
-      filter: drop-shadow(0 0 12px var(--neon-cyan));
+      font-size: 2.85rem;
+      filter: drop-shadow(0 0 16px #00f3ff) drop-shadow(0 0 30px #ff007f);
+      animation: globeHeartbeatLatency 2.4s ease-in-out infinite alternate;
+      line-height: 1;
+    }
+
+    @keyframes globeHeartbeatLatency {
+      0% { transform: scale(0.92) rotate(0deg); filter: drop-shadow(0 0 14px #00f3ff); }
+      50% { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 30px #ffe600) drop-shadow(0 0 45px #ff007f); }
+      100% { transform: scale(1.03) rotate(-5deg); filter: drop-shadow(0 0 26px #00f3ff) drop-shadow(0 0 40px #39ff14); }
+    }
+
+    /* Botón Compartir por WhatsApp */
+    .splash-share-btn {
+      width: 100%;
+      max-width: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.25) 0%, rgba(18, 140, 126, 0.42) 100%);
+      border: 1.5px solid #25d366;
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      padding: 9px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(37, 211, 102, 0.45), inset 0 0 10px rgba(37, 211, 102, 0.25);
+      transition: all 0.2s ease;
+      margin-top: 4px;
+    }
+
+    .splash-share-btn:hover {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.45) 0%, rgba(18, 140, 126, 0.65) 100%);
+      box-shadow: 0 0 28px rgba(37, 211, 102, 0.8);
+      transform: scale(1.02);
+    }
+
+    .splash-share-btn:active {
+      transform: scale(0.96);
+    }
+
+    .share-icon {
+      font-size: 1.15rem;
+      filter: drop-shadow(0 0 6px #25d366);
     }
 
     /* ==========================================================================
@@ -823,14 +894,15 @@
       100% { opacity: 0; transform: translate(-50%, -70px) scale(1); }
     }
 
-    /* Panel Inferior */
+    /* Panel Inferior Elevado (Evita que el aviso del sistema móvil de pantalla completa tape el botón) */
     #bottom-panel {
       width: 100%;
       max-width: 520px;
       display: flex;
       flex-direction: column;
       gap: 7px;
-      z-index: 2;
+      z-index: 20;
+      margin-bottom: clamp(34px, 8.5vh, 62px);
     }
 
     /* Tarjeta del País Seleccionado (Juego) */
@@ -1451,7 +1523,7 @@
         <button id="splash-train-btn" class="splash-btn-train">ENTRENAR</button>
       </div>
 
-      <!-- Banderas Selector de 4 Idiomas (ABAJO DE TODO) -->
+      <!-- Banderas Selector de 5 Idiomas (ABAJO DE TODO) -->
       <div class="lang-selector-bar" id="lang-selector-bar">
         <button class="lang-btn active" data-lang="es">
           <span>🇪🇸</span> ES
@@ -1465,7 +1537,16 @@
         <button class="lang-btn" data-lang="zh">
           <span>🇨🇳</span> 中文
         </button>
+        <button class="lang-btn" data-lang="ar">
+          <span>🇸🇦</span> العربية
+        </button>
       </div>
+
+      <!-- BOTÓN COMPARTIR APP POR WHATSAPP -->
+      <button id="splash-share-btn" class="splash-share-btn">
+        <span class="share-icon">📲</span>
+        <span id="txt-splash-share">COMPARTIR JUEGO</span>
+      </button>
     </div>
   </div>
 
@@ -1507,7 +1588,7 @@
 
       <!-- HUD MODO ENTRENAMIENTO -->
       <div id="training-hud">
-        <button id="training-exit-btn" class="training-btn-exit">❌ <span id="txt-train-exit">SALIR AL MENÚ</span></button>
+        <button id="training-exit-btn" class="training-btn-exit"><span id="txt-train-exit">← ATRÁS</span></button>
         <div style="font-family: var(--font-display); font-size: 0.78rem; font-weight: 800; color: var(--neon-cyan);" id="txt-train-hud-title">
           MODO EXPLORACIÓN
         </div>
@@ -1671,13 +1752,15 @@
         expSub: "5s • x2.0 ⚡",
         playBtn: "JUGAR",
         trainBtn: "ENTRENAR",
+        shareBtn: "COMPARTIR JUEGO",
+        shareMsg: "¡Jugá a Mi Mundo! 🌍🕹️ ¿Cuánto sabes de capitales y países? ¡Superá mi récord aquí!: ",
         score: "PUNTOS",
         streak: "RACHA",
         level: "NIVEL",
         lives: "VIDAS",
         trainHudTitle: "MODO EXPLORACIÓN",
         trainHudSub: "TOCA PAÍSES O MARES",
-        trainExit: "SALIR AL MENÚ",
+        trainExit: "← ATRÁS",
         spinBtn: "¡GIRAR MUNDO!",
         spinningBtn: "GIRANDO...",
         nextSpinBtn: "¡SIGUIENTE GIRO!",
@@ -1717,13 +1800,15 @@
         expSub: "5s • x2.0 ⚡",
         playBtn: "PLAY",
         trainBtn: "TRAIN",
+        shareBtn: "SHARE GAME",
+        shareMsg: "Play My World! 🌍🕹️ Test your geography skills and beat my high score here: ",
         score: "SCORE",
         streak: "STREAK",
         level: "LEVEL",
         lives: "LIVES",
         trainHudTitle: "EXPLORATION MODE",
         trainHudSub: "TAP COUNTRIES OR SEAS",
-        trainExit: "EXIT TO MENU",
+        trainExit: "← BACK",
         spinBtn: "SPIN GLOBE!",
         spinningBtn: "SPINNING...",
         nextSpinBtn: "NEXT SPIN!",
@@ -1763,13 +1848,15 @@
         expSub: "5秒 • x2.0 ⚡",
         playBtn: "プレイ",
         trainBtn: "練習",
+        shareBtn: "ゲームをシェア",
+        shareMsg: "『私の世界』で遊ぼう！🌍🕹️ 国名や首都のクイズで私のハイスコアを超えられるかな？プレイはこちら： ",
         score: "スコア",
         streak: "連勝",
         level: "レベル",
         lives: "ライフ",
         trainHudTitle: "探検モード",
         trainHudSub: "国や海をタップ",
-        trainExit: "メニューに戻る",
+        trainExit: "← 戻る",
         spinBtn: "地球を回す！",
         spinningBtn: "回転中...",
         nextSpinBtn: "次のスピン！",
@@ -1809,13 +1896,15 @@
         expSub: "5秒 • x2.0 ⚡",
         playBtn: "开始游戏",
         trainBtn: "训练模式",
+        shareBtn: "分享游戏",
+        shareMsg: "快来玩《我的世界》地理大挑战！🌍🕹️ 挑战各国首都与地理知识，超越我的最高分： ",
         score: "得分",
         streak: "连胜",
         level: "难度",
         lives: "生命",
         trainHudTitle: "探索模式",
         trainHudSub: "点击国家或海洋",
-        trainExit: "返回菜单",
+        trainExit: "← 返回",
         spinBtn: "转动地球！",
         spinningBtn: "旋转中...",
         nextSpinBtn: "下一个！",
@@ -1842,6 +1931,54 @@
           3: ["天才！ 🧠⚡", "超神！ 🌟", "继续保持！ 💪", "电击！ ⚡"],
           4: ["冠军！ 🏆", "势不可挡！ 🔥", "大师级！ 👑", "重击！ 💥"],
           5: ["传奇巅峰！ 🌟👑", "世界之王！ 🌍🔥", "完美无瑕！ 💎", "炸裂！ 💣"]
+        }
+      },
+      ar: {
+        appTitle: "عالمي",
+        diffLabel: "مستوى الصعوبة / المضاعف",
+        easy: "سهل",
+        easySub: "16 ثوانٍ • x1",
+        med: "متوسط",
+        medSub: "10 ثوانٍ • x1.5",
+        exp: "خبير",
+        expSub: "5 ثوانٍ • x2.0 ⚡",
+        playBtn: "العب",
+        trainBtn: "تدريب",
+        shareBtn: "مشاركة اللعبة",
+        shareMsg: "العب لعبة عالمي! 🌍🕹️ اختبر معلوماتك في الجغرافيا والدول وحطم رقمي القياسي هنا: ",
+        score: "النقاط",
+        streak: "التتابع",
+        level: "المستوى",
+        lives: "المحاولات",
+        trainHudTitle: "وضع الاستكشاف",
+        trainHudSub: "المس الدول أو البحار",
+        trainExit: "← رجوع",
+        spinBtn: "أدر العالم!",
+        spinningBtn: "جارٍ الدوران...",
+        nextSpinBtn: "الدورة التالية!",
+        spinAgainBtn: "أدر مجدداً!",
+        timeoutBtn: "انتهى الوقت! أدر",
+        triviaBadge: "هل تعلم؟",
+        triviaBtn: "متابعة!",
+        gameoverTitle: "انتهت اللعبة!",
+        finalScore: "النتيجة النهائية:",
+        pointsWord: "نقطة",
+        initialsLabel: "أدخل 4 أحرف:",
+        saveRecordBtn: "حفظ الرقم القياسي",
+        hallOfFame: "🏆 لوحة الشرف (أفضل 5)",
+        thPos: "المركز",
+        thPlayer: "اللاعب",
+        thLevel: "المستوى",
+        thPts: "النقاط",
+        mainMenuBtn: "الرئيسية",
+        ufoToastBig: "🛸 <span class='alien-hunted-badge'>👽<span class='alien-cross-line'></span></span> إسقاط الفضائي! مضاعف x2",
+        ufoToastSmall: "🛸 <span class='alien-hunted-badge'>👽<span class='alien-cross-line'></span></span> فضائي سريع! مضاعف x4",
+        ufoBombBoom: "💥 بوم! 💀 -200 نقطة",
+        comicPhrases: {
+          2: ["ممتاز! 🚀", "رائع! ✨", "أحسنت! 🔥", "بوم! 💥"],
+          3: ["عبقري! 🧠⚡", "نجم ساطع! 🌟", "واصل التألق! 💪", "صاعقة! ⚡"],
+          4: ["بطل! 🏆", "لا يُقهر! 🔥", "أستاذ! 👑", "ضربة قاضية! 💥"],
+          5: ["مستوى الأساطير! 🌟👑", "ملك العالم! 🌍🔥", "إتقان تام! 💎", "انفجار! 💣"]
         }
       }
     };
@@ -3269,6 +3406,7 @@
       }
 
       startTypewriter(line) {
+        if (typeof InactivityManager !== 'undefined') InactivityManager.clear();
         this.bar.style.display = 'block';
         this.contentEl.textContent = '';
         this.isTyping = true;
@@ -3287,6 +3425,7 @@
             this.typingTimer = setTimeout(typeNextChar, 18);
           } else {
             this.isTyping = false;
+            if (typeof InactivityManager !== 'undefined') InactivityManager.reset();
             // 10 SEGUNDOS DE VISIBILIDAD TRAS COMPLETAR EL TIPEADO
             this.autoDismissTimer = setTimeout(() => {
               this.hide();
@@ -3304,6 +3443,7 @@
           globe.selectedWater = null;
           globe.waterPinCoords = null;
         }
+        if (typeof InactivityManager !== 'undefined') InactivityManager.reset();
       }
 
       hideImmediate() {
@@ -3845,6 +3985,9 @@
       document.getElementById('txt-splash-title').textContent = t.appTitle;
       document.getElementById('splash-start-btn').textContent = t.playBtn;
       document.getElementById('splash-train-btn').textContent = t.trainBtn;
+      if (document.getElementById('txt-splash-share')) {
+        document.getElementById('txt-splash-share').textContent = t.shareBtn;
+      }
 
       document.getElementById('txt-hud-score').textContent = t.score;
       document.getElementById('txt-hud-streak').textContent = t.streak;
@@ -3853,6 +3996,8 @@
       document.getElementById('txt-train-hud-title').textContent = t.trainHudTitle;
       document.getElementById('txt-train-hud-sub').textContent = t.trainHudSub;
       document.getElementById('txt-train-exit').textContent = t.trainExit;
+
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
 
       if (!isAnswering && !globe.isSpinning) {
         spinBtn.textContent = t.spinBtn;
@@ -3882,6 +4027,54 @@
       }
     }
 
+    /* ==========================================================================
+       14. GESTOR DE INACTIVIDAD (12 SEGUNDOS EN ENTRENAMIENTO Y SCOREBOARD)
+       ========================================================================== */
+    const InactivityManager = {
+      timer: null,
+      timeoutMs: 12000,
+
+      reset() {
+        this.clear();
+        const isTraining = globe && globe.isTrainingMode;
+        const isGameOverOpen = gameModal && !gameModal.classList.contains('hidden');
+        if (isTraining || isGameOverOpen) {
+          this.timer = setTimeout(() => {
+            this.onTimeout();
+          }, this.timeoutMs);
+        }
+      },
+
+      clear() {
+        if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+        }
+      },
+
+      onTimeout() {
+        this.clear();
+        if (globe && globe.isTrainingMode) {
+          typewriterManager.hideImmediate();
+          globe.isTrainingMode = false;
+          globe.selectedFeature = null;
+          globe.selectedWater = null;
+          trainingHud.style.display = 'none';
+          hudBar.style.display = 'flex';
+          splashScreen.classList.remove('hidden');
+          globe.resetZoom();
+        }
+        if (gameModal && !gameModal.classList.contains('hidden')) {
+          gameModal.classList.add('hidden');
+          splashScreen.classList.remove('hidden');
+        }
+      }
+    };
+
+    ['pointerdown', 'touchstart', 'mousemove', 'keydown', 'wheel'].forEach(evt => {
+      window.addEventListener(evt, () => InactivityManager.reset(), { passive: true });
+    });
+
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         audioSynth.init();
@@ -3889,10 +4082,23 @@
       });
     });
 
+    // Compartir por WhatsApp en el idioma activo
+    const splashShareBtn = document.getElementById('splash-share-btn');
+    if (splashShareBtn) {
+      splashShareBtn.addEventListener('click', () => {
+        audioSynth.init();
+        const currentUrl = window.location.href || 'https://enlacenorte.github.io/mi-mundo/';
+        const shareMsg = I18N[currentLang].shareMsg + currentUrl;
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`;
+        window.open(whatsappUrl, '_blank');
+      });
+    }
+
     // Iniciar Partida
     splashStartBtn.addEventListener('click', () => {
       audioSynth.init();
       tryEnterFullscreen();
+      InactivityManager.clear();
       ufoManager.dismiss();
       typewriterManager.hideImmediate();
       if (navigator.vibrate) navigator.vibrate(30);
@@ -3913,7 +4119,7 @@
       audioSynth.stopUfoSound();
       typewriterManager.hideImmediate();
       globe.isTrainingMode = true;
-      globe.selectedFeature = null; // Iniciar sin selección
+      globe.selectedFeature = null;
       globe.selectedWater = null;
       splashScreen.classList.add('hidden');
       hudBar.style.display = 'none';
@@ -3923,13 +4129,16 @@
       spinBtn.style.display = 'none';
       timerContainer.style.display = 'none';
       globe.resetZoom();
+      InactivityManager.reset();
     });
 
     trainingExitBtn.addEventListener('click', () => {
+      InactivityManager.clear();
       ufoManager.dismiss();
       audioSynth.stopUfoSound();
       typewriterManager.hideImmediate();
       globe.selectedWater = null;
+      trainingHud.style.display = 'none';
       splashScreen.classList.remove('hidden');
     });
 
@@ -3945,6 +4154,7 @@
       scoreManager.renderTable('leaderboard-body');
       document.getElementById('initials-container').style.display = 'none';
       audioSynth.playSuccess();
+      InactivityManager.reset();
     });
 
     initialsInput.addEventListener('keyup', (e) => {
@@ -3954,6 +4164,7 @@
     // VOLVER AL INICIO (ÚNICO BOTÓN EN FIN DE JUEGO)
     modalMenuBtn.addEventListener('click', () => {
       audioSynth.init();
+      InactivityManager.clear();
       ufoManager.dismiss();
       audioSynth.stopUfoSound();
       typewriterManager.hideImmediate();
