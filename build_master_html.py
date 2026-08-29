@@ -4168,10 +4168,8 @@ html_template = """<!DOCTYPE html>
     if (splashShareBtn) {
       splashShareBtn.addEventListener('click', () => {
         audioSynth.init();
-        const currentUrl = (window.location.hostname && window.location.hostname.includes('vercel.app')) 
-          ? 'https://myworld-play.vercel.app' 
-          : (window.location.href || 'https://myworld-play.vercel.app');
-        const shareMsg = I18N[currentLang].shareMsg + currentUrl;
+        const shareUrl = 'https://enlacenorte.github.io/mi-mundo/';
+        const shareMsg = I18N[currentLang].shareMsg + shareUrl;
         const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMsg)}`;
         window.open(whatsappUrl, '_blank');
       });
